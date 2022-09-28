@@ -1,0 +1,2 @@
+# SsangProject
+semiproject
