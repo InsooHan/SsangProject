@@ -4,13 +4,13 @@ import java.sql.Timestamp;
 
 public class QusAnsDto {
 	
-	public String que_num;
-	public String que_id;
-	public String que_subject;
-	public String que_content;
-	public String que_img;
-	public Timestamp que_date;
-	public int que_chu;
+	private String que_num;
+	private String que_id;
+	private String que_subject;
+	private String que_content;
+	private String que_img;
+	private Timestamp que_date;
+	private int que_chu;
 	
 	//getter,setter
 	public String getQue_num() {

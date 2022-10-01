@@ -61,7 +61,7 @@ public class QusAnsDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			db.dbClose(rs, pstmt, conn);
+			db.dbClose(rs, pstmt, conn); 
 		}
 		return n;
 	}
@@ -74,12 +74,56 @@ public class QusAnsDao {
 		ResultSet rs=null;
 		
 		String sql="select * from Question order by que_num desc limit ?,?";
+                  //select * from Question where que_subject like '%두번%' order by que_num desc;
 		
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, perpage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				QusAnsDto dto=new QusAnsDto();
+				
+				dto.setQue_num(rs.getString("que_num"));
+				dto.setQue_id(rs.getString("que_id"));
+				dto.setQue_subject(rs.getString("que_subject"));
+				dto.setQue_content(rs.getString("que_content"));
+				dto.setQue_img(rs.getString("que_img"));
+				dto.setQue_date(rs.getTimestamp("que_date"));
+				dto.setQue_chu(rs.getInt("que_chu"));
+				
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	//전체 출력과 검색
+	public List<QusAnsDto> getlistsearch(int start,int perpage,String keyword){
+		List<QusAnsDto> list=new Vector<>();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from Question where que_subject like ? order by que_num desc limit ?,?";
+                  //select * from Question where que_subject like '%두번%' order by que_num desc;
+		
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, perpage);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next())
@@ -203,4 +247,7 @@ public class QusAnsDao {
 		}
 	
 	}
+	
+	//답글 insert
+
 }
