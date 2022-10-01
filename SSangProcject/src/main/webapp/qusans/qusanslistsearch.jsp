@@ -1,3 +1,4 @@
+<%@page import="dto.Dto"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dto.QusAnsDto"%>
 <%@page import="java.util.List"%>
@@ -55,13 +56,15 @@ if(endPage>totalPage)
 start=(currentPage-1)*perPage;
 
 //검색 내용 추가 필요
+String searchtool=request.getParameter("searchtool");
 
-List<QusAnsDto> list=dao.getlist(start, perPage);
+List<QusAnsDto> list=dao.getlistsearch(start, perPage, searchtool);
 
 no=totalCount-(currentPage-1)*perPage;
 
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+System.out.println(searchtool);
 %>
 <body>
 <!-- list -->
@@ -69,9 +72,8 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 <form action="qusanslistsearch.jsp">
 <div class="form-inline">
 	<svg width="16" width="16" height="16" viewBox="0 0 16 16"  xmlns="http://www.w3.org/2000/svg"><path fill="#212529" fill-rule="evenodd" clip-rule="evenodd" d="M11.5 7c0 .59-.116 1.176-.343 1.722-.226.546-.557 1.042-.975 1.46-.418.418-.914.75-1.46.975-.546.226-1.131.343-1.722.343-.59 0-1.176-.117-1.722-.343-.546-.226-1.042-.557-1.46-.975-.418-.418-.75-.914-.975-1.46C2.616 8.176 2.5 7.591 2.5 7c0-1.194.474-2.338 1.318-3.182C4.662 2.974 5.807 2.5 7 2.5c1.193 0 2.338.474 3.182 1.318C11.026 4.662 11.5 5.806 11.5 7zm-.82 4.74c-1.206.936-2.723 1.377-4.242 1.234-1.52-.143-2.928-.86-3.937-2.005C1.49 9.825.956 8.34 1.004 6.813c.047-1.526.675-2.976 1.754-4.055 1.08-1.08 2.53-1.707 4.055-1.755 1.525-.047 3.012.488 4.156 1.498 1.145 1.01 1.862 2.417 2.005 3.937.143 1.52-.298 3.036-1.234 4.242l3.04 3.04c.074.069.133.151.174.243.04.092.063.192.065.292.001.101-.017.201-.055.294-.038.094-.094.179-.165.25-.071.071-.156.127-.25.165-.093.038-.193.056-.293.054-.101-.001-.2-.023-.293-.064-.091-.041-.174-.1-.243-.174l-3.04-3.04z" /></svg>
-	<input type="text" class="" style="width: 300px;" id="searchtool" name="searchtool">
-	<button type="submit" class="btn btn-success" id="btnsearch" 
-	onclick="location.href='qusanslistsearch.jsp'">검색</button>
+	<input type="text" class="" style="width: 300px;" id="searchtool" name="searchtool" placeholder="궁금한 질문을 검색해보세요!">
+	<button type="submit" class="btn btn-success" id="btnsearch" onclick="location.href='qusanslistsearch.jsp'">검색</button>
 </div>
 </form>
 
@@ -98,7 +100,7 @@ for(QusAnsDto dto:list)
 			</td>
 		</tr>
 	</table>
-</div>
+</div>	
 <%
 }
 %>
@@ -140,8 +142,6 @@ for(QusAnsDto dto:list)
 	</ul>
 </div>
 
-
-
 <script type="text/javascript">
 //마우스를 리스트에 가져가면 리스트의 배경색이 변하고 마우스 포인터가 변하는 스크립트
 $(".tablecontent").hover(function() {
@@ -154,7 +154,7 @@ $(".tablecontent").hover(function() {
 
 //리스트를 클릭하면 디테일 페이지로 넘어가도록 하는 스크립트
 $(".tablecontent").click(function() {
-	//location.href="qusansdetail.jsp";
+	//location.href="qusansdetail.jsp?que_num=";
 });
 
 </script>
