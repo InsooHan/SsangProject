@@ -3,6 +3,7 @@ package dto;
 import java.sql.Timestamp;
 
 public class MentorDto {
+ 
 	private String mentor_num;
 	private String mentor_category;
 	private String mentor_title;
@@ -10,7 +11,7 @@ public class MentorDto {
 	private String mentor_job1;
 	private String mentor_job2;
 	private String mentor_career;
-	private String mentor_schedule;
+	private String mentor_schedule; 
 	private String mentor_explain;
 	private String mentor_notice;
 	private String mentor_id;
@@ -88,5 +89,6 @@ public class MentorDto {
 	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
+	
 	
 }
