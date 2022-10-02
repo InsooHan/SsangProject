@@ -10,6 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<form action="firsttest.jsp">
+	<input type="text" name="num">번호
+	<input type="file" name="photo">
+	<input type="text" name="content">내용
+	<input type="text" name="id">아이디
+<button type="submit">제출</button>
+</form>
 </body>
 </html>

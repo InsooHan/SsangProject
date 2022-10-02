@@ -80,7 +80,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 <%
 for(QusAnsDto dto:list)
 {%>
-<div class="tablecontent" onclick="location.href='qusansdetail.jsp?que_num=<%=dto.que_num%>'">
+<div class="tablecontent" onclick="location.href='qusansdetail.jsp?que_num=<%=dto.getQue_num()%>'">
 	<table class="table" style="width: 600px;">
 		<tr>
 			<td><b><%=dto.getQue_subject()%></b></td>
