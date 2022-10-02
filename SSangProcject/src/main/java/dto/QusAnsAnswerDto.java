@@ -9,8 +9,9 @@ public class QusAnsAnswerDto {
 	private String ans_content;
 	private String image;
 	private Timestamp reg_date;
+	private String que_num;
 	
-	//getter,setter
+	//setter,getter
 	public String getAns_num() {
 		return ans_num;
 	}
@@ -47,6 +48,7 @@ public class QusAnsAnswerDto {
 	public void setQue_num(String que_num) {
 		this.que_num = que_num;
 	}
-	private String que_num;
+	
+
 
 }

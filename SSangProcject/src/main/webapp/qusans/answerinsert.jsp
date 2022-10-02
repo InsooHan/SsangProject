@@ -8,15 +8,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
 </head>
 <%
+
 QusAnsAnswerDto dto=new QusAnsAnswerDto();
 
-String myid=(String)session.getAttribute("myid");
+//String myid=(String)session.getAttribute("myid");
 
 String realpath=getServletContext().getRealPath("/save");
 
@@ -31,9 +32,7 @@ MultipartRequest multi=new MultipartRequest(request,realpath,uploadsize,"utf-8",
 
 
 String num=multi.getParameter("num");
-String title=multi.getParameter("title");
 String content=multi.getParameter("content");
-
 String photoname=multi.getFilesystemName("photo");
 
 
@@ -44,13 +43,17 @@ dto.setQue_num(num);
 
 dao.insertAnswer(dto);
 
-response.sendRedirect("");
-
+//response.sendRedirect("qusansdetail.jsp?que_num="+num);
+response.sendRedirect("qusanslist.jsp");
 }catch(Exception e){
+	//왜 여기로오지???????
+	//response.sendRedirect("qusanslist.jsp");
+	System.out.print(e+"예외발생");
 	
 };
+
+//response.sendRedirect("qusanslist.jsp");
 %>
 <body>
-
 </body>
 </html>
