@@ -14,6 +14,40 @@ public class ClassDao {
 
 	DbConnect db=new DbConnect();
 	
+	//class_num에 해당하는 1개 dto 출력
+		public ClassDto getClass(String num) {
+			ClassDto dto = new ClassDto();
+			Connection conn = db.getConnection();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql="select * from class where class_num=?";
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, num);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					dto.setClass_num(rs.getString("class_num"));
+					dto.setCategory(rs.getString("category"));
+					dto.setSub_category(rs.getString("sub_category"));
+					dto.setLevels(rs.getString("levels"));
+					dto.setClass_name(rs.getString("class_name"));
+					dto.setUser_num(rs.getString("user_num"));
+					dto.setClass_price(rs.getInt("class_price"));
+					dto.setClass_image(rs.getString("class_image"));
+					dto.setClass_video(rs.getString("class_video"));
+					dto.setClass_chu(rs.getInt("class_chu"));
+					dto.setClass_content(rs.getString("class_content"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(rs, pstmt, conn);
+			}
+			return dto;
+		}
+		
 	//전체출력
 	public List<ClassDto> getAllDatas(){
 		
@@ -220,5 +254,10 @@ public class ClassDao {
 	}
 	
 	//서브카테고리에 해당하는 것만 출력
+	
+	
+	
+	
+	
 	
 }

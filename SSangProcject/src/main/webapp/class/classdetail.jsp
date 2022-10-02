@@ -1,3 +1,7 @@
+<%@page import="dto.ReviewDto"%>
+<%@page import="dao.ReviewDao"%>
+<%@page import="dao.ClassDao"%>
+<%@page import="dto.ClassDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -20,10 +24,11 @@ div.title{
 div.move{
 	color: lightgray;
 	font-size: 1.2em;
-	
+	background-color: white;
 	margin-bottom : 20px;
-	position: absolute;
-	left: 200px;
+	margin-left: 200px;
+	box-sizing:border-box;
+	width: 100%;
 }
 /*강의소개, 수강평, 수강전문의 커뮤니티 이동 버튼 hover*/
 div.move>span:hover{
@@ -44,41 +49,59 @@ div.cart{
 	border: 1px solid black;
 	width: 300px;
 	height: 500px;
-	position: absolute;
-	left: 1030px;
+	margin-left: 1030px;
 }
-.fix{position:fixed;_position:absolute;width:100%;top:0  ;z-index:100
+.fixmove{position: fixed; top: 0px; z-index: 1;}
+.fixcart{position: fixed; top: 465px; z-index: 1;}
 </style>
 <script type="text/javascript">
 $(function(){
+	console.log($('div.cart').offset());
+	//move클릭시 css
 	$("div.move").children().click(function(){
 		$(this).css({'color':'black','font-weight':'bold'});
 		$(this).siblings().css({'color':'black','font-weight':'normal'});
-	})
-	//특정위치부터 스크롤 따라오기 장바구니 div
-	$(window).scroll(  
-		    function(){  
-		        //스크롤의 위치가 상단에서 장바구니 div를 넘어서면  
-		        if(window.pageYOffset >= $('div.cart').offset().top){   
-		            $('div.cart').addClass("fix");  
+		})
+	 //특정위치부터 스크롤 따라오기 장바구니 div
+	$(window).scroll(function(){  
+		  //스크롤의 위치가 상단에서 장바구니 div를 넘어서면  
+		  if($(document).scrollTop() > $('div.cart').offset().top){   
+		     $('div.cart').addClass('fixcart');
+		     //위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
+		  }else{  
+		     $('div.cart').removeClass('fixcart');  
+		     //위의 if문에 대한 조건 아닌경우 fix라는 class를 삭제함  
+		    }  
+		  });
+	//특정위치부터 스크롤 따라오기 헤더
+	$(window).scroll(function(){  
+		        //스크롤의 위치가 상단에서 move div를 넘어서면  
+		        if($(document).scrollTop() > $('div.move').offset().top){   
+		            $('div.move').addClass('fixmove');
 		            //위의 if문에 대한 조건 만족시 fix라는 class를 부여함  
 		        }else{  
-		            $('div.cart').removeClass("fix");  
+		        	$('div.move').removeClass('fixmove');
 		            //위의 if문에 대한 조건 아닌경우 fix라는 class를 삭제함  
 		        }  
 		    }  
-		);  
-
+		); 
 })
+
 /* 스크롤 이동 메서드 */
 function fnMove(seq){
-	        var offset = $("#" + seq).offset();
-	        $('html, body').animate({scrollTop : offset.top}, 400);
-	    }
-	
-
+	 var offset = $("#" + seq).offset();
+	 $('html, body').animate({scrollTop : offset.top}, 400);
+}
 </script>
 </head>
+<%
+String class_num=request.getParameter("class_num");
+ClassDao cldao = new ClassDao();
+ClassDto cldto = cldao.getClass(class_num);
+
+ReviewDao rdao = new ReviewDao();
+double star = rdao.getReviewStar(class_num);
+%>
 <body>
 <!-- 강의 타이틀 -->
 <div class="title">
@@ -88,11 +111,10 @@ position: absolute; top: 20px; left: 200px;">
 <!-- 강의 정보 -->
 <div style="border: 1px solid black; width: 700px; height: 250px;
 position: absolute; top: 20px; left: 620px;">
-<span>강의 카테고리 분류</span><br>
-<span>강의 명</span><br><br><br>
-<span>수강평</span><br>
+<span><%=cldto.getCategory() %><%=cldto.getSub_category()!=null?" > "+cldto.getSub_category():"" %></span><br>
+<span><%=cldto.getClass_name() %></span><br><br><br>
+<span><%=star %></span><br>
 <span>지식공유자</span><br>
-<span>기술필터</span><br>
 </div>
 </div>
 <br>
@@ -118,7 +140,7 @@ position: absolute; top: 20px; left: 620px;">
 
 <!-- 수강바구니 div -->
 <div class="cart" align="center">
-<span>가격</span><br>
+<span><%=cldto.getClass_price() %></span><br>
 <span>할부 가격</span><br>
 <button>수강신청하기</button><br>
 <button>바구니에담기</button><br>
