@@ -1,6 +1,5 @@
+<%@page import="java.util.Arrays"%>
 <%@page import="java.text.NumberFormat"%>
-<%@page import="dto.TclassDto"%>
-<%@page import="dao.TclassDao"%>
 <%@page import="dto.ClassDto"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.ClassDao"%>
@@ -75,6 +74,7 @@
     ClassDao dao=new ClassDao();
     //List<ClassDto> list=dao.getAllDatas();
     NumberFormat nf=NumberFormat.getCurrencyInstance();
+    ClassDto dto=new ClassDto();
   
     //페이징에 필요한 변수_no빼고 8개는 필수
     int totalCount; //총 게시물 갯수
@@ -120,15 +120,20 @@
 <script type="text/javascript">
 $(function(){
 	
-	//img 클릭시 디테일페이지로 이동..디테일페이지 파일생성후 작업필요
+	//첫 페이지에서 1.전체강의 보이기 2.선택한 분류 안보이기
+	allclassfunc();
+	$(".cate").hide();
+	$(".subcate").hide();
+	
+	//img 클릭시 디테일페이지로 이동..인덱스파일 생성후 location.href 활성화하기
 	$(".img").click(function(){
-		var a=$(this).attr("class_num");
-		alert(a);
-		
+		var class_num=$(this).attr("class_num");
+		//alert(class_num);
+		//location.href="index.jsp?main=classdetail.jsp?class_num="+class_num;
 	});
 	
 	//cart 클릭시 장바구니에 추가..카트에 담고 빼는 작업필요
-	$("#cart").click(function(){
+	$(document).on("click","#cart",function(){
 		
 		var cla=$(this).attr("class");
 		if(cla=="fa fa-shopping-cart")
@@ -138,13 +143,12 @@ $(function(){
 			$(this).attr("class","fa fa-shopping-cart"); //카트에 클래스 담기
 			$(this).css("color","red");
 		}
-			
 	});
 	
 	//heart 클릭시 좋아요에 추가..좋아요에 담고 빼는 작업필요
-    $("#heart").click(function(){
+	$(document).on("click","#heart",function(){
 		
-    	var cla=$(this).attr("class");
+		var cla=$(this).attr("class");
 		if(cla=="fa fa-heart")
 			$(this).attr("class","fa fa-heart-o"); //좋아요에 담겨있던 클래스를 다시 제거
 			$(this).css("color","black");
@@ -154,96 +158,436 @@ $(function(){
 		}
 	});
 	
-	//난이도 필터 체크시 해당 난이도만 뜨도록..구현해야함
-	/* $("input:checkbox[name='levels']").change(function(){
+	//난이도 필터 체크시 해당 난이도만 뜨도록
+	$("input:radio[name='levels']").change(function(){
 
-		$("input:checkbox[name='levels']:checked").each(function(){
-			
-			var levels=$(this).val();
-			console.log(levels);
-			
-			$.ajax({
-			
-			type:"post",
-			url:"listbylevels.jsp",
-			dataType:"json",
-			data:{"levels":levels},
-			success:function(res){
-				alert("ye")
-			}
-		  });
-		}); 
-	}); */
+		var levels=$("input:radio[name='levels']:checked").val();
+		levelsfunc(levels);
+		
+		if($("a.all").is("checked"))
+			console.log($(this));
+		
+	});
+	
+	//전체 클릭시 전체리스트
+	$(".allclass").click(function(){
+		
+		allclassfunc();
+		$(".cate").hide();
+		$(".subcate").hide();
+		
+	});
 	
 	//카테고리에 따른 강의리스트 뜨도록
+	$("a.all").click(function(){
+		
+		category=$(this).parent().parent().parent().find("button").text();
+		//console.log(category);
+		categoryfunc(category);
+		
+		$(".cate").html("<i class='fa fa-chevron-right' aria-hidden='true'></i>"+category);
+		$(".cate").show();
+		$(".subcate").hide(); 
+		
+		//난이도 필터 체크시 해당 난이도만 뜨도록
+		$("input:radio[name='levels']").change(function(){
+
+ 			var levels=$("input:radio[name='levels']:checked").val();
+			//console.log(category+","+levels);
+			categorylevelsfunc(category,levels);
+			
+		});
+	
+	});
 	
 	//sub카테고리에 따른 강의리스트 뜨도록
+    $("a.sub").click(function(){
+		
+    	category=$(this).parent().parent().parent().find("button").text();
+		var sub_category=$(this).text();
+		
+		subcategoryfunc(sub_category);
+				
+		$(".cate").html("<i class='fa fa-chevron-right' aria-hidden='true'></i>"+category);
+		$(".cate").show();
+		$(".subcate").html("<i class='fa fa-chevron-right' aria-hidden='true'></i>"+sub_category);
+		$(".subcate").show();
+		
+		//난이도 필터 체크시 해당 난이도만 뜨도록
+		$("input:radio[name='levels']").change(function(){
+
+ 			var levels=$("input:radio[name='levels']:checked").val();
+			//console.log(category+","+levels);
+			subcategorylevelsfunc(category,sub_category,levels);
+			
+		});
+				
+	});
+	
+	//강의명 입력후 엔터누르면 함수호출
+	$("#searchinput").keyup(function(e){
+		if(e.keyCode==13)
+			searchfunc($(this).val().trim());
+	});
+	
+	//강의명 입력후 검색버튼 클릭시 함수호출
+	$("#searchbtn").click(function(){
+		searchfunc($("#searchinput").val().trim());
+	});
 	
 });
+
+//사용자함수
+//1.전체 리스트_난이도
+function levelsfunc(levels){
+			
+	$.ajax({
+		
+		type:"post",
+		url:"listbylevels.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"levels":levels},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				// 강사이름 or id, 별점(후기갯수) 
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	}); 
+}
+
+//2.카테고리 리스트_난이도
+function categorylevelsfunc(category,levels){
+	
+	$.ajax({
+		
+		type:"post",
+		url:"listbycategorylevels.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"category":category,"levels":levels},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				// 강사이름 or id, 별점(후기갯수) 
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	}); 
+}
+
+//3.서브카테고리 리스트_난이도
+function subcategorylevelsfunc(category,sub_category,levels){
+	
+	$.ajax({
+		
+		type:"post",
+		url:"listbysubcategorylevels.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"category":category,"sub_category":sub_category,"levels":levels},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				// 강사이름 or id, 별점(후기갯수) 
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	}); 
+}
+
+//2.전체 리스트
+function allclassfunc(){
+			
+	var class_num=<%=dto.getClass_num()%>;
+	var category=<%=dto.getCategory()%>;
+	var sub_category=<%=dto.getSub_category()%>;
+	var levels=<%=dto.getLevels()%>;
+	var class_name=<%=dto.getClass_name()%>;
+	var user_num=<%=dto.getUser_num()%>;
+	var class_price=<%=dto.getClass_price()%>;
+	var class_image=<%=dto.getClass_image()%>;
+	var class_video=<%=dto.getClass_video()%>;
+	var class_chu=<%=dto.getClass_chu()%>;
+	var class_content=<%=dto.getClass_content()%>;
+	var reg_date=<%=dto.getReg_date()%>;
+		
+	var data="class_num="+class_num+"&category="+category+"&sub_category="+sub_category+"&levels="+levels+"&class_name="+class_name+"&user_num="+user_num+"&class_price="+class_price+"&class_image="+class_image+"&class_video"+class_video+"&class_chu="+class_chu+"&class_content="+class_content+"&reg_date="+reg_date;
+	$.ajax({
+		
+		type:"post",
+		url:"listallclass.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"data":data},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				/* 강사이름 or id, 별점(후기갯수) */
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+				
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	});
+} 
+
+//3.카테고리 필터
+function categoryfunc(category){
+	
+	$.ajax({
+		
+		type:"post",
+		url:"listbycategory.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"category":category},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				/* 강사이름 or id, 별점(후기갯수) */
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+				
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	});
+}
+
+//4.서브카테고리 필터
+function subcategoryfunc(sub_category){
+	
+	$.ajax({
+		
+		type:"post",
+		url:"listbysubcategory.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"sub_category":sub_category},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				/* 강사이름 or id, 별점(후기갯수) */
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+				
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	});
+}
+
+//5.검색 필터
+function searchfunc(class_name){
+	
+	$.ajax({
+		
+		type:"post",
+		url:"listbysearch.jsp", //인덱스 생성후 경로 class/붙이기
+		dataType:"json",
+		data:{"class_name":class_name},
+		success:function(res){ 
+			var i=1;
+			var s="<table><tr>";
+			$.each(res,function(idx,item){
+				
+				s+="<td>";
+				s+="<div class='classdiv'>";
+				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<b>"+item.class_name+"</b><br>";
+				/* 강사이름 or id, 별점(후기갯수) */
+			    s+=item.class_price;
+				s+="<div class='icons'>";
+				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
+				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
+				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
+				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
+				s+="</div>";
+				s+="</div>";
+				s+="</td>";
+				
+				if((i+4)%4==0)
+					s+="</tr><tr>"; i++;
+			});
+			
+			s+="</tr></table>";
+			$(".listtb").html(s);
+		}
+	});
+}
 </script>
 </head>
 <body>
 <!-- 강의 분류 -->
 <div class="container mt-3">
   <div class="btn-group-vertical">
-    <button type="button" class="btn btn-light">전체 강의</button>
+    <button type="button" class="allclass btn btn-light">전체 강의</button>
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">개발/프로그래밍</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">ALL</a></li>
-        <li><a class="dropdown-item" href="#">HTML/CSS</a></li>
-        <li><a class="dropdown-item" href="#">JavaScript</a></li>
-        <li><a class="dropdown-item" href="#">Python</a></li>
-        <li><a class="dropdown-item" href="#">PHP</a></li>
-        <li><a class="dropdown-item" href="#">MySQL</a></li>
+        <li><a class="all dropdown-item" href="#">ALL</a></li>
+        <li><a class="sub dropdown-item" href="#">HTML/CSS</a></li>
+        <li><a class="sub dropdown-item" href="#">JavaScript</a></li>
+        <li><a class="sub dropdown-item" href="#">Python</a></li>
+        <li><a class="sub dropdown-item" href="#">PHP</a></li>
+        <li><a class="sub dropdown-item" href="#">MySQL</a></li>
       </ul>
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">보안/네트워크</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">ALL</a></li>
-        <li><a class="dropdown-item" href="#">보안</a></li>
-        <li><a class="dropdown-item" href="#">네트워크</a></li>
-        <li><a class="dropdown-item" href="#">클라우드</a></li>
-        <li><a class="dropdown-item" href="#">블록체인</a></li>
+        <li><a class="all dropdown-item" href="#">ALL</a></li>
+        <li><a class="sub dropdown-item" href="#">보안</a></li>
+        <li><a class="sub dropdown-item" href="#">네트워크</a></li>
+        <li><a class="sub dropdown-item" href="#">클라우드</a></li>
+        <li><a class="sub dropdown-item" href="#">블록체인</a></li>
       </ul>
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">데이터 사이언스</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">ALL</a></li>
-        <li><a class="dropdown-item" href="#">데이터 분석</a></li>
-        <li><a class="dropdown-item" href="#">인공지능</a></li>
-        <li><a class="dropdown-item" href="#">데이터 시각화</a></li>
-        <li><a class="dropdown-item" href="#">데이터 수집</a></li>
+        <li><a class="all dropdown-item" href="#">ALL</a></li>
+        <li><a class="sub dropdown-item" href="#">데이터 분석</a></li>
+        <li><a class="sub dropdown-item" href="#">인공지능</a></li>
+        <li><a class="sub dropdown-item" href="#">데이터 시각화</a></li>
+        <li><a class="sub dropdown-item" href="#">데이터 수집</a></li>
       </ul>
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">게임 개발</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">ALL</a></li>
-        <li><a class="dropdown-item" href="#">게임 프로그래밍</a></li>
-        <li><a class="dropdown-item" href="#">게임 기획</a></li>
-        <li><a class="dropdown-item" href="#">게임 아트</a></li>
+        <li><a class="all dropdown-item" href="#">ALL</a></li>
+        <li><a class="sub dropdown-item" href="#">게임 프로그래밍</a></li>
+        <li><a class="sub dropdown-item" href="#">게임 기획</a></li>
+        <li><a class="sub dropdown-item" href="#">게임 아트</a></li>
       </ul>
     </div>
      <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">커리어</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">ALL</a></li>
-        <li><a class="dropdown-item" href="#">취업</a></li>
-        <li><a class="dropdown-item" href="#">이직</a></li>
-        <li><a class="dropdown-item" href="#">브랜딩</a></li>
+        <li><a class="all dropdown-item" href="#">ALL</a></li>
+        <li><a class="sub dropdown-item" href="#">취업</a></li>
+        <li><a class="sub dropdown-item" href="#">이직</a></li>
+        <li><a class="sub dropdown-item" href="#">브랜딩</a></li>
       </ul>
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">학문/외국어</button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">ALL</a></li>
-        <li><a class="dropdown-item" href="#">영어</a></li>
-        <li><a class="dropdown-item" href="#">일본어</a></li>
-        <li><a class="dropdown-item" href="#">프랑스어</a></li>
-        <li><a class="dropdown-item" href="#">이탈리아어</a></li>
+        <li><a class="all dropdown-item" href="#">ALL</a></li>
+        <li><a class="sub dropdown-item" href="#">영어</a></li>
+        <li><a class="sub dropdown-item" href="#">일본어</a></li>
+        <li><a class="sub dropdown-item" href="#">프랑스어</a></li>
+        <li><a class="sub dropdown-item" href="#">이탈리아어</a></li>
       </ul>
     </div>
   </div>
@@ -253,8 +597,8 @@ $(function(){
 <!-- 강의 검색창 -->
 <div class="search container mt-3">
   <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="강의 검색하기">
-    <button class="btn btn-success" type="submit">검색</button> 
+    <input type="text" class="form-control" placeholder="강의 검색하기" id="searchinput">
+    <button class="btn btn-success" type="submit" id="searchbtn">검색</button> 
   </div>
 </div>
 
@@ -264,18 +608,18 @@ $(function(){
 <div class="classification">
 전체
   <!-- category 삽입,클릭한 값의 것만 보이도록 -->
-  <b><i class="fa fa-chevron-right" aria-hidden="true"></i></b> 
+  <b class=cate></b> 
   <!-- sub_category 삽입,클릭한 값의 것만 보이도록 -->
-  <b><i class="fa fa-chevron-right" aria-hidden="true"></i></b> 
+  <b class=subcate></b> 
 </div>
 
 <!-- 필터 -->
 <div class="filter container mt-3">
   <div class="alert alert-light">
     <i class="fa fa-sliders" aria-hidden="true"></i> <strong>필터 </strong>
-    <input type="checkbox" name="levels" value="입문"> 입문</input>
-    <input type="checkbox" name="levels" value="초급"> 초급</input>
-    <input type="checkbox" name="levels" value="중급"> 중급</input>
+    <input type="radio" name="levels" value="입문"> 입문</input>
+    <input type="radio" name="levels" value="초급"> 초급</input>
+    <input type="radio" name="levels" value="중급"> 중급</input>
   </div>
 </div>
 
@@ -293,32 +637,7 @@ $(function(){
 </div>
 
 <!-- 강의 리스트 -->
-<table class="listtb table table-borderless">
-   <tr>
-    <%int i=1;
-    
-    for(ClassDto dto:list)
-    {%>
-    <td>
-    <div class="classdiv">
-      <img alt="" src="thumbnail.png" class="img" class_num="<%=dto.getClass_num()%>"><br>
-      <b><%=dto.getClass_name() %></b><br>
-      <!-- 강사이름 or id, 별점(후기갯수) -->
-      <%=nf.format(dto.getClass_price()) %>
-      <div class="icons">
-        <span><i class="fa fa-signal" aria-hidden="true"></i><%=dto.getLevels() %></span><br>
-        <span><i class="fa fa-folder-open-o" aria-hidden="true"></i><%=dto.getCategory() %>><%=dto.getSub_category() %></span>
-        <span><i class="fa fa-cart-plus" id="cart" aria-hidden="true"></i></span>
-        <span><i class="fa fa-heart-o" id="heart" aria-hidden="true"></i></span>
-      </div>
-    </div>
-    </td>
-    
-    <%if((i+4)%4==0){%> </tr><tr> <%} i++;
-    
-    } %>
-  </tr>
-</table>
+<table class="listtb table table-borderless"></table>
 
 <!-- 페이징 -->
 <div class="paging container mt-3">
