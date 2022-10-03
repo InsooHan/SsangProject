@@ -146,7 +146,7 @@
                   <li class="has-children" style="margin-right: 500px;">
                     <a href="#" class="nav-link">커뮤니티</a>
                     <ul class="dropdown arrow-top">
-                      <li><a href="#" class="nav-link">질문 & 답변</a></li>
+                      <li><a href="index.jsp?main=qusans/qusanslist.jsp" class="nav-link">질문 & 답변</a></li>
                       <li><a href="#" class="nav-link">자유주제</a></li>
                       <li><a href="#" class="nav-link">스터디</a></li>
                       <li><a href="#" class="nav-link">블로그</a></li>

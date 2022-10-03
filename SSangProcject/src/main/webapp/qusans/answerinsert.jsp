@@ -44,7 +44,7 @@ dto.setQue_num(num);
 dao.insertAnswer(dto);
 
 //response.sendRedirect("qusansdetail.jsp?que_num="+num);
-response.sendRedirect("qusanslist.jsp");
+response.sendRedirect("../index.jsp?main=qusans/qusanslist.jsp");
 }catch(Exception e){
 	//왜 여기로오지???????
 	//response.sendRedirect("qusanslist.jsp");
