@@ -16,6 +16,14 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/a47cf79e39.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
+<style type="text/css">
+.quickmenu
+{
+position: absolute;
+left: 900px;
+top: 100px;
+}
+</style>
 <script type="text/javascript">
 $(function() {
 
@@ -23,7 +31,8 @@ var currentPosition = parseInt($(".quickmenu").css("top"));
 
 $(window).scroll(function() {
 	var position = $(window).scrollTop(); 
-	$(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000);
+	$(".quickmenu").stop().animate({"top":100+position+"px"},500);
+	//alert("스크롤이동");
 });
 
 });
@@ -66,7 +75,6 @@ List<QusAnsAnswerDto> list=adao.getAllDatas();
 </table>
 
 <!-- 답변 list -->
-<table class="table table-borderless" style="width: 800px;">
 <%
 
 for(int i=0;i<list.size();i++)
@@ -76,23 +84,25 @@ for(int i=0;i<list.size();i++)
 	if(adto.getQue_num().equals(num))
 	{
 	%>
-	<tr style="border-bottom: solid 2px #dcdcdc;">
-		<td><b><%=adto.getAns_id()%></b>&nbsp;<span style="font-size: 10pt; color: gray;"><%=adto.getReg_date()%></span></td>
-	</tr>
-	<tr>
-		<td><%=adto.getAns_content()%></td>
-	</tr>
-	<tr>
-		<td>댓글</td>
-	</tr>
+<div class="" style="border: 1px solid gray;">
+	<table class="table table-borderless" style="width: 800px;">
+		<tr style="border-bottom: solid 2px #dcdcdc;">
+			<td><b><%=adto.getAns_id()%></b>&nbsp;<span style="font-size: 10pt; color: gray;"><%=adto.getReg_date()%></span></td>
+		</tr>
+		<tr>
+			<td><%=adto.getAns_content()%></td>
+		</tr>
+		<tr>
+			<td>댓글</td>
+		</tr>
+	</table>
+</div>
 <%
 	}
 }
 %>
-</table>
-
 <!-- 답변 insert form -->
-<form action="answerinsert.jsp" method="post" enctype="multipart/form-data">
+<form action="qusans/answerinsert.jsp" method="post" enctype="multipart/form-data">
 	<input type="hidden" value="<%=num%>" name="num">
 	<table>
 		<tr>
@@ -116,8 +126,8 @@ for(int i=0;i<list.size();i++)
 
 <!-- 퀵메뉴 -->
 <div class="quickmenu">
-  <ul class="list-group" style="width: 100px;">
-    <li class="list-group-item"><a href="#">미해결</a></li>
+  <ul class="list-group" style="width: 110px;">
+    <li class="list-group-item"><button type="button" class="btn">미해결</button></li>
     <li class="list-group-item"><a href="#">1:1문의</a></li>
     <li class="list-group-item"><a href="#">후기</a></li>
   </ul>
