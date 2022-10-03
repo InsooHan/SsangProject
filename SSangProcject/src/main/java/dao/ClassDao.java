@@ -163,7 +163,7 @@ public class ClassDao {
 		return list;
 	}
 	
-	//난이도에 해당하는 것만 출력
+	//전체리스트에서 난이도에 해당하는 것만 출력
     public List<ClassDto> getLevelsDatas(String levels){
 		
 		List<ClassDto> list=new Vector<>();
@@ -172,11 +172,104 @@ public class ClassDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from class where levels=?";
+		String sql="select * from class where levels=? order by class_num desc";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, levels);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+                ClassDto dto=new ClassDto();
+				
+				dto.setClass_num(rs.getString("class_num"));
+				dto.setCategory(rs.getString("category"));
+				dto.setSub_category(rs.getString("sub_category"));
+				dto.setLevels(rs.getString("levels"));
+				dto.setClass_name(rs.getString("class_name"));
+				dto.setUser_num(rs.getString("user_num"));
+				dto.setClass_price(rs.getInt("class_price"));
+				dto.setClass_image(rs.getString("class_image"));
+				dto.setClass_video(rs.getString("class_video"));
+				dto.setClass_chu(rs.getInt("class_chu"));
+				dto.setClass_content(rs.getString("class_content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+    
+    //카테고리에서 난이도에 해당하는 것만 출력
+    public List<ClassDto> getCategoryLevelsDatas(String category,String levels){
+		
+		List<ClassDto> list=new Vector<>();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from class where category=? and levels=? order by class_num desc";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, levels);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+                ClassDto dto=new ClassDto();
+				
+				dto.setClass_num(rs.getString("class_num"));
+				dto.setCategory(rs.getString("category"));
+				dto.setSub_category(rs.getString("sub_category"));
+				dto.setLevels(rs.getString("levels"));
+				dto.setClass_name(rs.getString("class_name"));
+				dto.setUser_num(rs.getString("user_num"));
+				dto.setClass_price(rs.getInt("class_price"));
+				dto.setClass_image(rs.getString("class_image"));
+				dto.setClass_video(rs.getString("class_video"));
+				dto.setClass_chu(rs.getInt("class_chu"));
+				dto.setClass_content(rs.getString("class_content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+    
+  //서브카테고리에서 난이도에 해당하는 것만 출력
+    public List<ClassDto> getSubcategoryLevelsDatas(String category,String sub_category,String levels){
+		
+		List<ClassDto> list=new Vector<>();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from class where category=? and sub_category=? and levels=? order by class_num desc";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setString(2, sub_category);
+			pstmt.setString(3, levels);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next())
@@ -217,7 +310,7 @@ public class ClassDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from class where category=?";
+		String sql="select * from class where category=? order by class_num desc";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -254,10 +347,92 @@ public class ClassDao {
 	}
 	
 	//서브카테고리에 해당하는 것만 출력
-	
-	
-	
-	
-	
-	
+    public List<ClassDto> getSubcategoryDatas(String sub_category){
+		
+		List<ClassDto> list=new Vector<>();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from class where sub_category=? order by class_num desc";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sub_category);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+                ClassDto dto=new ClassDto();
+				
+				dto.setClass_num(rs.getString("class_num"));
+				dto.setCategory(rs.getString("category"));
+				dto.setSub_category(rs.getString("sub_category"));
+				dto.setLevels(rs.getString("levels"));
+				dto.setClass_name(rs.getString("class_name"));
+				dto.setUser_num(rs.getString("user_num"));
+				dto.setClass_price(rs.getInt("class_price"));
+				dto.setClass_image(rs.getString("class_image"));
+				dto.setClass_video(rs.getString("class_video"));
+				dto.setClass_chu(rs.getInt("class_chu"));
+				dto.setClass_content(rs.getString("class_content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
+    
+    //강좌명 검색시 리스트
+    public List<ClassDto> getSearchDatas(String class_name){
+    	
+        List<ClassDto> list=new Vector<>();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from class where class_name like ? order by class_num desc";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+class_name+"%");
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+                ClassDto dto=new ClassDto();
+				
+				dto.setClass_num(rs.getString("class_num"));
+				dto.setCategory(rs.getString("category"));
+				dto.setSub_category(rs.getString("sub_category"));
+				dto.setLevels(rs.getString("levels"));
+				dto.setClass_name(rs.getString("class_name"));
+				dto.setUser_num(rs.getString("user_num"));
+				dto.setClass_price(rs.getInt("class_price"));
+				dto.setClass_image(rs.getString("class_image"));
+				dto.setClass_video(rs.getString("class_video"));
+				dto.setClass_chu(rs.getInt("class_chu"));
+				dto.setClass_content(rs.getString("class_content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		
+		return list;
+    }
 }
