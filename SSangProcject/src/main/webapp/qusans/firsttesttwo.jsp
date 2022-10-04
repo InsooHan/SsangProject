@@ -1,3 +1,7 @@
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="dao.QusAnsAnswerDao"%>
+<%@page import="dto.QusAnsAnswerDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -10,12 +14,46 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="firsttest.jsp">
-	<input type="text" name="num">번호
-	<input type="file" name="photo">
-	<input type="text" name="content">내용
-	<input type="text" name="id">아이디
-<button type="submit">제출</button>
-</form>
+<%
+
+QusAnsAnswerDto dto=new QusAnsAnswerDto();
+
+String myid=(String)session.getAttribute("myid");
+
+String realpath=getServletContext().getRealPath("/save");
+
+int uploadsize=1024*1024*5;
+
+QusAnsAnswerDao dao=new QusAnsAnswerDao();
+
+
+try
+{
+MultipartRequest multi=new MultipartRequest(request,realpath,uploadsize,"utf-8",new DefaultFileRenamePolicy());
+
+
+String num=multi.getParameter("num");
+String content=multi.getParameter("content");
+String photoname=multi.getFilesystemName("photo");
+
+
+dto.setAns_id(myid);
+dto.setAns_content(content);
+dto.setImage(photoname);
+dto.setQue_num(num);
+
+dao.insertAnswer(dto);
+
+//response.sendRedirect("qusansdetail.jsp?que_num="+num);
+response.sendRedirect("../index.jsp?main=qusans/qusanslist.jsp");
+}catch(Exception e){
+	//왜 여기로오지???????
+	//response.sendRedirect("qusanslist.jsp");
+	System.out.print(e+"예외발생");
+	
+};
+
+//response.sendRedirect("qusanslist.jsp");
+%>
 </body>
 </html>
