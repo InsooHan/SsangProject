@@ -36,6 +36,24 @@ $(function() {
 		//search($("#searchtool").val().trim());
 		//trim()은 공백 제거 후 보내기
 	});
+	
+	$("#btnwrite").click(function() {
+		//alert("글쓰기입니다!");
+		<%
+		
+		//로그인 상태 확인 위한 session의 속성 가져오기
+		String loginok=(String)session.getAttribute("loginok");
+		
+		if(loginok!=null)
+		{%>
+			location.href="index.jsp?main=qusans/qusansinsertform.jsp";
+		<%}else{
+			%>
+			alert("먼저 로그인을 해주세요!");
+			location.href="index.jsp?main=login/loginform.jsp";
+		<%}
+		%>
+	});
 });
 </script>
 </head>
@@ -105,8 +123,8 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
     <li class="nav-item">
       <a class="nav-link" href="#" style="color: black; font-weight: bold;"><i class="fa-solid fa-chevron-down fa-2xs" style="color: #78EFAD"></i>&nbsp;답변많은순</a>
     </li>
-    <li class="nav-item" style="margin-left: 280px;">
-	    <button type="button" class="btn btn-dark" id="btnwrite" onclick="location.href='index.jsp?main=qusans/qusansinsertform.jsp'">
+    <li class="nav-item" style="margin-left: 300px;">
+	    <button type="button" class="btn btn-dark" id="btnwrite">
 		<i class="fa-solid fa-pencil"></i>
 		글쓰기
 		</button>
@@ -147,7 +165,7 @@ for(QusAnsDto dto:list)
 	</div>
 	<div style="font-size: 10pt; color: gray; margin-top: 10px;">
 	<%=dto.getQue_id()%>&nbsp;<%=sdf.format(dto.getQue_date())%>
-	<span style="float: right;"><i class="fa-solid fa-heart"></i><%=dto.getQue_chu()%></span>
+	<span style="float: right;"><i class="fa-solid fa-heart"></i>&nbsp;<%=dto.getQue_chu()%></span>
 	</div>
 </div>
 <%
