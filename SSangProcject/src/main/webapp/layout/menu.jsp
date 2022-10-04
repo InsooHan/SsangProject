@@ -96,7 +96,7 @@
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
 
                   <li class="has-children">
-                    <a href="#" class="nav-link">강의</a>
+                    <a href="index.jsp?main=class/classlist.jsp" class="nav-link">강의</a>
                     <ul class="dropdown arrow-top">
                       <li class="has-children">
                         <a href="#">개발 · 프로그래밍</a>
