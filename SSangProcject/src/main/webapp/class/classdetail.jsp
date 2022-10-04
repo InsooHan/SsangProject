@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
 <%@page import="dto.ReviewDto"%>
 <%@page import="dao.ReviewDao"%>
 <%@page import="dao.ClassDao"%>
@@ -15,7 +17,7 @@
 <style type="text/css">
 /*강의 타이틀 style  */
 div.title{
-	background-color: navy;
+	background-color: #000033;
 	color: white;
 	width: 100%;
 	height: 300px;
@@ -30,6 +32,7 @@ div.move{
 	box-sizing:border-box;
 	width: 100%;
 }
+
 /*강의소개, 수강평, 수강전문의 커뮤니티 이동 버튼 hover*/
 div.move>span:hover{
 	color: black;
@@ -37,12 +40,27 @@ div.move>span:hover{
 	font-weight: bold;
 }
 
+div.reviewoption{
+color: lightgray;
+background-color: white;
+width: 100%;
+margin-top: 10px;
+justify-content: space-around;
+}
+div.reviewoption>span:hover{
+	color: black;
+	cursor: pointer;
+	font-weight: bold;
+	
+}
+
 div.content{
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	width: 800px;
 	height: 100%;
 	position: absolute;
 	left: 200px;
+	flex-direction: column;
 }
 
 div.cart{
@@ -50,6 +68,35 @@ div.cart{
 	width: 300px;
 	height: 500px;
 	margin-left: 1030px;
+}
+span.star-prototype, span.star-prototype > * {
+    height: 16px; 
+    background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
+    width: 80px;
+    display: inline-block;
+}
+ 
+span.star-prototype > * {
+    background-position: 0 0;
+    max-width:80px; 
+}
+div.item1{
+	border: 1.5px solid lightgray;
+	border-radius: 10px;
+	height:150px;
+	width: 150px;
+	text-align: center;
+	float: left;
+}
+div.item2{
+	border: 1.5px solid lightgray;
+	border-radius: 10px;
+	height: 150px;
+	width: 400px;
+	margin-left: 155px;
+	text-align: center;
+	padding-top: 10px;
+	
 }
 .fixmove{position: fixed; top: 0px; z-index: 1;}
 .fixcart{position: fixed; top: 465px; z-index: 1;}
@@ -85,6 +132,12 @@ $(function(){
 		        }  
 		    }  
 		); 
+	$.fn.generateStars = function() {
+	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+	};
+
+	// 숫자 평점을 별로 변환하도록 호출하는 함수
+	$('.star-prototype').generateStars();
 })
 
 /* 스크롤 이동 메서드 */
@@ -101,21 +154,27 @@ ClassDto cldto = cldao.getClass(class_num);
 
 ReviewDao rdao = new ReviewDao();
 double star = rdao.getReviewStar(class_num);
+List<ReviewDto> rlist = rdao.getAllReview(class_num);
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <body>
 <!-- 강의 타이틀 -->
 <div class="title">
-<!-- 강의 영상 미리보기 이미지 -->
-<img src="class/thumbnail.png" style="border: 1px solid black; width: 400px; height: 250px;
-position: absolute; top: 20px; left: 200px;">
-<!-- 강의 정보 -->
-<div style="border: 1px solid black; width: 700px; height: 250px;
-position: absolute; top: 20px; left: 620px;">
-<span><%=cldto.getCategory() %><%=cldto.getSub_category()!=null?" > "+cldto.getSub_category():"" %></span><br>
-<span><%=cldto.getClass_name() %></span><br><br><br>
-<span><%=star %></span><br>
-<span>지식공유자</span><br>
-</div>
+	<!-- 강의 영상 미리보기 이미지 -->
+	<img src="../class/thumbnail.png" style="width: 400px; height: 250px;
+	position: absolute; top: 20px; left: 200px; border-radius: 30px">
+	<!-- 강의 정보 -->
+	<div style="width: 700px; height: 250px; padding: 20px 20px;
+		position: absolute; top: 20px; left: 620px;">
+		<span><%=cldto.getCategory() %><%=cldto.getSub_category()!=null?" > "+cldto.getSub_category():"" %></span><br>
+		<span><h2><%=cldto.getClass_name() %></h2></h2></span><br><br>
+		<span class="star-prototype" style="text-align: left;"><%=star %></span>
+		<span style="font-weight: bold;">(<%=star%>)</span> &nbsp;&nbsp;&nbsp;
+		<span><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
+		<br>
+		<span>지식공유자</span><br>
+	</div>
 </div>
 <br>
 
@@ -132,10 +191,54 @@ position: absolute; top: 20px; left: 620px;">
 
 <!-- 강의소개 수강평 수강전 문의 커뮤니티 div -->
 <div class="content">
-<div id="introduce" style="position: absolute;">강의 소개</div>
-<div id="score" style="position: absolute; top: 500px;"> 수강평</div>
-<div id="inquiry" style="position: absolute; top: 1000px;">수강 전 문의</div>
-<div id="community" style="position: absolute; top: 1500px;">커뮤니티</div>
+<div id="introduce">강의 소개</div>
+<div id="score"> 
+  <span style="font-size: 1.5em; font-weight: bold;">수강평</span>&nbsp;&nbsp;
+  <span style="color: lightgray; font-size: 1.2em;">총<%=rdao.getTotalCount(class_num) %>개</span> <br><br>
+  <span>수강생분들이 직접 작성하신 수강평입니다. 수강평을 작성 시 300잎이 적립됩니다.</span><br><br>
+    <div class="item1">
+      <h1><%=star %></h1>
+      <span class="star-prototype" style="text-align: left;"><%=star %></span><br>
+      <span style="color: lightgray;"><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
+    </div>
+    <div class="item2">
+      <span>5점</span><br>
+      <span>4점</span><br>
+      <span>3점</span><br>
+      <span>2점</span><br>
+      <span>1점</span><br>
+    </div>
+  <div class="reviewoption">
+  	<span style="color: black; font-weight: bold; cursor: default;">VIEW |</span>
+    <span class="glyphicon glyphicon-triangle-bottom " >좋아요 순</span> &nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-triangle-bottom" >최신 순</span>&nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-triangle-bottom" >평점 높은 순</span>&nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-triangle-bottom" >평점 낮은 순</span>
+    <br>
+    <hr>
+  </div>
+  <table class="table">
+      <%
+      for(ReviewDto rdto : rlist){%>
+    	  <tr>
+    	    <td>
+    	    
+    	      <img src="../image/review_img.png" style="width: 50px; height: 50px; border-radius: 100px">
+    	      <span class="star-prototype" style="text-align: left;"><%=rdto.getReviewstar() %></span>
+    	      <span style="font-size: 1.2em;"><%=rdto.getReviewstar() %></span><br>
+    	      <span>사용자 이름</span>
+    	      <br>
+    	      <span><%=rdto.getReview_content() %></span><br>
+    	      <span style="color: lightgray;"><%=sdf.format(rdto.getReg_date()) %></span>
+    	      <span class="glyphicon glyphicon-heart-empty" style="float: right;"><%=rdto.getReview_chu()%></span>
+    	    </td>
+    	  </tr>
+      <%}
+      %>
+    </table>
+</div>
+<div id="inquiry" >수강 전 문의</div>
+<div id="community">커뮤니티</div>
 </div>
 
 <!-- 수강바구니 div -->

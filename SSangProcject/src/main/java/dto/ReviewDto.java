@@ -7,7 +7,7 @@ public class ReviewDto {
 	private String class_num;
 	private String user_num;
 	private String review_content;
-	private String reviewstar;
+	private int reviewstar;
 	private Timestamp reg_date;
 	private int review_chu;
 	public String getReview_num() {
@@ -34,10 +34,10 @@ public class ReviewDto {
 	public void setReview_content(String review_content) {
 		this.review_content = review_content;
 	}
-	public String getReviewstar() {
+	public int getReviewstar() {
 		return reviewstar;
 	}
-	public void setReviewstar(String reviewstar) {
+	public void setReviewstar(int reviewstar) {
 		this.reviewstar = reviewstar;
 	}
 	public Timestamp getReg_date() {
