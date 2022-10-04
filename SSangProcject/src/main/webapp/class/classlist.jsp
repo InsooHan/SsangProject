@@ -1,3 +1,4 @@
+<%@page import="dao.MemberDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="dto.ClassDto"%>
@@ -10,9 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
@@ -125,27 +124,48 @@ $(function(){
 	$(".cate").hide();
 	$(".subcate").hide();
 	
-	//img 클릭시 디테일페이지로 이동..인덱스파일 생성후 location.href 활성화하기
-	$(".img").click(function(){
+	//img 클릭시 디테일페이지로 이동
+	$(document).on("click",".img",function(){
+		
 		var class_num=$(this).attr("class_num");
-		//alert(class_num);
-		//location.href="index.jsp?main=classdetail.jsp?class_num="+class_num;
+		location.href="index.jsp?main=class/classdetail.jsp?class_num="+class_num;
 	});
 	
-	//cart 클릭시 장바구니에 추가..카트에 담고 빼는 작업필요
+	//cart 클릭시 카트에 담고 빼는 작업..시간되면
 	$(document).on("click","#cart",function(){
 		
 		var cla=$(this).attr("class");
 		if(cla=="fa fa-shopping-cart")
 			$(this).attr("class","fa fa-cart-plus"); //카트에 담겨있던 클래스를 다시 제거
 			$(this).css("color","black");
+			
+			/* if(confirm("장바구니에서 삭제하시겠습니까?")){
+				// 삭제 ajax 
+			} */
 		if(cla=="fa fa-cart-plus"){
 			$(this).attr("class","fa fa-shopping-cart"); //카트에 클래스 담기
 			$(this).css("color","red");
-		}
+				
+			/* var class_num=$(this).attr("class_num");
+			var user_num=$(this).attr("user_num");
+			//console.log(class_num+","+user_num);
+				$.ajax({
+					
+					type:"post",
+					url:"class/cartproc.jsp",
+					dataType:"html",
+					data:{"class_num":class_num,"user_num":user_num},
+					success:function(res){
+						
+						if(confirm("장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?")){
+							location.href="index.jsp?main=class/cartlist.jsp";
+						}
+					}
+				}); */	 	
+		  }
 	});
 	
-	//heart 클릭시 좋아요에 추가..좋아요에 담고 빼는 작업필요
+	//heart 클릭시 좋아요에 담고 빼는 작업..시간되면
 	$(document).on("click","#heart",function(){
 		
 		var cla=$(this).attr("class");
@@ -244,7 +264,7 @@ function levelsfunc(levels){
 	$.ajax({
 		
 		type:"post",
-		url:"listbylevels.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listbylevels.jsp", 
 		dataType:"json",
 		data:{"levels":levels},
 		success:function(res){ 
@@ -254,7 +274,7 @@ function levelsfunc(levels){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				// 강사이름 or id, 별점(후기갯수) 
 			    s+=item.class_price;
@@ -283,7 +303,7 @@ function categorylevelsfunc(category,levels){
 	$.ajax({
 		
 		type:"post",
-		url:"listbycategorylevels.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listbycategorylevels.jsp",
 		dataType:"json",
 		data:{"category":category,"levels":levels},
 		success:function(res){ 
@@ -293,7 +313,7 @@ function categorylevelsfunc(category,levels){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				// 강사이름 or id, 별점(후기갯수) 
 			    s+=item.class_price;
@@ -322,7 +342,7 @@ function subcategorylevelsfunc(category,sub_category,levels){
 	$.ajax({
 		
 		type:"post",
-		url:"listbysubcategorylevels.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listbysubcategorylevels.jsp", 
 		dataType:"json",
 		data:{"category":category,"sub_category":sub_category,"levels":levels},
 		success:function(res){ 
@@ -332,7 +352,7 @@ function subcategorylevelsfunc(category,sub_category,levels){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				// 강사이름 or id, 별점(후기갯수) 
 			    s+=item.class_price;
@@ -355,7 +375,7 @@ function subcategorylevelsfunc(category,sub_category,levels){
 	}); 
 }
 
-//2.전체 리스트
+//4.전체 리스트
 function allclassfunc(){
 			
 	var class_num=<%=dto.getClass_num()%>;
@@ -375,7 +395,7 @@ function allclassfunc(){
 	$.ajax({
 		
 		type:"post",
-		url:"listallclass.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listallclass.jsp", 
 		dataType:"json",
 		data:{"data":data},
 		success:function(res){ 
@@ -385,7 +405,7 @@ function allclassfunc(){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -408,13 +428,13 @@ function allclassfunc(){
 	});
 } 
 
-//3.카테고리 필터
+//5.카테고리 필터
 function categoryfunc(category){
 	
 	$.ajax({
 		
 		type:"post",
-		url:"listbycategory.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listbycategory.jsp", 
 		dataType:"json",
 		data:{"category":category},
 		success:function(res){ 
@@ -424,7 +444,7 @@ function categoryfunc(category){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -447,13 +467,13 @@ function categoryfunc(category){
 	});
 }
 
-//4.서브카테고리 필터
+//6.서브카테고리 필터
 function subcategoryfunc(sub_category){
 	
 	$.ajax({
 		
 		type:"post",
-		url:"listbysubcategory.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listbysubcategory.jsp", 
 		dataType:"json",
 		data:{"sub_category":sub_category},
 		success:function(res){ 
@@ -463,7 +483,7 @@ function subcategoryfunc(sub_category){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -486,13 +506,13 @@ function subcategoryfunc(sub_category){
 	});
 }
 
-//5.검색 필터
+//7.검색 필터
 function searchfunc(class_name){
 	
 	$.ajax({
 		
 		type:"post",
-		url:"listbysearch.jsp", //인덱스 생성후 경로 class/붙이기
+		url:"class/listbysearch.jsp", 
 		dataType:"json",
 		data:{"class_name":class_name},
 		success:function(res){ 
@@ -502,7 +522,7 @@ function searchfunc(class_name){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;

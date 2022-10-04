@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
 import db.DbConnect;
+import dto.CartDto;
 import dto.ClassDto;
 
 public class ClassDao {
@@ -434,5 +437,67 @@ public class ClassDao {
 		}
 		
 		return list;
+    }
+    
+    //cart에 insert
+    public void insertCart(CartDto dto) {
+    	
+    	Connection conn=db.getConnection();
+    	PreparedStatement pstmt=null;
+    	
+    	String sql="insert into cart values(null,?,?,now())";
+    	
+    	try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getClass_num());
+			pstmt.setString(2, dto.getUser_num());
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(pstmt, conn);
+		}
+    }
+    
+    //장바구니 출력_해당 user_id가 장바구니에 담은 강의만 출력되도록
+    public List<HashMap<String, String>> getCartList(String user_id){
+    	
+    	List<HashMap<String, String>> list=new ArrayList<>();
+    	
+    	Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select c.cart_num,s.class_name,s.class_num,s.class_image,s.class_price,c.cart_date"
+				+ "from cart c,class s,member m"
+				+ "where c.class_num=s.class_num and c.user_num=m.user_num and m.user_id=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				HashMap<String, String> map=new HashMap<>();
+				
+				map.put("cart_num", rs.getString("cart_num"));
+				map.put("class_name", rs.getString("class_name"));
+				map.put("class_num", rs.getString("class_num"));
+				map.put("class_image", rs.getString("class_image"));
+				map.put("class_price", rs.getString("class_price"));
+				map.put("cart_date", rs.getString("cart_date"));
+				
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+    	
+    	return list;
     }
 }
