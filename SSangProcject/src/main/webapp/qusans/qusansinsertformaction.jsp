@@ -12,6 +12,7 @@
 </head>
 <body>
 <%
+//insertform이랑 관련 없고 검색기능 위해 있는 것인데 이름을 잘못 지었음
 request.setCharacterEncoding("utf-8");
 
 String searchtool=request.getParameter("searchtool");

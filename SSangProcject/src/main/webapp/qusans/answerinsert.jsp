@@ -17,7 +17,7 @@
 
 QusAnsAnswerDto dto=new QusAnsAnswerDto();
 
-//String myid=(String)session.getAttribute("myid");
+String myid=(String)session.getAttribute("myid");
 
 String realpath=getServletContext().getRealPath("/save");
 
@@ -36,7 +36,7 @@ String content=multi.getParameter("content");
 String photoname=multi.getFilesystemName("photo");
 
 
-dto.setAns_id("임의아이디");
+dto.setAns_id(myid);
 dto.setAns_content(content);
 dto.setImage(photoname);
 dto.setQue_num(num);

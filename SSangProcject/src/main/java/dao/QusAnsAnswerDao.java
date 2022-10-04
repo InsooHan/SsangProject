@@ -39,7 +39,7 @@ public class QusAnsAnswerDao {
 		}
 	}
 	
-	//list
+	//답글list
 	public List<QusAnsAnswerDto> getAllDatas(){
 		List<QusAnsAnswerDto> list=new Vector<>();
 		
@@ -75,15 +75,49 @@ public class QusAnsAnswerDao {
 		}
 		return list;
 	}
+	
+	//답변 수
+	public int answerNum(String num) {
+		int n=0;
 		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select count(*) from Answer where que_num=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next())
+			{
+				n=rs.getInt(1);
+			}			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		return n;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
-
-
-
-
-
-
-
 
 
 
