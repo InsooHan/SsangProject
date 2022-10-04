@@ -1,3 +1,4 @@
+<%@page import="dao.MemberDao"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="dao.ClassDao"%>
@@ -15,14 +16,17 @@
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <%
-String user_id=(String)session.getAttribute("myid");
+String myid=(String)session.getAttribute("myid");
 
 ClassDao dao=new ClassDao();
-List<HashMap<String, String>> list=dao.getCartList(user_id);
+List<HashMap<String,String>> list=dao.getCartList(myid);
+
+MemberDao mdao=new MemberDao();
 %>
 <style type="text/css">
-.table{
+.table, h3{
    width: 800px;
+   margin: 0 auto;
 }
 .delbtn{
    float: right;
@@ -31,13 +35,15 @@ List<HashMap<String, String>> list=dao.getCartList(user_id);
 </head>
 <body>
 <div>
-<h3>수강바구니</h3>
+<h3><%=mdao.getName(myid) %>님의 수강바구니</h3>
 <table class="table">
   <tr>
-    <th>
+    <td>
       <input type="checkbox"> 전체선택
+    </td>
+    <td colspan="2" align="right">
       <button type="button" class="delbtn btn btn-light">선택삭제 <i class="fa fa-times" aria-hidden="true"></i></button> 
-    </th>
+    </td>
   </tr>
   
   <%NumberFormat nf=NumberFormat.getCurrencyInstance();
@@ -46,16 +52,16 @@ List<HashMap<String, String>> list=dao.getCartList(user_id);
 	{
 	  HashMap<String,String> map=list.get(i);
 	  %>
+	  
 	  <tr>
 	    <td>
 	      <input type="checkbox" name="cart_num" class="cart_num" cart_num="<%=map.get("cart_num")%>">
 	    </td>
 	    <td>
 	      <div class_num="<%=map.get("class_num")%>" class="class">
-	        <!-- save 폴더 만든 후 경로 활성화 -->
-	        <img alt="" src="save/<%=map.get("class_image") %>" class="class_image">
+	        <img alt="" src="<%=map.get("class_image") %>" class="class_image">
 	        <h5><b><%=map.get("class_name") %></b></h5>
-	        <span><i class="fa fa-times" aria-hidden="true" cart_num="<%=map.get("cart_num")%>"></i></span>
+	        <span cart_num="<%=map.get("cart_num")%>"><i class="fa fa-times" aria-hidden="true"></i></span>
 	      </div>
 	    </td>
 	    <td>
@@ -64,7 +70,7 @@ List<HashMap<String, String>> list=dao.getCartList(user_id);
 	    
 	    <h4><%=nf.format(class_price) %></h4>
 	    </td>
-	  </tr>
+	  </tr> 
     <%}%>
     
     <tr>
