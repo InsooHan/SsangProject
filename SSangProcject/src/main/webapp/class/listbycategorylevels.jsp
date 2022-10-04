@@ -10,10 +10,11 @@
 <%
 request.setCharacterEncoding("utf-8");
 
+String category=request.getParameter("category");
 String levels=request.getParameter("levels");
 
 ClassDao dao=new ClassDao();
-List<ClassDto> list=dao.getLevelsDatas(levels);
+List<ClassDto> list=dao.getCategoryLevelsDatas(category, levels);
 
 JSONArray arr=new JSONArray();
 NumberFormat nf=NumberFormat.getCurrencyInstance();

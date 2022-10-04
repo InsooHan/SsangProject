@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+//insertform이랑 관련 없고 검색기능 위해 있는 것인데 이름을 잘못 지었음
+request.setCharacterEncoding("utf-8");
 
+String searchtool=request.getParameter("searchtool");
+//System.out.print(searchtool);
+response.sendRedirect("../index.jsp?main=qusans/qusanslistsearch.jsp?searchtool="+URLEncoder.encode(searchtool, "UTF-8"));
+%>
 </body>
 </html>
