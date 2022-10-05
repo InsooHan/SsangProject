@@ -13,7 +13,17 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<style type="text/css">
+span.day
+{
+	float: right;
+	font-size: 11pt;
+	color: gray;
+}
+</style>
+
 <title>Insert title here</title>
+
 </head>
 <%
 //로그인 상태 확인후 로그인중에만 입력폼 보여주기
@@ -75,27 +85,41 @@ for(BoardDto dto:list)
 	
 	%>
 	<table class="table" style="width: 600px;">
-		<tr>
-			<td>
-				<b><%=name%></b>
+		<tr><td>
+			<b><%=name%></b>
 				<%
 				//로그인한 아이디
 				String myid=(String)session.getAttribute("myid");
 		
 				//로그인한 아이디와 글을 쓴 아이디가 같을 경우에만 수정, 삭제가 보이도록
-				if(loginok!=null && dto.getBoard_id().equals(myid))
+				if(loginok!=null && dto.getBoard_id().equals(myid)){%>
+					
+					|<a href="" style="color: black;">수정</a>
+					|<a href="" style="color: black;">삭제</a>
+					
+				<%}
+				%>
+				  <span class="day"><%=sdf.format(dto.getReg_date())%></span>
+			 </td>
+		</tr>
+		<tr height="120">
+			<td>
+				<%
+				if(dto.getBoard_photo()==null)
 				{%>
-					
-					<a href="" style="color: black;">수정</a>
-					<a href="" style="color: black;">삭제</a>
-					
+					<div></div>
+				<%
+				}else{%>
+				
+				<a href="save/<%=dto.getBoard_photo()%>" target="_blank">
+				<img src="save/<%=dto.getBoard_photo()%>" align="left" style="width: 100px;"></a>
 				<%
 				}
 				%>
-				  <span class="day"><%=sdf.format(dto.getReg_date())%></span>
+				<br>
+				<%=dto.getBoard_content().replace("\n", "<br>")%>
 			</td>
 		</tr>
-
 	</table> 	
 <%
 }
