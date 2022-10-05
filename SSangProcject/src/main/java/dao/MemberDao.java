@@ -133,6 +133,34 @@ public class MemberDao {
 		return name;
 	}
 	
+	//아이디 통해서 user_num 얻기
+	public String getNum(String user_id) {
+			
+			String user_num="";
+			
+			Connection conn = db.getConnection();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql="select user_num from member where user_id=?";
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next())
+					user_num=rs.getString("user_num");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				db.dbClose(rs, pstmt, conn);
+			}
+			
+			return user_num;
+		}
+	
 	//아이디 통해서 user_phone 얻기
 	public String getPhone(String user_id) {
 		
