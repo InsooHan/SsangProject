@@ -1,3 +1,4 @@
+<%@page import="dao.MemberDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="dto.ReviewDto"%>
@@ -138,6 +139,28 @@ $(function(){
 
 	// 숫자 평점을 별로 변환하도록 호출하는 함수
 	$('.star-prototype').generateStars();
+	
+	//장바구니에 담기
+	$("#btncart").click(function(){
+		
+		var formdata=$("#frm").serialize();
+		//alert(formdata);
+		
+		$.ajax({
+			
+			type:"post",
+			url:"class/cartproc.jsp",
+			dataType:"html",
+			data:formdata,
+			success:function(res){
+				
+				if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?")){
+					location.href="index.jsp?main=class/cartlist.jsp";
+				}
+			}
+		});
+		
+	});
 })
 
 /* 스크롤 이동 메서드 */
@@ -157,8 +180,21 @@ double star = rdao.getReviewStar(class_num);
 List<ReviewDto> rlist = rdao.getAllReview(class_num);
 
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+//카트에 담을때 로그인한 상태여야 하므로
+String loginok=(String)session.getAttribute("loginok");
+//로그인한 id
+String myid=(String)session.getAttribute("myid");
+//id에 해당하는 멤버테이블의 시퀀스번호(로그인한 '나'의 user_num)
+MemberDao mdao=new MemberDao();
+String user_num=mdao.getNum(myid);
+//지식공유자의 이름
+String gongname=mdao.getGongname(cldto.getUser_num());
 %>
 <body>
+<form id="frm">
+  <input type="hidden" name="class_num" value="<%=class_num%>">
+  <input type="hidden" name="user_num" value="<%=user_num%>">
 <!-- 강의 타이틀 -->
 <div class="title">
 	<!-- 강의 영상 미리보기 이미지 -->
@@ -173,7 +209,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		<span style="font-weight: bold;">(<%=star%>)</span> &nbsp;&nbsp;&nbsp;
 		<span><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
 		<br>
-		<span>지식공유자</span><br>
+		<span>지식공유자: <%=gongname %></span><br>
 	</div>
 </div>
 <br>
@@ -246,9 +282,10 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 <span><%=cldto.getClass_price() %></span><br>
 <span>할부 가격</span><br>
 <button>수강신청하기</button><br>
-<button>바구니에담기</button><br>
+<button type="button" id="btncart">바구니에담기</button><br>
 <span>관심 공유</span><br>
 
 </div>
+</form>
 </body>
 </html>
