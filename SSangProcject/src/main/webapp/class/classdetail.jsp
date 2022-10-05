@@ -1,3 +1,4 @@
+<%@page import="java.text.NumberFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="dto.ReviewDto"%>
@@ -14,6 +15,25 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">    
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
+<%
+String class_num=request.getParameter("class_num");
+ClassDao cldao = new ClassDao();
+ClassDto cldto = cldao.getClass(class_num);
+
+ReviewDao rdao = new ReviewDao();
+double star = rdao.getReviewStar(class_num);
+List<ReviewDto> rlist = rdao.getAllReview(class_num);
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+NumberFormat numberFormat = NumberFormat.getInstance();
+
+//content div에 내용 표시
+String contentpage = "detailcontent.jsp";
+//url을 통해서 content값을 읽어서 content에 출력한다
+if(request.getParameter("content")!=null) {
+	contentpage = request.getParameter("content");
+}
+%>
 <style type="text/css">
 /*강의 타이틀 style  */
 div.title{
@@ -39,21 +59,6 @@ div.move>span:hover{
 	cursor: pointer;
 	font-weight: bold;
 }
-
-div.reviewoption{
-color: lightgray;
-background-color: white;
-width: 100%;
-margin-top: 10px;
-justify-content: space-around;
-}
-div.reviewoption>span:hover{
-	color: black;
-	cursor: pointer;
-	font-weight: bold;
-	
-}
-
 div.content{
 	/* border: 1px solid black; */
 	width: 800px;
@@ -64,10 +69,14 @@ div.content{
 }
 
 div.cart{
-	border: 1px solid black;
+	border: 1px solid lightgray;
+	background-color: lightgray;
+	border-radius:20px;
 	width: 300px;
 	height: 500px;
 	margin-left: 1030px;
+	text-align: center;
+	
 }
 span.star-prototype, span.star-prototype > * {
     height: 16px; 
@@ -80,35 +89,21 @@ span.star-prototype > * {
     background-position: 0 0;
     max-width:80px; 
 }
-div.item1{
-	border: 1.5px solid lightgray;
-	border-radius: 10px;
-	height:150px;
-	width: 150px;
-	text-align: center;
-	float: left;
-}
-div.item2{
-	border: 1.5px solid lightgray;
-	border-radius: 10px;
-	height: 150px;
-	width: 400px;
-	margin-left: 155px;
-	text-align: center;
-	padding-top: 10px;
-	
-}
+
 .fixmove{position: fixed; top: 0px; z-index: 1;}
 .fixcart{position: fixed; top: 465px; z-index: 1;}
 </style>
 <script type="text/javascript">
 $(function(){
 	console.log($('div.cart').offset());
+	
 	//move클릭시 css
 	$("div.move").children().click(function(){
 		$(this).css({'color':'black','font-weight':'bold'});
-		$(this).siblings().css({'color':'black','font-weight':'normal'});
-		})
+		$(this).siblings().css({'color':'lightgray','font-weight':'normal'});
+		});
+		
+	 
 	 //특정위치부터 스크롤 따라오기 장바구니 div
 	$(window).scroll(function(){  
 		  //스크롤의 위치가 상단에서 장바구니 div를 넘어서면  
@@ -138,31 +133,27 @@ $(function(){
 
 	// 숫자 평점을 별로 변환하도록 호출하는 함수
 	$('.star-prototype').generateStars();
+	
+	
 })
-
-/* 스크롤 이동 메서드 */
+/* move 클릭 시 스크롤 이동 메서드 */
 function fnMove(seq){
+	<%if(!contentpage.equals("detailcontent.jsp")){%>
+	location.href='index.jsp?main=class/classdetail.jsp?content=detailcontent.jsp?class_num=<%=class_num%>'
+	<%}
+	%>
 	 var offset = $("#" + seq).offset();
 	 $('html, body').animate({scrollTop : offset.top}, 400);
 }
+//수강평 좋아요 순 클릭 시 ajax로 리스트 정렬
+
 </script>
 </head>
-<%
-String class_num=request.getParameter("class_num");
-ClassDao cldao = new ClassDao();
-ClassDto cldto = cldao.getClass(class_num);
-
-ReviewDao rdao = new ReviewDao();
-double star = rdao.getReviewStar(class_num);
-List<ReviewDto> rlist = rdao.getAllReview(class_num);
-
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-%>
 <body>
 <!-- 강의 타이틀 -->
 <div class="title">
 	<!-- 강의 영상 미리보기 이미지 -->
-	<img src="../class/thumbnail.png" style="width: 400px; height: 250px;
+	<img src="<%=cldto.getClass_image() %>" style="width: 400px; height: 250px;
 	position: absolute; top: 20px; left: 200px; border-radius: 30px">
 	<!-- 강의 정보 -->
 	<div style="width: 700px; height: 250px; padding: 20px 20px;
@@ -173,7 +164,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		<span style="font-weight: bold;">(<%=star%>)</span> &nbsp;&nbsp;&nbsp;
 		<span><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
 		<br>
-		<span>지식공유자</span><br>
+		<span class="glyphicon glyphicon-user"></span>
+		<span>지식공유자<span class="glyphicon glyphicon-education"></span></span>
+		
 	</div>
 </div>
 <br>
@@ -182,73 +175,29 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 <div class="move">
 <span class="btnclass" onclick="fnMove('introduce')">강의 소개</span> &nbsp;&nbsp;&nbsp;
 <span class="btnclass " onclick="fnMove('score')">수강 평</span>&nbsp;&nbsp;&nbsp;
-<span class="btnclass" onclick="fnMove('inquiry')">수강전 문의</span>&nbsp;&nbsp;&nbsp;
-<span class="btnclass" onclick="fnMove('community')">커뮤니티</span>
+<span class="btnclass" onclick=
+"location.href='index.jsp?main=class/classdetail.jsp?content=inquiry.jsp?class_num=<%=class_num%>'">수강전 문의</span>&nbsp;&nbsp;&nbsp;
+<span class="btnclass" onclick=
+"location.href='index.jsp?main=class/classdetail.jsp?content=community.jsp?class_num=<%=class_num%>'">커뮤니티</span>
 <br>
 <hr>
 </div>
-<br><br><br><br>
+<br><br>
 
 <!-- 강의소개 수강평 수강전 문의 커뮤니티 div -->
 <div class="content">
-<div id="introduce">강의 소개</div>
-<div id="score"> 
-  <span style="font-size: 1.5em; font-weight: bold;">수강평</span>&nbsp;&nbsp;
-  <span style="color: lightgray; font-size: 1.2em;">총<%=rdao.getTotalCount(class_num) %>개</span> <br><br>
-  <span>수강생분들이 직접 작성하신 수강평입니다. 수강평을 작성 시 300잎이 적립됩니다.</span><br><br>
-    <div class="item1">
-      <h1><%=star %></h1>
-      <span class="star-prototype" style="text-align: left;"><%=star %></span><br>
-      <span style="color: lightgray;"><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
-    </div>
-    <div class="item2">
-      <span>5점</span><br>
-      <span>4점</span><br>
-      <span>3점</span><br>
-      <span>2점</span><br>
-      <span>1점</span><br>
-    </div>
-  <div class="reviewoption">
-  	<span style="color: black; font-weight: bold; cursor: default;">VIEW |</span>
-    <span class="glyphicon glyphicon-triangle-bottom " >좋아요 순</span> &nbsp;&nbsp;&nbsp;
-    <span class="glyphicon glyphicon-triangle-bottom" >최신 순</span>&nbsp;&nbsp;&nbsp;
-    <span class="glyphicon glyphicon-triangle-bottom" >평점 높은 순</span>&nbsp;&nbsp;&nbsp;
-    <span class="glyphicon glyphicon-triangle-bottom" >평점 낮은 순</span>
-    <br>
-    <hr>
-  </div>
-  <table class="table">
-      <%
-      for(ReviewDto rdto : rlist){%>
-    	  <tr>
-    	    <td>
-    	    
-    	      <img src="../image/review_img.png" style="width: 50px; height: 50px; border-radius: 100px">
-    	      <span class="star-prototype" style="text-align: left;"><%=rdto.getReviewstar() %></span>
-    	      <span style="font-size: 1.2em;"><%=rdto.getReviewstar() %></span><br>
-    	      <span>사용자 이름</span>
-    	      <br>
-    	      <span><%=rdto.getReview_content() %></span><br>
-    	      <span style="color: lightgray;"><%=sdf.format(rdto.getReg_date()) %></span>
-    	      <span class="glyphicon glyphicon-heart-empty" style="float: right;"><%=rdto.getReview_chu()%></span>
-    	    </td>
-    	  </tr>
-      <%}
-      %>
-    </table>
-</div>
-<div id="inquiry" >수강 전 문의</div>
-<div id="community">커뮤니티</div>
+	<jsp:include page="<%=contentpage%>"/>
 </div>
 
 <!-- 수강바구니 div -->
-<div class="cart" align="center">
-<span><%=cldto.getClass_price() %></span><br>
-<span>할부 가격</span><br>
-<button>수강신청하기</button><br>
-<button>바구니에담기</button><br>
-<span>관심 공유</span><br>
-
+<div class="cart">
+<div style="border-radius:20px; background-color: white; width: 300px;">
+<h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
+<button style="width: 260px;height: 50px;" class="btn btn-success">수강신청하기</button><br>
+<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light">바구니에담기</button><br>
+<span>관심</span>
+<span>공유</span><br>
+</div>
 </div>
 </body>
 </html>
