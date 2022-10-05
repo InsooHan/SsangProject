@@ -1,3 +1,4 @@
+<%@page import="dao.ClassDao"%>
 <%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -52,6 +53,24 @@
 		margin-right: 10px;
 		border: 1px solid gray;
 	}
+	
+	.count{
+        color: white;
+        width: 25px;
+        height: 25px;
+        float: right;
+        background-color: red;
+        border-radius: 100px;
+        text-align: center;
+        font-weight: bold;
+        z-index: 10;
+        position: relative;
+        left: -25px;
+        top: 50px;
+        line-height: 25px;
+        font-size: 0.7em;
+        cursor: pointer;
+   }
 </style>
 </head>
 
@@ -159,6 +178,10 @@
 					MemberDao dao = new MemberDao();
 					String name = dao.getName(myid);
 					
+					//카트에 담긴 상품갯수
+					ClassDao cdao=new ClassDao();
+					int cartSize=cdao.getCartList(myid).size();
+					
 					//로그아웃 상태
 					if(loginok==null) {%>
 	                    <li><button type="button" class="btn btn-outline-secondary login"
@@ -169,6 +192,8 @@
 					else {%>
 						<li>
 							<a href="index.jsp?main=login/loginmain.jsp"><i class="fa fa-user-o user" aria-hidden="true"></i></a>
+							<a href="index.jsp?main=class/cartlist.jsp"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+							<span class="count" onclick="location.href='index.jsp?main=class/cartlist.jsp'"><%=cartSize %></span>
 						</li>
 						<li>
 							<button type="button" class="btn btn-secondary" style="width: 100px;" 

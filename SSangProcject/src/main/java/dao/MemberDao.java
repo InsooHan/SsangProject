@@ -133,16 +133,16 @@ public class MemberDao {
 		return name;
 	}
 	
-	//아이디 통해서 user_num 얻기
-	public String getNum(String user_id) {
+	//아이디 통해서 user_phone 얻기
+	public String getPhone(String user_id) {
 		
-		String user_num="";
+		String user_phone="";
 		
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql="select user_num from member where user_id=?";
+		String sql="select user_phone from member where user_id=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -150,7 +150,7 @@ public class MemberDao {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next())
-				user_num=rs.getString("user_num");
+				user_phone=rs.getString("user_phone");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,7 +158,7 @@ public class MemberDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
-		return user_num;
+		return user_phone;
 	}
 	
 	//지식공유자(gong=1)의 user_num에 대한 이름 반환
