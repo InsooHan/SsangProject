@@ -149,7 +149,7 @@
                       <li><a href="index.jsp?main=qusans/qusanslist.jsp" class="nav-link">질문 & 답변</a></li>
                       <li><a href="#" class="nav-link">자유주제</a></li>
                       <li><a href="#" class="nav-link">스터디</a></li>
-                      <li><a href="#" class="nav-link">블로그</a></li>
+                      <li><a href="index.jsp?main=board/boardguestlist.jsp" class="nav-link">자유 게시판</a></li>
                     </ul>
                   </li>
 				<%
