@@ -468,8 +468,8 @@ public class ClassDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select c.cart_num,s.class_name,s.class_num,s.class_image,s.class_price,c.cart_date"
-				+ "from cart c,class s,member m"
+		String sql="select c.cart_num,s.class_name,s.class_num,s.class_image,s.class_price,c.cart_date "
+				+ "from cart c,class s,member m "
 				+ "where c.class_num=s.class_num and c.user_num=m.user_num and m.user_id=?";
 		
 		try {
@@ -497,6 +497,27 @@ public class ClassDao {
 			db.dbClose(rs, pstmt, conn);
 		}
     	
-    	return list;
+    	return list; 
     }
+    
+    //장바구니에서 체크한 상품 삭제
+    public void deleteCart(String cart_num) {
+    	
+    	Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="delete from cart where cart_num=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, cart_num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.dbClose(pstmt, conn);
+		}
+    }
+    
 }

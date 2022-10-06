@@ -19,15 +19,12 @@
 .bodydiv{
    position: absolute;
    top: 20px;
-   left: 250px;
-   width: 1050px;
+   left: 330px;
+   width: 900px;
 }
 .search{
    float: right;
    width: 400px;
-}
-.hr{
-   width: 1050px;
 }
 .classification, .classdiv, #cart, #heart{
    cursor: pointer;
@@ -39,14 +36,13 @@
    font-size: 0.9em;
 }
 .rank{
-   top: 20px;
    float: right;
 }
 .listtb{
-   width: 1050px;
+   width: 900px;
 }
 .classdiv{
-   margin-left: 20px;
+   margin-left: 0px;
    padding-bottom: 30px;
 }
 .img:hover{
@@ -63,7 +59,7 @@
    font-size: 0.75em;
 }
 #cart{
-   margin-left: 30px;
+   margin-left: 10px;
 }
 #heart{
    margin-left: 5px;
@@ -268,7 +264,7 @@ function levelsfunc(levels){
 		dataType:"json",
 		data:{"levels":levels},
 		success:function(res){ 
-			var i=1;
+			var i=1; 
 			var s="<table><tr>";
 			$.each(res,function(idx,item){
 				
@@ -293,6 +289,7 @@ function levelsfunc(levels){
 			
 			s+="</tr></table>";
 			$(".listtb").html(s);
+			
 		}
 	}); 
 }
@@ -424,6 +421,7 @@ function allclassfunc(){
 			
 			s+="</tr></table>";
 			$(".listtb").html(s);
+			
 		}
 	});
 } 
@@ -659,7 +657,7 @@ function searchfunc(class_name){
 <!-- 강의 리스트 -->
 <table class="listtb table table-borderless"></table>
 
-<!-- 페이징 -->
+<!-- 페이징...분류한 이후 기능안먹힘. 재구현 필요 -->
 <div class="paging container mt-3">
   <ul class="pagination">
     <%
@@ -667,7 +665,7 @@ function searchfunc(class_name){
     if(startPage>1)
     {%>
        <li class="page-item active">
-         <a class="page-link" href="classlist.jsp?currentPage=<%=startPage-1%>">이전</a>
+         <a class="page-link" href="index.jsp?main=class/classlist.jsp?currentPage=<%=startPage-1%>">이전</a>
        </li>	
     <%}
     
@@ -676,11 +674,11 @@ function searchfunc(class_name){
     	if(pp==currentPage)
     	{%>
     	   <li class="page-item active">
-    	     <a class="page-link" href="classlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
+    	     <a class="page-link" href="index.jsp?main=class/classlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
     	   </li>	
     	<%}else{%>
     	   	<li>
-    	     <a class="page-link" href="classlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
+    	     <a class="page-link" href="index.jsp?main=class/classlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
     	   </li>
     	<%}
     }
@@ -689,7 +687,7 @@ function searchfunc(class_name){
     if(endPage<totalPage)
     {%>
        <li class="page-item active">
-         <a class="page-link" href="classlist.jsp?currentPage=<%=endPage+1%>">다음</a>
+         <a class="page-link" href="index.jsp?main=class/classlist.jsp?currentPage=<%=endPage+1%>">다음</a>
        </li>	
     <%}
     %>

@@ -1,3 +1,4 @@
+<%@page import="dao.MemberDao"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -19,20 +20,26 @@
 String class_num=request.getParameter("class_num");
 ClassDao cldao = new ClassDao();
 ClassDto cldto = cldao.getClass(class_num);
-
 ReviewDao rdao = new ReviewDao();
 double star = rdao.getReviewStar(class_num);
 List<ReviewDto> rlist = rdao.getAllReview(class_num);
-
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 NumberFormat numberFormat = NumberFormat.getInstance();
-
 //content div에 내용 표시
 String contentpage = "detailcontent.jsp";
 //url을 통해서 content값을 읽어서 content에 출력한다
 if(request.getParameter("content")!=null) {
 	contentpage = request.getParameter("content");
 }
+//카트에 담을때 로그인한 상태여야 하므로
+String loginok=(String)session.getAttribute("loginok");
+//로그인한 id
+String myid=(String)session.getAttribute("myid");
+//id에 해당하는 멤버테이블의 시퀀스번호(로그인한 '나'의 user_num)
+MemberDao mdao=new MemberDao();
+String user_num=mdao.getNum(myid);
+//지식공유자의 이름
+String gongname=mdao.getGongname(cldto.getUser_num());
 %>
 <style type="text/css">
 /*강의 타이틀 style  */
@@ -52,7 +59,6 @@ div.move{
 	box-sizing:border-box;
 	width: 100%;
 }
-
 /*강의소개, 수강평, 수강전문의 커뮤니티 이동 버튼 hover*/
 div.move>span:hover{
 	color: black;
@@ -67,7 +73,6 @@ div.content{
 	left: 200px;
 	flex-direction: column;
 }
-
 div.cart{
 	border: 1px solid lightgray;
 	background-color: lightgray;
@@ -89,7 +94,6 @@ span.star-prototype > * {
     background-position: 0 0;
     max-width:80px; 
 }
-
 .fixmove{position: fixed; top: 0px; z-index: 1;}
 .fixcart{position: fixed; top: 465px; z-index: 1;}
 </style>
@@ -130,23 +134,44 @@ $(function(){
 	$.fn.generateStars = function() {
 	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
 	};
-
 	// 숫자 평점을 별로 변환하도록 호출하는 함수
 	$('.star-prototype').generateStars();
 	
+	/장바구니에 담기
+	$("#btncart").click(function(){
+		
+		var formdata=$("#frm").serialize();
+		//alert(formdata);
+		
+		$.ajax({
+			
+			type:"post",
+			url:"class/cartproc.jsp",
+			dataType:"html",
+			data:formdata,
+			success:function(res){
+				
+				if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?")){
+					location.href="index.jsp?main=class/cartlist.jsp";
+				}
+			}
+		});
+		
+	});
+})
+
 	
 })
 /* move 클릭 시 스크롤 이동 메서드 */
-function fnMove(seq){
+function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>
 	location.href='index.jsp?main=class/classdetail.jsp?content=detailcontent.jsp?class_num=<%=class_num%>'
 	<%}
 	%>
-	 var offset = $("#" + seq).offset();
-	 $('html, body').animate({scrollTop : offset.top}, 400);
+	 var offset = $("#" + seq).offset();
+	 $('html, body').animate({scrollTop : offset.top}, 400);
 }
 //수강평 좋아요 순 클릭 시 ajax로 리스트 정렬
-
 </script>
 </head>
 <body>
@@ -165,7 +190,7 @@ function fnMove(seq){
 		<span><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
 		<br>
 		<span class="glyphicon glyphicon-user"></span>
-		<span>지식공유자<span class="glyphicon glyphicon-education"></span></span>
+		<span><%=gongname %><span class="glyphicon glyphicon-education"></span></span>
 		
 	</div>
 </div>
