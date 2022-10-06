@@ -77,8 +77,8 @@
 			<i class="fa fa-search search" aria-hidden="true"></i>
 		
 <%
-	String loginok = (String) session.getAttribute("loginok");
-	String myid = (String) session.getAttribute("myid");
+	String loginok = (String)session.getAttribute("loginok");
+	String myid = (String)session.getAttribute("myid");
 
 	MemberDao dao = new MemberDao();
 	String name = dao.getName(myid);

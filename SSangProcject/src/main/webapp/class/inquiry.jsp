@@ -1,3 +1,6 @@
+<%@page import="dto.InquiryDto"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.InquiryDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -5,14 +8,95 @@
 <head>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
-</head>
 <%
-
+String class_num = request.getParameter("class_num");
+String myid=(String)session.getAttribute("myid");
+InquiryDao dao=new InquiryDao();
+InquiryDto dto = new InquiryDto();
 %>
+<style type="text/css">
+.btnlist{
+border: 1px solid lightgray;
+color: lightgray;
+cursor: pointer;
+font-weight: bold;
+text-align: center;
+background-color: white;
+border-radius: 5px;
+height: 40px;
+line-height: 40px;
+}
+.btnlist:hover{
+color: green;
+}
+div.select > *{
+border: 1px solid lightgray;
+border-radius: 5px;
+height: 40px;
+line-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	//전체 문의 리스트 출력 default
+	var class_num=<%=class_num%>
+	//alert(class_num);
+	allinquirylist(class_num);
+	
+});
+// 전체 문의 list ajax
+function allinquirylist(class_num){
+	var inquiry_num=<%=dto.getInquiry_num()%>;
+	var user_num=<%=dto.getUser_num()%>;
+	var inquiry_content=<%=dto.getInquiry_content()%>;
+	var reg_date=<%=dto.getReg_date()%>;
+	var data="inquiry_num="+inquiry_num+"&user_num="+user_num+"&class_num="+<%=class_num%>+"&inquiry_content="+inquiry_content+"&reg_date="+reg_date;
+	$.ajax({
+		type:"post",
+		dataType:"json",
+		url:"class/inquirylist.jsp",
+		data:{"class_num":class_num},
+		success:function(res){
+			alert("왜안떠???");
+			/* var s="";
+			$.each(res,function(idx,item){
+				s+="<div style='border:1px solid black'>";
+				s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
+				s+="<span>"+item.user_num+"</span>";
+				s+="<span style='float:right'>"+item.inquiry_num+"</span>";
+				s+="<span style='float:right'>"+item.reg_date+"</span> <hr>";
+				s+="<span>"+item.inquiry_content+"</span>";
+				s+="</div>";
+			});
+			$("#list").html(s); */
+		}
+	});
+}
+</script>
+</head>
 <body>
-<button style="float: right" class="btn btn-dark btn-XL">작성하기</button>
+<div>
+  <button style="float: right" class="btn btn-dark btn-xl">작성하기</button>
+</div><br><br><br>
+<div style="display: flex; float: left;">
+  <button class="btnlist">전체보기</button>
+  <button class="btnlist">내 작성글 모아보기</button>
+</div>  
+<div style="display: flex; float: right;" class="select">
+  <select>
+    <option>문의 내용</option>
+    <option>문의 번호</option>
+    <option>질문자 이름</option>
+  </select>
+  <input type="text" placeholder="(으)로 검색" style="width: 300px;">
+  <button class="btn btn-success">검색</button>
+</div>
+
+<div id="list" style="display: flex; flex-direction: column;">
+
+</div>
 </body>
 </html>
