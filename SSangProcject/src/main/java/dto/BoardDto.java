@@ -3,7 +3,6 @@ package dto;
 import java.sql.Timestamp;
 
 public class BoardDto {
-
 	private String board_num;
 	private String board_id;
 	private String board_content;
