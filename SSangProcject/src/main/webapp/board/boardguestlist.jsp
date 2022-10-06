@@ -92,9 +92,10 @@ for(BoardDto dto:list)
 				
 				//로그인한 아이디와 글을 쓴 아이디가 같을 경우에만 수정, 삭제가 보이도록
 				if(loginok!=null && dto.getBoard_id().equals(myid)){%>
-				
-					|<a href="index.jsp?main=board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: black;">수정</a>
-					|<a href="" style="color: black;">삭제</a>
+					<a style="color: gray;">|</a>
+					<a href="index.jsp?main=board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">수정</a>
+					<a style="color: gray;">|</a>
+					<a href="" style="color: gray;">삭제</a>
 					
 				<%}//System.out.print(dto.getBoard_num());
 				%>

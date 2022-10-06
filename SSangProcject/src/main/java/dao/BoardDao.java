@@ -145,7 +145,7 @@ public class BoardDao {
 	}
 	
 	//update
-	public void updateGuest(BoardDto dto) {
+	public void updateBoard(BoardDto dto) {
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
