@@ -39,6 +39,8 @@ dto.setBoard_photo(board_photo);
 BoardDao dao=new BoardDao();
 dao.InsertBoard(dto);
 
+//System.out.print(realPath);
+
 response.sendRedirect("../index.jsp?main=board/boardguestlist.jsp");
 
 }catch(Exception e){

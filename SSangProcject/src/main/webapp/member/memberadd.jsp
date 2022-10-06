@@ -1,4 +1,5 @@
 <%@page import="dao.MemberDao"%>
+<%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -10,31 +11,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<title>gaipSuccess</title>
-<style type="text/css">
-	h2 {
-		margin-left: 720px;
-	}
-
-	button.home {
-		margin-left: 780px;
-	}
-</style>
+<title>insertmember</title>
 </head>
 <body>
 <%
-	String id = request.getParameter("user_id");
+	request.setCharacterEncoding("utf-8");
 
+	String user_id = request.getParameter("user_id");
+	String user_pass = request.getParameter("user_pass");
+	String user_name = request.getParameter("user_name");
+	String user_phone = request.getParameter("user_phone");
+	
+	MemberDto dto = new MemberDto();
+	dto.setUser_id(user_id);
+	dto.setUser_pass(user_pass);
+	dto.setUser_name(user_name);
+	dto.setUser_phone(user_phone);
+	
 	MemberDao dao = new MemberDao();
-	String name = dao.getName(id);
+	dao.insertMember(dto);
+	
+	response.sendRedirect("../index.jsp?main=member/gaipsuccess.jsp?user_id="+user_id);
 %>
-		<img src="image/welcome.png" style="width: 900px; margin-left: 420px;">
-	<div>
-		<br><h2><b><%=name %>님 환영합니다!</b></h2>
-		<br><br>
-		<button type="button" class="btn btn-warning home" onclick="location.href='index.jsp?'">
-			<b>홈 화면으로 가기&nbsp;<i class="fa fa-window-restore" aria-hidden="true"></i></b>
-		</button>
-	</div>
 </body>
 </html>

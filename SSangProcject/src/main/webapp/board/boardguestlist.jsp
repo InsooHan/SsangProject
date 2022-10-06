@@ -36,7 +36,7 @@ int totalPage;//총페이지
 int startPage;//각블럭시작페이지
 int endPage;//끝페이지
 int start;//시작번호
-int perPage=5;//한페이지에 보여질 글 갯수
+int perPage=1;//한페이지에 보여질 글 갯수
 int perBlock=5;// 한 블럭당 보여지는 페이지개수
 int currentPage;//현재페이지
 int no;
@@ -82,7 +82,6 @@ MemberDao mdao=new MemberDao();
 for(BoardDto dto:list)
 {
 	String name=mdao.getName(dto.getBoard_id());
-	
 	%>
 	<table class="table" style="width: 600px;">
 		<tr><td>
@@ -90,10 +89,10 @@ for(BoardDto dto:list)
 				<%
 				//로그인한 아이디
 				String myid=(String)session.getAttribute("myid");
-		
+				
 				//로그인한 아이디와 글을 쓴 아이디가 같을 경우에만 수정, 삭제가 보이도록
 				if(loginok!=null && dto.getBoard_id().equals(myid)){%>
-					
+				
 					|<a href="" style="color: black;">수정</a>
 					|<a href="" style="color: black;">삭제</a>
 					
@@ -120,10 +119,53 @@ for(BoardDto dto:list)
 				<%=dto.getBoard_content().replace("\n", "<br>")%>
 			</td>
 		</tr>
+		<tr>
+			<td>
+			<span class="answer" style="cursor: pointer;" num="<%=dto.getBoard_num() %>" >댓글</span>
+			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>">추천</span>
+			<span><%=dto.getBoard_likes() %></span>
+			</td>
+		</tr>
 	</table> 	
 <%
 }
 %>
+</div>
+<!-- 페이징 처리 -->
+<div style="width: 800px; text-align:center;" class="container" id="page">
+	<ul class="pagination">
+		<%
+		
+		//이전
+		if(startPage>1)
+		{%>
+			<li>
+				<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=startPage-1%>">이전</a>
+			</li>
+		<%}
+		for(int pp=startPage;pp<=endPage;pp++)
+		{
+			if(pp==currentPage)
+			{%>
+				<li class="active">
+					<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+				</li>
+			<%}else{%>
+				<li>
+					<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+				</li>
+			<%}
+		}
+		
+		//다음
+		if(endPage<totalPage)
+		{%>
+			<li>
+				<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=endPage+1%>">다음</a>
+			</li>
+		<%}
+		%>
+	</ul>
 </div>
 </body>
 </html>

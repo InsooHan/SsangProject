@@ -46,7 +46,7 @@ a {
 
 .top-bar {
   padding: .5rem 0;
-  /* background: #eee; */ }
+   background: #eee;  }
   .top-bar a {
     color: #666666; }
 
@@ -97,9 +97,9 @@ a {
         .site-navbar .site-navigation .site-menu > li > a:hover {
           color: #007bff; }
     .site-navbar .site-navigation .site-menu .has-children {
-      position: absolute; }
+      position: relative; }
       .site-navbar .site-navigation .site-menu .has-children > a {
-        position: absolute;
+        position: relative;
         padding-right: 20px; }
         .site-navbar .site-navigation .site-menu .has-children > a:before {
           position: absolute;

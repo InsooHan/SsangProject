@@ -74,7 +74,7 @@ public class BoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from board order by num desc limit ?,?";
+		String sql="select * from board order by board_num desc limit ?,?";
 		
 		
 		try {
@@ -91,7 +91,7 @@ public class BoardDao {
 				dto.setBoard_content(rs.getString("board_content"));
 				dto.setBoard_photo(rs.getString("board_photo"));
 				dto.setBoard_photo(rs.getString("board_photo"));
-				dto.setBoard_likes(rs.getInt("board_likes,"));
+				dto.setBoard_likes(rs.getInt("board_likes"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
 				
 				list.add(dto);
@@ -116,7 +116,7 @@ public class BoardDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from board where num=?";
+		String sql="select * from board where board_num=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -130,7 +130,7 @@ public class BoardDao {
 				dto.setBoard_content(rs.getString("board_content"));
 				dto.setBoard_photo(rs.getString("board_photo"));
 				dto.setBoard_photo(rs.getString("board_photo"));
-				dto.setBoard_likes(rs.getInt("board_likes,"));
+				dto.setBoard_likes(rs.getInt("board_likes"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
 				
 			}
