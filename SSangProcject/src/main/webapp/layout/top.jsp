@@ -1,3 +1,4 @@
+<%@page import="dao.ClassDao"%>
 <%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
@@ -82,6 +83,9 @@
 
 	MemberDao dao = new MemberDao();
 	String name = dao.getName(myid);
+	
+	ClassDao cdao=new ClassDao();
+	int cartSize=cdao.getCartList(myid).size();
 
 	//로그아웃 상태
 	if (loginok == null) {
@@ -95,7 +99,7 @@
 	%>
 		<div class="cart">
 			<a href=""><i class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>	
-			<div class="count">0</div>	
+			<div class="count" onclick="location.href='index.jsp?main=class/cartlist.jsp'"><%=cartSize %></div>	
 		</div>
 		<a href="index.jsp?main=login/loginmain.jsp"><i class="fa fa-user-o user" aria-hidden="true"></i></a>
 		<button type="button" class="btn btn-secondary" style="width: 90px;"

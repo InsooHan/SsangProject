@@ -16,10 +16,14 @@
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <style type="text/css">
+.divclass{
+   position: absolute;
+   left: 50px;
+}
 .bodydiv{
    position: absolute;
    top: 20px;
-   left: 330px;
+   left: 300px;
    width: 900px;
 }
 .search{
@@ -546,28 +550,25 @@ function searchfunc(class_name){
 </head>
 <body>
 <!-- 강의 분류 -->
-<div class="container mt-3">
+<div class="divclass container mt-3">
   <div class="btn-group-vertical">
     <button type="button" class="allclass btn btn-light">전체 강의</button>
     <div class="btn-group">
-      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">개발/프로그래밍</button>
+      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">개발 · 프로그래밍</button>
       <ul class="dropdown-menu">
         <li><a class="all dropdown-item" href="#">ALL</a></li>
-        <li><a class="sub dropdown-item" href="#">HTML/CSS</a></li>
-        <li><a class="sub dropdown-item" href="#">JavaScript</a></li>
-        <li><a class="sub dropdown-item" href="#">Python</a></li>
-        <li><a class="sub dropdown-item" href="#">PHP</a></li>
-        <li><a class="sub dropdown-item" href="#">MySQL</a></li>
+        <li><a class="sub dropdown-item" href="#">웹 개발</a></li>
+        <li><a class="sub dropdown-item" href="#">프론트엔드</a></li>
+        <li><a class="sub dropdown-item" href="#">백엔드</a></li>
       </ul>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">보안/네트워크</button>
+      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">보안 · 네트워크</button>
       <ul class="dropdown-menu">
         <li><a class="all dropdown-item" href="#">ALL</a></li>
         <li><a class="sub dropdown-item" href="#">보안</a></li>
         <li><a class="sub dropdown-item" href="#">네트워크</a></li>
-        <li><a class="sub dropdown-item" href="#">클라우드</a></li>
-        <li><a class="sub dropdown-item" href="#">블록체인</a></li>
+        <li><a class="sub dropdown-item" href="#">시스템</a></li>
       </ul>
     </div>
     <div class="btn-group">
@@ -577,7 +578,6 @@ function searchfunc(class_name){
         <li><a class="sub dropdown-item" href="#">데이터 분석</a></li>
         <li><a class="sub dropdown-item" href="#">인공지능</a></li>
         <li><a class="sub dropdown-item" href="#">데이터 시각화</a></li>
-        <li><a class="sub dropdown-item" href="#">데이터 수집</a></li>
       </ul>
     </div>
     <div class="btn-group">
@@ -586,26 +586,16 @@ function searchfunc(class_name){
         <li><a class="all dropdown-item" href="#">ALL</a></li>
         <li><a class="sub dropdown-item" href="#">게임 프로그래밍</a></li>
         <li><a class="sub dropdown-item" href="#">게임 기획</a></li>
-        <li><a class="sub dropdown-item" href="#">게임 아트</a></li>
+        <li><a class="sub dropdown-item" href="#">게임 아트 · 그래픽</a></li>
       </ul>
     </div>
      <div class="btn-group">
-      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">커리어</button>
+      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">크리에이티브</button>
       <ul class="dropdown-menu">
         <li><a class="all dropdown-item" href="#">ALL</a></li>
-        <li><a class="sub dropdown-item" href="#">취업</a></li>
-        <li><a class="sub dropdown-item" href="#">이직</a></li>
-        <li><a class="sub dropdown-item" href="#">브랜딩</a></li>
-      </ul>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">학문/외국어</button>
-      <ul class="dropdown-menu">
-        <li><a class="all dropdown-item" href="#">ALL</a></li>
-        <li><a class="sub dropdown-item" href="#">영어</a></li>
-        <li><a class="sub dropdown-item" href="#">일본어</a></li>
-        <li><a class="sub dropdown-item" href="#">프랑스어</a></li>
-        <li><a class="sub dropdown-item" href="#">이탈리아어</a></li>
+        <li><a class="sub dropdown-item" href="#">CAD · 3D 모델링</a></li>
+        <li><a class="sub dropdown-item" href="#">웹 퍼블리싱</a></li>
+        <li><a class="sub dropdown-item" href="#">UX/UI</a></li>
       </ul>
     </div>
   </div>
@@ -642,7 +632,7 @@ function searchfunc(class_name){
 </div>
 
 <!-- 순위 -->
-<div class="rank dropdown">
+<!-- <div class="rank dropdown">
   <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
     순위별
   </button>
@@ -652,13 +642,13 @@ function searchfunc(class_name){
     <li><a class="dropdown-item" href="#">낮은가격</a></li>
     <li><a class="dropdown-item" href="#">높은가격</a></li>
   </ul>
-</div>
+</div> -->
 
 <!-- 강의 리스트 -->
 <table class="listtb table table-borderless"></table>
 
 <!-- 페이징...분류한 이후 기능안먹힘. 재구현 필요 -->
-<div class="paging container mt-3">
+<%-- <div class="paging container mt-3">
   <ul class="pagination">
     <%
     //이전
@@ -692,7 +682,7 @@ function searchfunc(class_name){
     <%}
     %>
   </ul>
-</div>
+</div> --%>
 
 </div>
 </body>
