@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="dto.InquiryDto"%>
@@ -7,12 +8,8 @@
     pageEncoding="utf-8"%>
 <%
 request.setCharacterEncoding("utf-8");
-
 String class_num = request.getParameter("class_num");
-
-System.out.print(class_num);
-System.out.print("제이슨은잘떠");
-
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 InquiryDao dao = new InquiryDao();
 List<InquiryDto> list = dao.getAllInquiry(class_num);
 JSONArray arr = new JSONArray();
@@ -22,7 +19,7 @@ for(InquiryDto dto:list){
 	ob.put("user_num", dto.getUser_num());
 	ob.put("class_num",dto.getClass_num());
 	ob.put("inquiry_content",dto.getInquiry_content());
-	ob.put("reg_date",dto.getReg_date());
+	ob.put("reg_date",sdf.format(dto.getReg_date()));
 	arr.add(ob);
 }
 %>
