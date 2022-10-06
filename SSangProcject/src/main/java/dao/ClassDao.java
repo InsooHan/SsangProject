@@ -50,7 +50,6 @@ public class ClassDao {
 			}
 			return dto;
 		}
-		
 	//전체출력
 	public List<ClassDto> getAllDatas(){
 		
