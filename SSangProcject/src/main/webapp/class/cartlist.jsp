@@ -136,7 +136,7 @@ $(function(){
 	var cnt=$(".cart_num:checked").length;
 	if(cnt==0) $(".selectprice").html("0원");
 		
-	$(".cart_num").click(function(){
+	$(".cart_num").click(function(){ 
 		
 		var cnt=$(".cart_num:checked").length;
 		if(cnt==0) $(".selectprice").html("0원");

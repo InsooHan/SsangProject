@@ -498,7 +498,7 @@ public class ClassDao {
 			db.dbClose(rs, pstmt, conn);
 		}
     	
-    	return list;
+    	return list; 
     }
     
     //장바구니에서 체크한 상품 삭제

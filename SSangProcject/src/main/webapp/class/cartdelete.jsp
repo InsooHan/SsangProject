@@ -5,5 +5,5 @@
 String cart_num=request.getParameter("cart_num");
 
 ClassDao dao=new ClassDao();
-dao.deleteCart(cart_num);
+dao.deleteCart(cart_num); 
 %>
