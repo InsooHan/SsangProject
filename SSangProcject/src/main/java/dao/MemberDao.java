@@ -18,7 +18,7 @@ public class MemberDao {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
 		
-		String sql = "INSERT INTO member VALUES (null,?,?,?,?,?,?)";
+		String sql = "INSERT INTO member VALUES (null,?,?,?,?,0,0)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -27,8 +27,6 @@ public class MemberDao {
 			pstmt.setString(2, dto.getUser_pass());
 			pstmt.setString(3, dto.getUser_name());
 			pstmt.setString(4, dto.getUser_phone());
-			pstmt.setInt(5, dto.getGong());
-			pstmt.setInt(6, dto.getMentor());
 			
 			pstmt.execute();
 			

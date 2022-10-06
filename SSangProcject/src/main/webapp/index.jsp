@@ -9,18 +9,27 @@
 	div.layout {
 		position: absolute;
 	}
+	
+	div.top {
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		font-size: 14px;
+		text-align: center;
+		top: 20px;
+	}
 
 	div.menu {
 		width: 100%;
 		height: 30px;
 		line-height: 30px;
-		top: 0px;
+		top: 50px;
 	}
 	
 	div.main {
 		width: 100%;
 		left: 0px;
-		top: 160px;
+		top: 150px;
 	}
 	
 	a, a:hover {
@@ -38,6 +47,9 @@
 	}
 %>
 <body>
+	<div class="layout top">
+		<jsp:include page="layout/top.jsp"/>
+	</div>
 	<div class="layout menu">
 		<jsp:include page="layout/menu.jsp"/>
 	</div>
