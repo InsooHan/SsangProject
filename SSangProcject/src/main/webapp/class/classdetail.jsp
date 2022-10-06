@@ -13,7 +13,7 @@
 <head>
 <meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
 <%
@@ -137,7 +137,7 @@ $(function(){
 	// 숫자 평점을 별로 변환하도록 호출하는 함수
 	$('.star-prototype').generateStars();
 	
-	/장바구니에 담기
+	//장바구니에 담기
 	$("#btncart").click(function(){
 		
 		var formdata=$("#frm").serialize();
@@ -159,13 +159,10 @@ $(function(){
 		
 	});
 })
-
-	
-})
 /* move 클릭 시 스크롤 이동 메서드 */
 function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>
-	location.href='index.jsp?main=class/classdetail.jsp?content=detailcontent.jsp?class_num=<%=class_num%>'
+	location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num%>&content=detailcontent.jsp?class_num=<%=class_num%>'
 	<%}
 	%>
 	 var offset = $("#" + seq).offset();
@@ -201,9 +198,9 @@ function fnMove(seq){
 <span class="btnclass" onclick="fnMove('introduce')">강의 소개</span> &nbsp;&nbsp;&nbsp;
 <span class="btnclass " onclick="fnMove('score')">수강 평</span>&nbsp;&nbsp;&nbsp;
 <span class="btnclass" onclick=
-"location.href='index.jsp?main=class/classdetail.jsp?content=inquiry.jsp?class_num=<%=class_num%>'">수강전 문의</span>&nbsp;&nbsp;&nbsp;
+"location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num %>&content=inquiry.jsp?class_num=<%=class_num%>'">수강전 문의</span>&nbsp;&nbsp;&nbsp;
 <span class="btnclass" onclick=
-"location.href='index.jsp?main=class/classdetail.jsp?content=community.jsp?class_num=<%=class_num%>'">커뮤니티</span>
+"location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num %>&content=community.jsp?class_num=<%=class_num%>'">커뮤니티</span>
 <br>
 <hr>
 </div>
