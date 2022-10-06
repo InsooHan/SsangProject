@@ -49,19 +49,14 @@ $(function(){
 });
 // 전체 문의 list ajax
 function allinquirylist(class_num){
-	var inquiry_num=<%=dto.getInquiry_num()%>;
-	var user_num=<%=dto.getUser_num()%>;
-	var inquiry_content=<%=dto.getInquiry_content()%>;
-	var reg_date=<%=dto.getReg_date()%>;
-	var data="inquiry_num="+inquiry_num+"&user_num="+user_num+"&class_num="+<%=class_num%>+"&inquiry_content="+inquiry_content+"&reg_date="+reg_date;
 	$.ajax({
 		type:"post",
 		dataType:"json",
 		url:"class/inquirylist.jsp",
 		data:{"class_num":class_num},
 		success:function(res){
-			alert("왜안떠???");
-			/* var s="";
+			console.log(res);
+			 var s="";
 			$.each(res,function(idx,item){
 				s+="<div style='border:1px solid black'>";
 				s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
@@ -69,9 +64,9 @@ function allinquirylist(class_num){
 				s+="<span style='float:right'>"+item.inquiry_num+"</span>";
 				s+="<span style='float:right'>"+item.reg_date+"</span> <hr>";
 				s+="<span>"+item.inquiry_content+"</span>";
-				s+="</div>";
+				s+="</div><br><br>";
 			});
-			$("#list").html(s); */
+			$("#list").html(s); 
 		}
 	});
 }
@@ -94,7 +89,7 @@ function allinquirylist(class_num){
   <input type="text" placeholder="(으)로 검색" style="width: 300px;">
   <button class="btn btn-success">검색</button>
 </div>
-
+<br><br><br>
 <div id="list" style="display: flex; flex-direction: column;">
 
 </div>
