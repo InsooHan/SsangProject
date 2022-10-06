@@ -36,7 +36,7 @@ int totalPage;//총페이지
 int startPage;//각블럭시작페이지
 int endPage;//끝페이지
 int start;//시작번호
-int perPage=1;//한페이지에 보여질 글 갯수
+int perPage=2;//한페이지에 보여질 글 갯수
 int perBlock=5;// 한 블럭당 보여지는 페이지개수
 int currentPage;//현재페이지
 int no;
