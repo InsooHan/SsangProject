@@ -11,8 +11,10 @@
 <head>
 <meta charset="utf-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/4ea0bf99ed.js" crossorigin="anonymous"></script>
 <style type="text/css">
 span.day
 {
@@ -21,7 +23,67 @@ span.day
 	color: gray;
 }
 </style>
-
+<script type="text/javascript">
+$(function() {
+	
+	$("span.likes").click(function() {
+		
+		var num=$(this).attr("num");
+		var tag=$(this)
+		console.log(num);
+		
+		$.ajax({
+			type:"get",
+			dataType:"json",
+			url:"board/boardlikes.jsp",
+			data:{"num":num},
+			success:function(res){
+				//alert(res.board_likes)
+				tag.next().text(res.board_likes);
+				tag.next().next().animate({"font-size":"20px"},1500,function(){
+					
+					$(this).css("font-size","0px");
+				});
+				
+			}
+		});
+		
+	});
+	/*
+	//댓글 부분은 처음엔 안보이게 처리
+	$("div.answer").hide();
+	
+	//댓글 클릭하면 나오게 처리
+	$("span.answer").click(function() {
+		//$("div.answer").toggle(); //밑에 방법대로 해보기, 이렇게도 가능
+		$(this).parent().find("div.answer").toggle();
+	});
+	
+	$("#adel").click(function() {
+		var idx=$(this).attr("idx");
+		
+		//alert(idx);
+		
+		$.ajax({
+			type:"get",
+			dataType:"html",
+			url:"guest/deleteanswer.jsp",
+			data:{"idx":idx},
+			success:function(){
+				alert("삭제 완료")
+				//location.reload();
+			}
+			
+			
+			
+		});
+		
+		
+		
+	});*/
+	
+});
+</script>
 <title>Insert title here</title>
 
 </head>
@@ -85,7 +147,7 @@ for(BoardDto dto:list)
 	%>
 	<table class="table" style="width: 600px;">
 		<tr><td>
-			<b><%=name%></b>
+			<b><i class="fa-solid fa-user"></i><%=name%></b>
 				<%
 				//로그인한 아이디
 				String myid=(String)session.getAttribute("myid");
@@ -95,24 +157,27 @@ for(BoardDto dto:list)
 					<a style="color: gray;">|</a>
 					<a href="index.jsp?main=board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">수정</a>
 					<a style="color: gray;">|</a>
-					<a href="board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">삭제</a>
+					<a href="board/boarddelete.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">삭제</a>
 					
 				<%}//System.out.print(dto.getBoard_num());
 				%>
 				  <span class="day"><%=sdf.format(dto.getReg_date())%></span>
 			 </td>
 		</tr>
-		<tr height="120">
+		<tr height="200">
 			<td>
 				<%
 				if(dto.getBoard_photo()==null)
 				{%>
-					<div></div>
+					<a href="save/<%=dto.getBoard_photo()%>" target="_blank">
+					<img src="image/review_img.png" align="left" style="width: 100px; height: 100px;"></a>
 				<%
 				}else{%>
 				
 				<a href="save/<%=dto.getBoard_photo()%>" target="_blank">
+				
 				<img src="save/<%=dto.getBoard_photo()%>" align="left" style="width: 100px;"></a>
+				<!-- 사진 크기 -->
 				<%
 				}
 				%>
@@ -125,6 +190,7 @@ for(BoardDto dto:list)
 			<span class="answer" style="cursor: pointer;" num="<%=dto.getBoard_num() %>" >댓글</span>
 			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>">추천</span>
 			<span><%=dto.getBoard_likes() %></span>
+			<i class="fa-solid fa-heart" style="color:red;font-size:0px"></i>
 			</td>
 		</tr>
 	</table> 	
@@ -141,7 +207,7 @@ for(BoardDto dto:list)
 		if(startPage>1)
 		{%>
 			<li>
-				<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=startPage-1%>">이전</a>
+				<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=startPage-1%>">이전</a>
 			</li>
 		<%}
 		for(int pp=startPage;pp<=endPage;pp++)
@@ -149,11 +215,11 @@ for(BoardDto dto:list)
 			if(pp==currentPage)
 			{%>
 				<li class="active">
-					<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+					<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
 				</li>
 			<%}else{%>
 				<li>
-					<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+					<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
 				</li>
 			<%}
 		}
@@ -162,7 +228,7 @@ for(BoardDto dto:list)
 		if(endPage<totalPage)
 		{%>
 			<li>
-				<a href="index.jsp?main=board/boardguestlist.jsp?currentPage=<%=endPage+1%>">다음</a>
+				<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=endPage+1%>">다음</a>
 			</li>
 		<%}
 		%>

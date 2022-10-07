@@ -188,7 +188,7 @@ public class BoardDao {
 		}
 	}
 	
-	//추천
+	//추천클릭시 추천수 증가
 	public void updateBoard_likes(String num) {
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
