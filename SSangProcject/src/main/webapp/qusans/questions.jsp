@@ -10,29 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <script type="text/javascript">
-$(function() {
-//	$("#btnsearch").click(function() {
-//		location.href="index.jsp?main=qusans/qusanslistsearch.jsp";
-//	});
 
-	$("#btnwrite").click(function() {
-		//alert("글쓰기입니다!");
-		<%
-		
-		//로그인 상태 확인 위한 session의 속성 가져오기
-		String loginok=(String)session.getAttribute("loginok");
-		
-		if(loginok!=null)
-		{%>
-			location.href="index.jsp?main=qusans/qusansinsertform.jsp";
-		<%}else{
-			%>
-			alert("먼저 로그인을 해주세요!");
-			location.href="index.jsp?main=login/loginform.jsp";
-		<%}
-		%>
-	});
-});
 </script>
     
 
@@ -92,7 +70,7 @@ try{
 	PreparedStatement pt = conn.prepareStatement(sql);
 	ResultSet rs = pt.executeQuery();
 	while(rs.next()){
-		QuestionDto data = new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+		QuestionDto data = new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getTimestamp(6),rs.getInt(7));
 		
 		nowP_list.add(data);
 	}
@@ -217,7 +195,7 @@ if(nowP_list.size() ==0){
         <div class="question__info-footer">
           <span class="question__info-user-name"><%=data.getQue_id() %></span>
           <span>&nbsp;·&nbsp;</span>
-          <span><%=data.getQue_date() %></span>
+          <span><%=data.getQue_datetime() %></span>
           <span>&nbsp;·&nbsp;</span>
           <span class="question__info-course-title"></span>
         </div>
