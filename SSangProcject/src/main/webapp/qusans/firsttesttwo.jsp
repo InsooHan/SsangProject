@@ -37,10 +37,10 @@ String content=multi.getParameter("content");
 String photoname=multi.getFilesystemName("photo");
 
 
-dto.setAns_id(myid);
+dto.setAns_id("임의아이디");
 dto.setAns_content(content);
-dto.setImage(photoname);
-dto.setQue_num(num);
+dto.setImage("임의이미지");
+dto.setQue_num("1");
 
 dao.insertAnswer(dto);
 
