@@ -5,8 +5,10 @@
 <head>
 <meta charset="utf-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/4ea0bf99ed.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	
 	$(function() {
@@ -32,12 +34,11 @@
 <body>
 <!-- 이미지 미리보기할 위치 -->
 <img alt="" src="" id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;">
-
 <form action="board/boardaddaction.jsp" method="post" enctype="multipart/form-data">
 	<table style="width: 600px;">
 		<caption>
 			<b>자유 게시판 등록</b>
-			<span class="camera" style="cursor: pointer;">사진첨부</span>
+			<span class="camera" style="cursor: pointer;"><i class="fa-solid fa-camera">사진</i></span>
 			<input type="file" name="photo" id="photo" style="visibility: hidden;" onchange="readURL(this)">
 		</caption>
 		

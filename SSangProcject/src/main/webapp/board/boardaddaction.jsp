@@ -43,7 +43,7 @@ dao.InsertBoard(dto);
 
 //System.out.print(realPath);
 
-response.sendRedirect("../index.jsp?main=board/boardguestlist.jsp");
+response.sendRedirect("../index.jsp?main=board/boardlist.jsp");
 
 }catch(Exception e){
 	System.out.println("업로드 오류:"+ e.getMessage());
