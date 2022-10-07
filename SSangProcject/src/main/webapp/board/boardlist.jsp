@@ -95,7 +95,7 @@ for(BoardDto dto:list)
 					<a style="color: gray;">|</a>
 					<a href="index.jsp?main=board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">수정</a>
 					<a style="color: gray;">|</a>
-					<a href="" style="color: gray;">삭제</a>
+					<a href="board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">삭제</a>
 					
 				<%}//System.out.print(dto.getBoard_num());
 				%>
