@@ -15,6 +15,7 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -64,8 +65,11 @@
    width: 250px;
    border: 1px solid lightgray;
 }
-.paybtn{
+.paybtn, .inicisbtn{
    width: 230px;
+}
+.paybtn{
+   background-color: #fef01b; color: black; border: #fef01b;
 }
 </style>
 <script type="text/javascript">
@@ -87,15 +91,19 @@ $(function(){
 		//전체 체크값을 글 앞의 체크값에 일괄전달
 		$(".cart_num").prop("checked",chk);
 		
-		//바로 선택상품가격에 바로 출력되도록
+		//바로 선택상품가격에 바로 출력되도록, 전체상품가격에도 출력
 		var cnt=$(".cart_num:checked").length;
-		if(cnt==0) $(".selectprice").html("0원");
+		if(cnt==0) {
+			$(".selectprice").html("0");
+			$(".endprice").html("0");
+		}
 		
 		var price=0;
 		
 		$(".cart_num:checked").each(function(i,ele){
 			price+=parseInt($(this).attr("class_price"));
-			$(".selectprice").html(price+"원");
+			$(".selectprice").html(price);
+			$(".endprice").html(price);
 		});
 	});
 	
@@ -132,20 +140,27 @@ $(function(){
 		location.reload();
 	});
 	
-	//개별 체크할때마다 선택상품가격에 바로 출력되도록
+	//개별 체크할때마다 선택상품가격에 바로 출력되도록,전체상품가격에도 출력
 	var cnt=$(".cart_num:checked").length;
-	if(cnt==0) $(".selectprice").html("0원");
+	if(cnt==0){
+		$(".selectprice").html("0");
+		$(".endprice").html("0");
+	}
 		
 	$(".cart_num").click(function(){ 
 		
 		var cnt=$(".cart_num:checked").length;
-		if(cnt==0) $(".selectprice").html("0원");
+		if(cnt==0) {
+			$(".selectprice").html("0");
+			$(".endprice").html("0");
+		}
 		
 	    var price=0;
 		
 		$(".cart_num:checked").each(function(i,ele){
 			price+=parseInt($(this).attr("class_price"));
-			$(".selectprice").html(price+"원");
+			$(".selectprice").html(price);
+			$(".endprice").html(price);
 		});
 		
 	});
@@ -164,7 +179,6 @@ function del(cart_num){
 		}
 	});
 }
-
 </script>
 </head>
 <body>
@@ -248,18 +262,102 @@ MemberDao mdao=new MemberDao();
 <table class="paytb table table-borderless">
   <tr>
     <td>선택상품금액</td>
-    <td class="selectprice"></td>
+    <td><span class="selectprice"></span>원</td>
   </tr>
   <tr>
     <th>총 결제금액</th>
-    <th class="endprice"></th>
+    <th><span class="endprice"></span>원</th>
+  </tr>
+  <!-- <tr>
+    <td colspan="2">
+      <button type="button" class="btn btn-success" onclick="window.open('class/paymentpage.jsp','',
+    		  'width=400,height=200,left=500,top=300')">결제하기</button>
+    </td>
+  </tr> -->
+  <tr>
+    <td colspan="2">
+      <button type="button" class="paybtn btn">카카오페이</button>
+    </td>
   </tr>
   <tr>
     <td colspan="2">
-      <button type="button" class="paybtn btn btn-success">결제하기</button>
+      <button type="button" class="inicisbtn btn btn-danger">KG이니시스</button>
     </td>
   </tr>
 </table>
+
+<script type="text/javascript">
+//카카오페이
+IMP.init('imp00408122');
+
+$(".paybtn").click(function(){
+	IMP.request_pay({
+		
+		pg: "kakaopay",
+		pay_method: "card",
+		merchant_uid: "iamport_sist4_id",
+		name: "온라인 강의",
+		amount: $(".endprice").html(),
+		buyer_name: "<%=mdao.getName(myid)%>",
+		buyer_tel: "<%=mdao.getPhone(myid) %>"
+	}, function(rsp){
+		console.log(rsp);
+		
+		if(rsp.success){
+			
+			var msg="결제가 완료되었습니다.";
+			//msg+="\n고유ID : " + rsp.imp_uid;
+			//msg+="\n상점거래ID : " + rsp.merchant_uid; 
+			msg+="\n결제금액 : " + rsp.paid_amount + " 원";
+			
+			location.href="index.jsp?main=class/paysuccess.jsp?msg="+msg;
+			} else {
+			
+			var msg="결제에 실패하였습니다.";
+			msg+=rsp.error_msg;
+			
+			//실패시 reload
+			location.reload();
+			}
+		    alert(msg);
+	});	
+});
+
+//KG이니시스
+$(".inicisbtn").click(function(){
+	IMP.request_pay({
+		
+		pg: "html5_inicis",
+		pay_method: "card",
+		merchant_uid: "iamport_sist4_id_2",
+		name: "온라인 강의",
+		amount: $(".endprice").html(),
+		buyer_name: "<%=mdao.getName(myid)%>",
+		buyer_tel: "<%=mdao.getPhone(myid) %>"
+	}, function(rsp){
+		console.log(rsp);
+		
+		if(rsp.success){
+			
+			var msg="결제가 완료되었습니다.";
+			//msg+="\n고유ID : " + rsp.imp_uid;
+			//msg+="\n상점거래ID : " + rsp.merchant_uid; 
+			msg+="\n결제금액 : " + rsp.paid_amount + " 원";
+			
+			location.href="index.jsp?main=class/paysuccess.jsp?msg="+msg;
+			} else {
+			
+			var msg="결제에 실패하였습니다.";
+			msg+=rsp.error_msg;
+			
+			//실패시 reload
+			location.reload();
+			}
+		    alert(msg);
+	});	
+});
+</script>
+
 </div>
 </body>
 </html>
