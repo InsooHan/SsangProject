@@ -9,7 +9,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <title>loginForm</title>
+<style type="text/css">
+.kakao{
+  background: #fef01b; width: 40px; height: 40px; 
+  border-radius: 10px;
+}
+</style>
+<script type="text/javascript">
+//카카오로그인
+Kakao.init('16c0dc3170eb474e82300752331aef0a'); //발급받은 키 중 javascript키를 사용해준다.
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+
+function kakaoLogin() {
+Kakao.Auth.login({
+  success: function (response) {
+    Kakao.API.request({
+      url: '/v2/user/me',
+      success: function (response) {
+    	  console.log(response);
+    	  location.href="<%=request.getContextPath()%>/index.jsp?main=login/kakaologoutform.jsp";
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+      
+    });
+  },
+  fail: function (error) {
+    console.log(error)
+  },
+});
+} 
+</script>
 </head>
 <%
 	//세션값 얻기
@@ -52,6 +85,12 @@
 					<td colspan="2" align="center">
 						<br><br>
 						<button type="submit" class="btn btn-success" style="width: 220px; height: 50px;">로그인</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button class="kakao" onclick="kakaoLogin()">
+						<a href="javascript:void(0)" style="color: black;"><i class="fa fa-comment" aria-hidden="true"></i></a></button>
 					</td>
 				</tr>
 			</table>

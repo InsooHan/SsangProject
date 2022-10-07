@@ -554,7 +554,7 @@ function searchfunc(class_name){
   <div class="btn-group-vertical">
     <button type="button" class="allclass btn btn-light">전체 강의</button>
     <div class="btn-group">
-      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">개발 · 프로그래밍</button>
+      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">개발/프로그래밍</button>
       <ul class="dropdown-menu">
         <li><a class="all dropdown-item" href="#">ALL</a></li>
         <li><a class="sub dropdown-item" href="#">웹 개발</a></li>
@@ -563,7 +563,7 @@ function searchfunc(class_name){
       </ul>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">보안 · 네트워크</button>
+      <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">보안/네트워크</button>
       <ul class="dropdown-menu">
         <li><a class="all dropdown-item" href="#">ALL</a></li>
         <li><a class="sub dropdown-item" href="#">보안</a></li>
@@ -593,7 +593,7 @@ function searchfunc(class_name){
       <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">크리에이티브</button>
       <ul class="dropdown-menu">
         <li><a class="all dropdown-item" href="#">ALL</a></li>
-        <li><a class="sub dropdown-item" href="#">CAD · 3D 모델링</a></li>
+        <li><a class="sub dropdown-item" href="#">CAD/3D 모델링</a></li>
         <li><a class="sub dropdown-item" href="#">웹 퍼블리싱</a></li>
         <li><a class="sub dropdown-item" href="#">UX/UI</a></li>
       </ul>
