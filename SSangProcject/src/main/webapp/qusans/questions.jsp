@@ -38,6 +38,7 @@ session.setAttribute("id", ids[ (int)(Math.random()*6) ]);
 	}catch(Exception e){
 	e.printStackTrace();
 	}
+	
 String sql="select count(que_num) as cnt from Question";
 try{	
 	PreparedStatement pt = conn.prepareStatement(sql);  //전체 DB 갯수 구하기
