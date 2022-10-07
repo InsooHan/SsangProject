@@ -55,7 +55,6 @@ dao.updateBoard(dto);
 //System.out.print(realPath);
 
 //수정한 페이지로 이동
-response.sendRedirect("../index.jsp?main=board/boardguestlist.jsp?currentPage="+currentPage);
 
 }catch(Exception e){
 	System.out.println("업로드 오류:"+ e.getMessage());
