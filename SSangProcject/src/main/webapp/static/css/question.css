@@ -47,7 +47,7 @@ ul.status .active{
 .ac-button.is-text {
     border: unset;
     background-color: unset;
-    color: #495057;
+    color: rgb(98, 98, 98);
     font-weight: 500;
 }
 /*****===========================================*****/
@@ -68,7 +68,6 @@ form.search .search-item {
     display: flex;
     padding: 10px 12px;
     width: 200px;
-    height: 40px;
     letter-spacing: -.3px;
     border: 1px solid #dee2e6;
     border-radius: 4px;
@@ -77,11 +76,24 @@ form.search .search-item {
 .search-by-text {
     align-items: center;
 }
+ .search-by-text svg{
+    margin-right: 12px;
+}
 form.search .search-item .ac-input-with-item {
     width: 100%;
-    height: 48px;
 }
-
+.infd-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+.active .ac-button {
+    font-weight: 800;
+    color: #1b1c1d;
+}
+ .active path {
+    fill: rgb(0, 128, 64);
+}
 
 .ac-input-with-item>input {
     padding: 0;
@@ -146,13 +158,94 @@ form.search .search-item>.ac-button {
 
 
 
+/* ==================게시글 =================*/
+.question-list{
+	list-style:none;
+}
+.question {
+    display: flex;
+    padding: 20px 16px;
+    border-bottom: 1px solid #dee2e6;
+}
+.question .question__info {
+    flex: 1 1 590px;
+    width: 0;
+    max-width: 590px;
+}
+.question .question__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.question .title__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
 
-
-
-
-
-
-
+    line-height: 1.5;
+    max-height: "3px";
+    text-align: left;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-right: 9px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1b1c1d;
+}
+.question .question__body {
+    margin-bottom: 12px;
+    max-height: 44px;
+    color: #616568;
+    overflow: hidden;
+    font-size: 15px;
+}
+.question .question__info-footer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: nowrap;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #858a8d;
+}
+.question .question__additional-info {
+    flex: 1 1 146px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    max-width: 146px;
+}
+.question .question__comment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 66px;
+    height: 66px;
+    border-radius: 100px;
+    border: 1px solid #dee2e6;
+}
+.question .comment__count {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1b1c1d;
+}
+.question .comment__description {
+    font-size: 12px;
+    font-weight: 500;
+    color: #616568;
+}
+.question .question__like svg {
+    margin-right: 4px;
+}
 
 
 

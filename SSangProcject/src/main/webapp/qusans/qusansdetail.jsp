@@ -64,6 +64,7 @@ $("#lookanswer").click(function() {
 </script>
 </head>
 <%
+
 String num=request.getParameter("que_num");
 
 QusAnsDao dao=new QusAnsDao();

@@ -14,7 +14,7 @@ public class MemberDto {
 		return user_num;
 	}
 	public void setUser_num(int user_num) {
-		this.user_num = user_num;
+		user_num = user_num;
 	}
 	public String getUser_id() {
 		return user_id;

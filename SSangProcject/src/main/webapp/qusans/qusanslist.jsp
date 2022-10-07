@@ -26,6 +26,7 @@ float: left;
 margin-top: 70px;
 width: 800px;
 }
+
 </style>
 <script type="text/javascript">
 $(function() {
@@ -195,7 +196,7 @@ for(QusAnsDto dto:list) //for(int i=0;i<list.size();i++)
 		
 		//다음
 		if(endPage<totalPage)
-		{%>
+		{%>	
 			<li>
 				<a href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=endPage+1%>">다음</a>
 			</li>
@@ -205,22 +206,21 @@ for(QusAnsDto dto:list) //for(int i=0;i<list.size();i++)
 </div>
 
 
-
 <script type="text/javascript">
 //마우스를 리스트에 가져가면 리스트의 배경색이 변하고 마우스 포인터가 변하는 스크립트
 $(".tablecontent").hover(function() {
 	$(this).css("background-color","#F9FFFF");
 	$(this).css("cursor","pointer");
 }, function() {
-	$(this).css("background-color","white");
-});
-
-
-//리스트를 클릭하면 디테일 페이지로 넘어가도록 하는 스크립트
-$(".tablecontent").click(function() {
-	//location.href="qusansdetail.jsp";
-});
-
-</script>
-</body>
+		$(this).css("background-color","white");
+	});
+	
+	
+	//리스트를 클릭하면 디테일 페이지로 넘어가도록 하는 스크립트
+	$(".tablecontent").click(function() {
+		//location.href="qusansdetail.jsp";
+	});
+	
+	</script>
+	</body>
 </html>
