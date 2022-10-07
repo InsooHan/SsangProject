@@ -37,14 +37,18 @@ String num=request.getParameter("board_num");
 String currentPage=request.getParameter("currentPage");
 BoardDao dao=new BoardDao();
 BoardDto dto=dao.getData(num);
-
+//System.out.print(dto.getBoard_photo());
 %>
 <body>
 <!-- 이미지 미리보기할 위치 -->
-<img alt="" src="" id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;"
+<img alt="" id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;"
 src="<%=(dto.getBoard_photo()==null?"":"save/"+dto.getBoard_photo()) %>">
 
-<form action="board/boardaddaction.jsp" method="post" enctype="multipart/form-data">
+<form action="board/boardupdateaction.jsp" method="post" enctype="multipart/form-data">
+<!-- 수정폼이므로 num 숨기기 -->
+	<input type="hidden" name="num" value="<%=num%>">
+	<input type="hidden" name="currentPage" value="<%=currentPage%>">
+		
 	<table style="width: 600px;">
 		<caption>
 			<b>글 수정</b>
@@ -55,11 +59,11 @@ src="<%=(dto.getBoard_photo()==null?"":"save/"+dto.getBoard_photo()) %>">
 		<tr height="100">
 			<td>
 				<textarea style="width: 500px; height: 100px;" class="form-control" name="content"
-				 required="required"></textarea>
+				 required="required"><%=dto.getBoard_content() %></textarea>
 			</td>
 			<td>
 				<button type="submit" class="btn btn-default" 
-				style="width: 100px; height: 100px">글 등록</button>
+				style="width: 100px; height: 100px">수정</button>
 			</td>
 		</tr>
 	</table>

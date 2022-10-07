@@ -27,6 +27,8 @@ try{
 multi=new MultipartRequest(request,realPath,uploadSize,"utf-8",new DefaultFileRenamePolicy());
 
 //request가 아닌 멀티로 폼데이타 읽어와야함
+
+
 String board_content=multi.getParameter("content");
 String board_photo=multi.getFilesystemName("photo");
 
@@ -47,5 +49,6 @@ response.sendRedirect("../index.jsp?main=board/boardguestlist.jsp");
 	System.out.println("업로드 오류:"+ e.getMessage());
 };
 %>
+
 </body>
 </html>
