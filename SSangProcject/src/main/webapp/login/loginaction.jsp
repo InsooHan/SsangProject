@@ -20,6 +20,7 @@
 		//로그인메인으로 이동
 		response.sendRedirect("../index.jsp?main=login/loginmain.jsp");
 	}
+	
 	else {%>
 		<script type="text/javascript">
 			alert("아이디 또는 비밀번호가 맞지 않습니다.");

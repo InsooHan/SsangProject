@@ -1,10 +1,30 @@
 package dto;
 
-import java.sql.Timestamp;
-
 public class QuestionDto {
-
 	private int que_num;
+	private String que_id;
+	private String que_subject;
+	private String que_content;
+	private String que_datetime;
+	private int que_chu;
+	private int answer_cnt;
+	
+	public QuestionDto() {}
+	public QuestionDto(int num , String id, String subject, String content, String date, int chu) {
+		this.que_num=num;
+		this.que_id=id;
+		this.que_subject=subject;
+		this.que_content=content;
+		this.que_datetime=date;
+		this.que_chu=chu;
+	}
+	
+	public int getAnswer_cnt() {
+		return answer_cnt;
+	}
+	public void setAnswer_cnt(int answer_cnt) {
+		this.answer_cnt = answer_cnt;
+	}
 	public int getQue_num() {
 		return que_num;
 	}
@@ -29,17 +49,11 @@ public class QuestionDto {
 	public void setQue_content(String que_content) {
 		this.que_content = que_content;
 	}
-	public String getQue_img() {
-		return que_img;
-	}
-	public void setQue_img(String que_img) {
-		this.que_img = que_img;
-	}
 	public String getQue_date() {
-		return que_date;
+		return que_datetime;
 	}
 	public void setQue_date(String que_date) {
-		this.que_date = que_date;
+		this.que_datetime = que_date;
 	}
 	public int getQue_chu() {
 		return que_chu;
@@ -47,11 +61,6 @@ public class QuestionDto {
 	public void setQue_chu(int que_chu) {
 		this.que_chu = que_chu;
 	}
-	private String que_id;
-	private String que_subject;
-	private String que_content;
-	private String que_img;
-	private String que_date;
-	private int que_chu;
+	
 	
 }
