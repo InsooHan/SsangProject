@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
@@ -140,25 +140,53 @@ $(function(){
 	//장바구니에 담기
 	$("#btncart").click(function(){
 		
-		var formdata=$("#frm").serialize();
-		//alert(formdata);
+		//아래 코드 작성시 ajax안먹음; 재확인필요
+		<%-- if(<%=loginok%>==null){
+			alert("장바구니에 담기위해 로그인해주세요.");
+			location.href="index.jsp?main=login/loginform.jsp";
+		} --%>
 		
-		$.ajax({
+			var formdata=$("#frm").serialize();
+			//alert(formdata);
 			
-			type:"post",
-			url:"class/cartproc.jsp",
-			dataType:"html",
-			data:formdata,
-			success:function(res){
+			$.ajax({
 				
-				if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?")){
-					location.href="index.jsp?main=class/cartlist.jsp";
+				type:"post",
+				url:"class/cartproc.jsp",
+				dataType:"html",
+				data:formdata,
+				success:function(){
+					
+					if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?")){
+						//병합하고 아래경로 안먹음; 재확인 필요
+						location.href="index.jsp?main=class/cartlist.jsp";
+					}
 				}
-			}
-		});
-		
+			});
 	});
-})
+	
+	//수강신청하기
+	$("#application").click(function(){
+		
+			var formdata=$("#frm").serialize();
+			//alert(formdata);
+			
+			$.ajax({
+				
+				type:"post",
+				url:"class/cartproc.jsp",
+				dataType:"html",
+				data:formdata,
+				success:function(){
+					
+					if(confirm("장바구니에 저장하였습니다.\n수강신청한 학습들을 확인하시겠습니까?")){
+						//병합하고 아래경로 안먹음; 재확인 필요
+						location.href="index.jsp?main=class/mypage.jsp";
+					}
+				}
+			});
+	});
+});
 /* move 클릭 시 스크롤 이동 메서드 */
 function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>
@@ -172,6 +200,9 @@ function fnMove(seq){
 </script>
 </head>
 <body>
+<form id="frm">
+  <input type="hidden" name="class_num" value="<%=class_num%>">
+  <input type="hidden" name="user_num" value="<%=user_num%>">
 <!-- 강의 타이틀 -->
 <div class="title">
 	<!-- 강의 영상 미리보기 이미지 -->
@@ -181,7 +212,7 @@ function fnMove(seq){
 	<div style="width: 700px; height: 250px; padding: 20px 20px;
 		position: absolute; top: 20px; left: 620px;">
 		<span><%=cldto.getCategory() %><%=cldto.getSub_category()!=null?" > "+cldto.getSub_category():"" %></span><br>
-		<span><h2><%=cldto.getClass_name() %></h2></h2></span><br><br>
+		<span><h2><%=cldto.getClass_name() %></h2></span><br><br>
 		<span class="star-prototype" style="text-align: left;"><%=star %></span>
 		<span style="font-weight: bold;">(<%=star%>)</span> &nbsp;&nbsp;&nbsp;
 		<span><%=rdao.getTotalCount(class_num) %>개의 수강평</span>
@@ -215,11 +246,12 @@ function fnMove(seq){
 <div class="cart">
 <div style="border-radius:20px; background-color: white; width: 300px;">
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
-<button style="width: 260px;height: 50px;" class="btn btn-success">수강신청하기</button><br>
-<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light">바구니에담기</button><br>
+<button style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
+<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light" id="btncart">바구니에담기</button><br>
 <span>관심</span>
 <span>공유</span><br>
 </div>
 </div>
+</form>
 </body>
 </html>

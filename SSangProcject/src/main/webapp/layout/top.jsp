@@ -101,7 +101,7 @@
 			<a href="index.jsp?main=class/cartlist.jsp"><i class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>	
 			<div class="count" onclick="location.href='index.jsp?main=class/cartlist.jsp'"><%=cartSize %></div>	
 		</div>
-		<a href="index.jsp?main=login/loginmain.jsp"><i class="fa fa-user-o user" aria-hidden="true"></i></a>
+		<a href="index.jsp?main=class/mypage.jsp"><i class="fa fa-user-o user" aria-hidden="true"></i></a>
 		<button type="button" class="btn btn-secondary" style="width: 90px;"
 				onclick="location.href='login/logoutaction.jsp'">로그아웃</button>
 	<%

@@ -54,6 +54,7 @@
 }
 .img{
    width: 200px;
+   height: 150px;
 }
 .paging{
    width: 800px;
@@ -63,10 +64,7 @@
    font-size: 0.75em;
 }
 #cart{
-   margin-left: 10px;
-}
-#heart{
-   margin-left: 5px;
+   float: right;
 }
 </style>
 <%
@@ -165,19 +163,6 @@ $(function(){
 		  }
 	});
 	
-	//heart 클릭시 좋아요에 담고 빼는 작업..시간되면
-	$(document).on("click","#heart",function(){
-		
-		var cla=$(this).attr("class");
-		if(cla=="fa fa-heart")
-			$(this).attr("class","fa fa-heart-o"); //좋아요에 담겨있던 클래스를 다시 제거
-			$(this).css("color","black");
-		if(cla=="fa fa-heart-o"){
-			$(this).attr("class","fa fa-heart"); //카트에 클래스 담기
-			$(this).css("color","red"); 
-		}
-	});
-	
 	//난이도 필터 체크시 해당 난이도만 뜨도록
 	$("input:radio[name='levels']").change(function(){
 
@@ -274,7 +259,7 @@ function levelsfunc(levels){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				// 강사이름 or id, 별점(후기갯수) 
 			    s+=item.class_price;
@@ -282,7 +267,6 @@ function levelsfunc(levels){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -314,7 +298,7 @@ function categorylevelsfunc(category,levels){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				// 강사이름 or id, 별점(후기갯수) 
 			    s+=item.class_price;
@@ -322,7 +306,6 @@ function categorylevelsfunc(category,levels){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -353,7 +336,7 @@ function subcategorylevelsfunc(category,sub_category,levels){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				// 강사이름 or id, 별점(후기갯수) 
 			    s+=item.class_price;
@@ -361,7 +344,6 @@ function subcategorylevelsfunc(category,sub_category,levels){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -406,7 +388,7 @@ function allclassfunc(){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -414,7 +396,6 @@ function allclassfunc(){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -446,7 +427,7 @@ function categoryfunc(category){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -454,7 +435,6 @@ function categoryfunc(category){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -485,7 +465,7 @@ function subcategoryfunc(sub_category){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -493,7 +473,6 @@ function subcategoryfunc(sub_category){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -524,7 +503,7 @@ function searchfunc(class_name){
 				
 				s+="<td>";
 				s+="<div class='classdiv'>";
-				s+="<img src='class/thumbnail.png' class='img' class_num="+item.class_num+"><br>";
+				s+="<img src='"+item.class_image+"' class='img' class_num="+item.class_num+"><br>";
 				s+="<b>"+item.class_name+"</b><br>";
 				/* 강사이름 or id, 별점(후기갯수) */
 			    s+=item.class_price;
@@ -532,7 +511,6 @@ function searchfunc(class_name){
 				s+="<span><i class='fa fa-signal' aria-hidden='true'></i>"+item.levels+"</span><br>";
 				s+="<span><i class='fa fa-folder-open-o' aria-hidden='true'></i>"+item.category+">"+item.sub_category+"</span>";
 				s+="<span><i class='fa fa-cart-plus' id='cart' aria-hidden='true'></i></span>";
-				s+="<span><i class='fa fa-heart-o' id='heart' aria-hidden='true'></i></span>";
 				s+="</div>";
 				s+="</div>";
 				s+="</td>";
@@ -586,7 +564,7 @@ function searchfunc(class_name){
         <li><a class="all dropdown-item" href="#">ALL</a></li>
         <li><a class="sub dropdown-item" href="#">게임 프로그래밍</a></li>
         <li><a class="sub dropdown-item" href="#">게임 기획</a></li>
-        <li><a class="sub dropdown-item" href="#">게임 아트 · 그래픽</a></li>
+        <li><a class="sub dropdown-item" href="#">게임 아트/그래픽</a></li>
       </ul>
     </div>
      <div class="btn-group">
@@ -682,7 +660,7 @@ function searchfunc(class_name){
     <%}
     %>
   </ul>
-</div> --%>
+</div>  --%>
 
 </div>
 </body>
