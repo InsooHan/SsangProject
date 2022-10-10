@@ -21,7 +21,7 @@
 <style type="text/css">
 .table{float: left;}
 .carttb, h4{
-   width: 750px;
+   width: 800px;
    margin-left: 150px;
    margin-top: 20px;
 }
@@ -38,6 +38,7 @@
 }
 .img{
    width: 100px;
+   height: 80px;
 }
 .del{
    margin-right: 10px;
