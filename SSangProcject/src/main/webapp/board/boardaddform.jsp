@@ -37,19 +37,19 @@
 <form action="board/boardaddaction.jsp" method="post" enctype="multipart/form-data">
 	<table style="width: 600px;">
 		<caption>
-			<b>자유 게시판 등록</b>
-			<span class="camera" style="cursor: pointer;"><i class="fa-solid fa-camera">사진</i></span>
+			<b ></b>
+			<span class="camera" style="cursor: pointer;"><i class="fa-solid fa-camera">사진 추가</i></span>
 			<input type="file" name="photo" id="photo" style="visibility: hidden;" onchange="readURL(this)">
 		</caption>
 		
 		<tr height="100">
 			<td>
-				<textarea style="width: 500px; height: 100px;" class="form-control" name="content"
+				<textarea style="width: 800px; height: 200px;" class="form-control" name="content"
 				 required="required"></textarea>
 			</td>
 			<td>
 				<button type="submit" class="btn btn-default" 
-				style="width: 100px; height: 100px">글 등록</button>
+				style="width: 100px; height: 100px" >글 등록</button>
 			</td>
 		</tr>
 	</table>
