@@ -1,3 +1,4 @@
+<%@page import="dao.MemberDao"%>
 <%@page import="dto.InquiryDto"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.InquiryDao"%>
@@ -13,7 +14,7 @@
 <title>Insert title here</title>
 <%
 String class_num = request.getParameter("class_num");
-String myid=(String)session.getAttribute("myid");
+String id=(String)session.getAttribute("myid");
 InquiryDao dao=new InquiryDao();
 InquiryDto dto = new InquiryDto();
 %>
@@ -29,9 +30,7 @@ border-radius: 5px;
 height: 40px;
 line-height: 40px;
 }
-.btnlist:hover{
-color: green;
-}
+.btnlist:hover, .alllist{color: green;}
 div.select > *{
 border: 1px solid lightgray;
 border-radius: 5px;
@@ -41,10 +40,45 @@ line-height: 40px;
 </style>
 <script type="text/javascript">
 $(function(){
-	//전체 문의 리스트 출력 default
+	
 	var class_num=<%=class_num%>
-	//alert(class_num);
+	
+	//전체 문의 리스트 출력 default
 	allinquirylist(class_num);
+	
+	//전체보기 클릭 시 전체 리스트 출력 메서드 호출
+	$("button.alllist").click(function(){
+		allinquirylist(class_num);
+		$(this).css({"color":"green"});
+		$(this).siblings().css({"color":"lightgray"});
+	})
+	//내 작성글 보기 클릭 시 내 작성글 출력
+	  $("button.mylist").click(function(){
+		$(this).css({"color":"green"});
+		$(this).siblings().css({"color":"lightgray"});
+		$.ajax({
+			type:"post",
+			url:"class/inquirymylist.jsp",
+			dataType:"json",
+			data:{"class_num":class_num},
+			success:function(res){
+				//alert("su");
+				 var s="";
+				$.each(res,function(idx,item){
+					s+="<div style='border:1px solid black; border-radius:5px;'>";
+					s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
+					s+="<span>"+item.name+"</span>";
+					s+="<span style='float:right'>"+item.inquiry_num+"</span>&nbsp;&nbsp;";
+					s+="<span style='float:right; color:lightgray;'>|</span>&nbsp;&nbsp; ";
+					s+="<span style='float:right'>"+item.reg_date+"</span><hr>";
+					s+="<span>"+item.inquiry_content+"</span>";
+					s+="</div><br><br>";
+				});
+				$("#list").html(s);  
+			}
+		})
+	})  
+	
 	
 });
 // 전체 문의 list ajax
@@ -55,14 +89,15 @@ function allinquirylist(class_num){
 		url:"class/inquirylist.jsp",
 		data:{"class_num":class_num},
 		success:function(res){
-			console.log(res);
+			//console.log(res);
 			 var s="";
 			$.each(res,function(idx,item){
-				s+="<div style='border:1px solid black'>";
+				s+="<div style='border:1px solid black; border-radius:5px;'>";
 				s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
-				s+="<span>"+item.user_num+"</span>";
-				s+="<span style='float:right'>"+item.inquiry_num+"</span>";
-				s+="<span style='float:right'>"+item.reg_date+"</span> <hr>";
+				s+="<span>"+item.name+"</span>";
+				s+="<span style='float:right'>"+item.inquiry_num+"</span>&nbsp;";
+				s+="<span style='float:right; color:lightgray;'>|</span>&nbsp; ";
+				s+="<span style='float:right'>"+item.reg_date+"</span><hr>";
 				s+="<span>"+item.inquiry_content+"</span>";
 				s+="</div><br><br>";
 			});
@@ -77,8 +112,8 @@ function allinquirylist(class_num){
   <button style="float: right" class="btn btn-dark btn-xl">작성하기</button>
 </div><br><br><br>
 <div style="display: flex; float: left;">
-  <button class="btnlist">전체보기</button>
-  <button class="btnlist">내 작성글 모아보기</button>
+  <button class="btnlist alllist">전체보기</button>
+  <button class="btnlist mylist">내 작성글 모아보기</button>
 </div>  
 <div style="display: flex; float: right;" class="select">
   <select>

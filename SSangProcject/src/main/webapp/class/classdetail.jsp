@@ -247,7 +247,7 @@ function fnMove(seq){
 <div style="border-radius:20px; background-color: white; width: 300px;">
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
 <button style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
-<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light" id="btncart">바구니에담기</button><br>
+<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light" i d="btncart">바구니에담기</button><br>
 <span>관심</span>
 <span>공유</span><br>
 </div>

@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
+request.setCharacterEncoding("utf-8");
 String review_num = request.getParameter("review_num");
 ReviewDao rdao = new ReviewDao();
 rdao.increChu(review_num);
