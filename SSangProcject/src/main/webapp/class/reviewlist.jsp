@@ -1,3 +1,4 @@
+<%@page import="java.text.NumberFormat"%>
 <%@page import="dao.MemberDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="org.json.simple.JSONObject"%>
@@ -7,7 +8,6 @@
 <%@page import="dao.ReviewDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
 <%
 request.setCharacterEncoding("utf-8");
 String class_num = request.getParameter("class_num");
@@ -18,10 +18,11 @@ JSONArray arr = new JSONArray();
 MemberDao mdao = new MemberDao();
 for(ReviewDto dto:list){
 	JSONObject ob = new JSONObject();
+	//System.out.print("안녕");
 	String name = mdao.getNamenum(dto.getUser_num());
 	ob.put("review_num", dto.getReview_num());
 	ob.put("class_num",dto.getClass_num());
-	//ob.put("name",name);
+	ob.put("name",name);
 	ob.put("review_content",dto.getReview_content());
 	ob.put("reviewstar", dto.getReviewstar());
 	ob.put("reg_date",sdf.format(dto.getReg_date()));
