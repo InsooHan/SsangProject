@@ -1,3 +1,4 @@
+<%@page import="dao.ReviewDao"%>
 <%@page import="dao.MemberDao"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.text.NumberFormat"%>
@@ -56,7 +57,7 @@
    width: 200px;
    height: 150px;
 }
-.paging{
+#paging{
    width: 800px;
    margin-left: 380px;
 }
@@ -73,19 +74,7 @@
     NumberFormat nf=NumberFormat.getCurrencyInstance();
     ClassDto dto=new ClassDto();
   
-    //페이징에 필요한 변수_no빼고 8개는 필수
-    int totalCount; //총 게시물 갯수
-    int totalPage; //총 페이지 수
-    int startPage; //각 블럭의 시작페이지
-    int endPage; //각 블럭의 끝페이지
-    int start; //각 페이지의 시작번호
-    int perPage=8; //한 페이지에 보여질 글의 갯수
-    int perBlock=5; //한 블럭당 보여지는 페이지 갯수(1~5,6~10.. 이렇게 페이지 보여지게)
     int currentPage; //현재페이지
-    int no;
-
-    //총 갯수:
-    totalCount=dao.getTotalCount();
 
     //현재 페이지번호 읽기(null일 경우는 1페이지로 설정)
     if(request.getParameter("currentPage")==null)
@@ -93,26 +82,7 @@
     else
     	currentPage=Integer.parseInt(request.getParameter("currentPage"));
 
-    //총 페이지갯수 구하기
-    totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
-
-    //각 블럭의 시작페이지
-    //(현재페이지 3일경우 시작:1,끝:5 / 현재페이지 7일경우 시작:6,끝:10...
-    //우리는 한블럭당 보여지는 페이지 갯수 5로 설정했으므로)
-    startPage=(currentPage-1)/perBlock*perBlock+1;
-    endPage=startPage+perBlock-1;
-
-    //각 블럭의 끝페이지
-    //총 페이지수가 8일경우 2번째 블럭은 startpage:6,endpage:10이 아니라 8이 되야함
-    if(endPage>totalPage)
-    	endPage=totalPage;
-
-    //각 페이지에서 불러올 시작번호
-      //현재페이지가 1일경우 start:1, 현재페이지 2일경우 start:6
-    start=(currentPage-1)*perPage;
-
-    //각 페이지에서 필요한 게시글 불러오기
-    List<ClassDto> list=dao.getList(start, perPage);
+    
 %>
 <script type="text/javascript">
 $(function(){
@@ -129,25 +99,24 @@ $(function(){
 		location.href="index.jsp?main=class/classdetail.jsp?class_num="+class_num;
 	});
 	
-	//cart 클릭시 카트에 담고 빼는 작업..시간되면
+	<%//카트에 담을때 로그인한 상태여야 하므로
+	String loginok=(String)session.getAttribute("loginok");
+	//로그인한 id
+	String myid=(String)session.getAttribute("myid");
+	//id통해서 num 얻기
+	MemberDao mdao=new MemberDao();
+	String user_num=mdao.getNum(myid);%>
+	
+	//cart 클릭시 카트에 담기
 	$(document).on("click","#cart",function(){
 		
-		var cla=$(this).attr("class");
-		if(cla=="fa fa-shopping-cart")
-			$(this).attr("class","fa fa-cart-plus"); //카트에 담겨있던 클래스를 다시 제거
-			$(this).css("color","black");
-			
-			/* if(confirm("장바구니에서 삭제하시겠습니까?")){
-				// 삭제 ajax 
-			} */
-		if(cla=="fa fa-cart-plus"){
 			$(this).attr("class","fa fa-shopping-cart"); //카트에 클래스 담기
 			$(this).css("color","red");
 				
-			/* var class_num=$(this).attr("class_num");
-			var user_num=$(this).attr("user_num");
-			//console.log(class_num+","+user_num);
-				$.ajax({
+			var class_num=$(this).parent().parent().parent().find(".img").attr("class_num");
+			var user_num=<%=user_num%>;
+
+			$.ajax({
 					
 					type:"post",
 					url:"class/cartproc.jsp",
@@ -159,8 +128,7 @@ $(function(){
 							location.href="index.jsp?main=class/cartlist.jsp";
 						}
 					}
-				}); */	 	
-		  }
+				}); 	 	
 	});
 	
 	//난이도 필터 체크시 해당 난이도만 뜨도록
@@ -407,6 +375,25 @@ function allclassfunc(){
 			s+="</tr></table>";
 			$(".listtb").html(s);
 			
+			/* 페이징 */
+			var p="<div><ul class='pagination'>";
+			
+			if(res.startPage>1){
+				p+="<li><a href='index.jsp?main=class/classlist.jsp?currentPage="+(res.startPage-1)+"'>이전</a></li>";
+			}
+			for(var pp=res.startPage;pp<=res.endPage;pp++){
+				if(pp==res.currentPage){
+					p+="<li class='active'><a href='index.jsp?main=class/classlist.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
+				}else{
+					p+="<li class='active'><a href='index.jsp?main=class/classlist.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
+				}
+			}
+			if(res.endPage<res.totalPage){
+				p+="<li><a href='index.jsp?main=class/classlist.jsp?currentPage="+(res.endPage+1)+"'>다음</a></li>";
+			}
+			p+="</ul></div>";
+			
+			$("#paging").html(p);
 		}
 	});
 } 
@@ -626,8 +613,8 @@ function searchfunc(class_name){
 <table class="listtb table table-borderless"></table>
 
 <!-- 페이징...분류한 이후 기능안먹힘. 재구현 필요 -->
-<%-- <div class="paging container mt-3">
-  <ul class="pagination">
+<div class="container-mt3" id="paging">
+  <%-- <ul class="pagination">
     <%
     //이전
     if(startPage>1)
@@ -659,8 +646,8 @@ function searchfunc(class_name){
        </li>	
     <%}
     %>
-  </ul>
-</div>  --%>
+  </ul> --%>
+</div>
 
 </div>
 </body>

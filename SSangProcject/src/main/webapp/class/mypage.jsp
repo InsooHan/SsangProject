@@ -64,16 +64,22 @@
    width: 250px;
    border: 1px solid lightgray;
 }
-.paybtn, .inicisbtn{
-   width: 230px;
-}
-.paybtn{
-   background-color: #fef01b; color: black; border: #fef01b;
+.kakaopay, .kginicis{
+   width: 100px;
+   height: 50px;
+   border-radius: 20px;
+   margin-left: 40px;
 }
 #video{
    width: 400px;
    height: 300px;
-   margin-top: 30px;
+   margin: 0 auto;
+   cursor: pointer;
+}
+#play{
+   float: right;
+   color: green;
+   font-size: 1.5em;
 }
 </style>
 <script type="text/javascript">
@@ -106,8 +112,8 @@ $(function(){
 		
 		$(".cart_num:checked").each(function(i,ele){
 			price+=parseInt($(this).attr("class_price"));
-			$(".selectprice").html(price);
-			$(".endprice").html(price);
+			$(".selectprice").html(price.toLocaleString('ko-KR'));
+			$(".endprice").html(price.toLocaleString('ko-KR'));
 		});
 	});
 	
@@ -163,14 +169,19 @@ $(function(){
 		
 		$(".cart_num:checked").each(function(i,ele){
 			price+=parseInt($(this).attr("class_price"));
-			$(".selectprice").html(price);
-			$(".endprice").html(price);
+			$(".selectprice").html(price.toLocaleString('ko-KR'));
+			$(".endprice").html(price.toLocaleString('ko-KR'));
 		});
 		
 	});
-		
+	
+	//Tooltip
+	// Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
 });
-
+});
 function del(cart_num){
 	
 	$.ajax({
@@ -211,7 +222,11 @@ MemberDao mdao=new MemberDao();
   <!-- Tab panes -->
   <div class="tab-content">
     <div id="home" class="container tab-pane active"><br>
-      <h5>수강신청한 학습의 무료회차를 보실 수 있습니다.</h5>
+      <div class="container mt-3">
+        <div class="alert alert-success">
+           수강신청한 학습의 <strong>무료회차</strong>를 보실 수 있습니다.
+        </div>
+      </div>
       <p>
         <table class="table table-borderless"><tr>
         <% int s=1;
@@ -223,10 +238,11 @@ MemberDao mdao=new MemberDao();
             String thumbnail=dto.getClass_image();
 	        String gongname=mdao.getGongname(dto.getUser_num()); %>
            <td>
-           <video src="<%=request.getContextPath()%>/<%=video %>" controls="controls" 
-           poster="<%=thumbnail %>" id="video"></video>
+           <video src="<%=request.getContextPath()%>/<%=video %>" 
+           poster="<%=thumbnail %>" id="video" onclick="location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=dto.getClass_num()%>'"></video>
            <h5><b><%=map.get("class_name") %></b></h5>
            <i class="fa fa-graduation-cap" aria-hidden="true"></i><%=gongname %>
+           <a href="<%=request.getContextPath()%>/<%=video %>" target="_blank"><i class="fa fa-play-circle" aria-hidden="true" id="play"></i></a>
            </td>
           
           <% if((s+3)%3==0) %> </tr><tr> <%s++; %>
@@ -323,13 +339,13 @@ MemberDao mdao=new MemberDao();
     </td>
   </tr> -->
   <tr>
-    <td colspan="2">
-      <button type="button" class="paybtn btn">카카오페이</button>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <button type="button" class="inicisbtn btn btn-danger">KG이니시스</button>
+    <td colspan="2" rowspan="2">
+    <div class="container mt-3">
+      <button type="button" class="paybtn btn" data-bs-toggle="tooltip" title="카카오페이로 결제하기">
+      <img src="image/kakaopay.png" class="kakaopay"></button>
+      <button type="button" class="inicisbtn btn" data-bs-toggle="tooltip" title="KG이니시스로 결제하기">
+      <img src="image/kginicis.jpeg" class="kginicis"></button>
+    </div>
     </td>
   </tr>
 </table>
