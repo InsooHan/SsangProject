@@ -28,7 +28,7 @@ text-align: center;
 background-color: white;
 border-radius: 5px;
 height: 40px;
-line-height: 40px;
+padding: 5px 15px 5px 15px;
 }
 .btnlist:hover, .alllist{color: green;}
 div.select > *{
@@ -36,6 +36,9 @@ border: 1px solid lightgray;
 border-radius: 5px;
 height: 40px;
 line-height: 40px;
+}
+div#list{
+border
 }
 </style>
 <script type="text/javascript">
@@ -65,9 +68,9 @@ $(function(){
 				//alert("su");
 				 var s="";
 				$.each(res,function(idx,item){
-					s+="<div style='border:1px solid black; border-radius:5px;'>";
+					s+="<div style='border:1px solid lightgray; border-radius:5px;'>";
 					s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
-					s+="<span>"+item.name+"</span>";
+					s+="<span style='font-weight:bold;'>"+item.name+"</span>";
 					s+="<span style='float:right'>"+item.inquiry_num+"</span>&nbsp;&nbsp;";
 					s+="<span style='float:right; color:lightgray;'>|</span>&nbsp;&nbsp; ";
 					s+="<span style='float:right'>"+item.reg_date+"</span><hr>";
@@ -125,7 +128,7 @@ function allinquirylist(class_num){
   <button class="btn btn-success">검색</button>
 </div>
 <br><br><br>
-<div id="list" style="display: flex; flex-direction: column;">
+<div id="list" style="display: flex; flex-direction: column; ">
 
 </div>
 </body>

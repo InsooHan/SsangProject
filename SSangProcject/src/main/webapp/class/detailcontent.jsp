@@ -35,6 +35,20 @@ List<ReviewDto> rlist = rdao.getAllReview(class_num);
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <style type="text/css">
+.bar {
+  width: calc(99% - 2em);
+  height: 8px;
+  background: lightgray;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.bar div {
+  width: 0;
+  height: 100%;
+  background: gold;
+  border-radius: 5px;
+}
 div.reviewoption {
 	color: lightgray;
 	background-color: white;
@@ -184,13 +198,6 @@ $(function(){
 		})
 	})  
 	
-	//숫자 평점을 별로 변환
-	/* $.fn.generateStars = function() {
-	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
-	};
-	// 숫자 평점을 별로 변환하도록 호출하는 함수
-	$('.star-prototype').generateStars(); */
-	
 	//수강평 하트 누르면 chu 1씩 증가
 $("span.likes").click(function(){
 	var review_num=$(this).attr("num");
@@ -232,6 +239,20 @@ $("div.reviewoption>span").click(function(){
 				s+="<span style='color: lightgray;'>"+item.reg_date+"</span>"
 				s+="<span class='likes glyphicon glyphicon-heart-empty' style='float: right; cursor: pointer;' num='"+item.review_chu+"'>"+item.review_chu+"</span>";
 	    	    s+="</td></tr>";
+	    	     /* $.ajax({
+	    	    	type:"post",
+	    	    	url:"class/reviewanswerajax.jsp",
+	    	    	dataType:"json",
+	    	    	data:{"review_num":item.review_num},
+	    	    	success:function(rs){
+	    	    		s+="<tr><td><div style='background-color: gainsboro;'>";
+			    	    s+="<span style='border: 1px black solid; padding: 5px 5px 5px 5px; color: gray;'>지식공유자</span>";
+						s+="<span style='color: darkgray; font-weight: bold;'>"+rs.gongname+"</span><br>";
+						s+="<span>"+rs.ans_content+"</span><br><span style='color: gray;'>날짜</span>";
+						s+="<span class='anslikes glyphicon glyphicon-heart-empty'style='float: right; cursor: pointer;' num=''>"+rs.ans_chu+"</span>";
+						s+="</div></td></tr>";
+	    	    	}
+	    	    }) */ 	
 			});
 			$("#rlist").html(s);
 			
@@ -257,10 +278,20 @@ $("div.reviewoption>span").click(function(){
 			<span style="color: lightgray;"><%=rdao.getTotalCount(class_num) %>개의
 				수강평</span>
 		</div>
-		<div class="item2">
-			<span>5점</span><br> <span>4점</span><br> <span>3점</span><br>
-			<span>2점</span><br> <span>1점</span><br>
+		<div class="item2" style="display: flex; flex-wrap: wrap;">
+		 <span>5점</span><div class="bar" data-percent=30><div></div></div>
+		 <span>4점</span><div class="bar" data-percent=30><div></div></div>
+		 <span>3점</span><div class="bar" data-percent=30><div></div></div>
+		 <span>2점</span><div class="bar" data-percent=30><div></div></div>
+		 <span>1점</span><div class="bar" data-percent=30><div></div></div>
 		</div>
+		<!-- 평점 막대 그래프 자바스크립트 -->
+		<script type="text/javascript">
+		var bars = document.querySelectorAll('.bar');
+
+		for (var i = 0; i < bars.length; i++) {
+		  bars[i].querySelector('div').style.width = bars[i].dataset.percent + "%";
+		}</script>
 		<div class="reviewoption">
 			<b style="color: black; cursor: default;">VIEW |</b> <span
 				class="glyphicon glyphicon-triangle-bottom btnchu">좋아요 순</span>
@@ -273,26 +304,9 @@ $("div.reviewoption>span").click(function(){
 		</div>
 		<!--수강평 list  -->
 			<table class="table" id="rlist">
-			</table>
-			<!-- <table class="table" id="rlistchu">1
-			</table>
-			<table class="table" id="rlistrec">1
-			</table>
-			<table class="table" id="rlisthigh">1
-			</table>
-			<table class="table" id="rlistlow">1
-			</table> -->
-		
+			</table>	
 		<!--수강평에 대한 답글  -->
 		<div class="answer">
-			<span
-				style="border: 1px black solid; padding: 5px 5px 5px 5px; color: lightgray;">지식공유자</span>
-			<span style="color: gray; font-weight: bold;"><%=gongname %></span><br>
-			<span>답글 내용</span><br> <span style="color: lightgray;">날짜</span>
-			<span class='star-prototype' style='text-align: left;'>3</span>
-			<span style='font-size: 1.2em;'>3</span>
-			<span class='anslikes glyphicon glyphicon-heart-empty'
-				style='float: right; cursor: pointer;' num=''>ㅈ아요</span>
 		</div>
 	</div>
 </body>
