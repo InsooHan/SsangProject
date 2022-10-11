@@ -213,4 +213,34 @@ public class MemberDao {
 		return user_name;
 	} 
 	
+
+//user_num을 이용해서 이름 얻기
+public String getNamenum(String num) {
+	
+	String name = "";
+		
+	Connection conn = db.getConnection();
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+		
+	String sql = "SELECT * FROM member WHERE user_num=?";
+		
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, num);
+		rs = pstmt.executeQuery();
+			
+		if(rs.next()) {
+			name = rs.getString("user_name");
+		}
+			
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		db.dbClose(rs, pstmt, conn);
+	}
+		
+	return name;
+}
 }

@@ -10,10 +10,11 @@
 <%
 request.setCharacterEncoding("utf-8");
 String class_num = request.getParameter("class_num");
+String id = (String)session.getAttribute("myid");
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 InquiryDao dao = new InquiryDao();
 MemberDao mdao = new MemberDao();
-List<InquiryDto> list = dao.getAllInquiry(class_num);
+List<InquiryDto> list = dao.getMyInquiry(class_num, id);
 JSONArray arr = new JSONArray();
 for(InquiryDto dto:list){
 	JSONObject ob = new JSONObject();

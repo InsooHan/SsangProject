@@ -14,6 +14,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">    
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<%
+String class_num=request.getParameter("class_num");
+ClassDao cldao = new ClassDao();
+ClassDto cldto = cldao.getClass(class_num);
+
+ReviewDao rdao = new ReviewDao();
+double star = rdao.getReviewStar(class_num);
+List<ReviewDto> rlist = rdao.getAllReview(class_num);
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+NumberFormat numberFormat = NumberFormat.getInstance();
+%>
 <style type="text/css">
 div.reviewoption{
 	color: lightgray;
@@ -50,13 +62,19 @@ div.item2{
 <script type="text/javascript">
 //수강평 하트 클릭 메서드
 $(function(){
+	
+	//처음에 수강평 리스트 나오게 메서드 호출
+	var class_num=<%=class_num%>
+	defaultlist(class_num);
+	
+	//수강평 하트 누르면 chu 1씩 증가
 $("span.likes").click(function(){
 	
 	var review_num=$(this).attr("num");
 	var tag=$(this);
 	
 	$.ajax({
-		type:"get",
+		type:"post",
 		dataType:"json",
 		url:"reviewChuAjax.jsp",
 		data:{"review_num":review_num},
@@ -75,21 +93,128 @@ $("div.reviewoption>span").click(function(){
 	$(this).siblings('span').css({'color':'lightgray','font-weight':'normal'});
 	})
 })
+//전체 수강평 리스트 출력 메서드
+function defaultlist(class_num){
+	$.ajax({
+		type:"post",
+		url:"class/reviewlist.jsp",
+		dataType:"json",
+		data:{"class_num":class_num},
+		success:function(res){
+			 var s="";
+			 $.each(res,function(idx,item){
+				s+="<tr><td>";
+				s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
+				s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+				s+="<span style="font-size: 1.2em;">"+item.reviewstar+"</span><br>";
+				s+="<span>"+item.name+"</span><br>";
+				s+="<span>"+item.review_content+"</span><br>";
+				s+="<span style='color: lightgray;'>"+item.reg_date+"</span>"
+				s+="<span class='likes glyphicon glyphicon-heart-empty' style='float: right; cursor: pointer;' num='"+item.review_chu+"'>"+item.review_chu+"</span>";
+	    	    s+="</td></tr>";
+			});
+			$("#rlist").html(s);  
+		}
+	})
+}
+//수강평 좋아요 순 정렬
+$(".btnchu").click(function(){
+	$.ajax({
+		type:"post",
+		url:"class/reviewlistchu.jsp",
+		dataType:"json",
+		data:{"class_num":class_num},
+		success:function(res){
+			 var s="";
+			 $.each(res,function(idx,item){
+				s+="<tr><td>";
+				s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
+				s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+				s+="<span style="font-size: 1.2em;">"+item.reviewstar+"</span><br>";
+				s+="<span>"+item.name+"</span><br>";
+				s+="<span>"+item.review_content+"</span><br>";
+				s+="<span style='color: lightgray;'>"+item.reg_date+"</span>"
+				s+="<span class='likes glyphicon glyphicon-heart-empty' style='float: right; cursor: pointer;' num='"+item.review_chu+"'>"+item.review_chu+"</span>";
+	    	    s+="</td></tr>";
+			});
+			$("#rlist").html(s);  
+		}
+	})
+	
+	//수강평 평점 낮은 순 정렬
+	$(".btnlow").click(function(){
+	$.ajax({
+		type:"post",
+		url:"class/reviewlistrating2.jsp",
+		dataType:"json",
+		data:{"class_num":class_num},
+		success:function(res){
+			 var s="";
+			 $.each(res,function(idx,item){
+				s+="<tr><td>";
+				s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
+				s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+				s+="<span style="font-size: 1.2em;">"+item.reviewstar+"</span><br>";
+				s+="<span>"+item.name+"</span><br>";
+				s+="<span>"+item.review_content+"</span><br>";
+				s+="<span style='color: lightgray;'>"+item.reg_date+"</span>"
+				s+="<span class='likes glyphicon glyphicon-heart-empty' style='float: right; cursor: pointer;' num='"+item.review_chu+"'>"+item.review_chu+"</span>";
+	    	    s+="</td></tr>";
+			});
+			$("#rlist").html(s);  
+		}
+	})
+	//수강평 최신순 정렬
+	$(".btnrec").click(function(){
+	$.ajax({
+		type:"post",
+		url:"class/reviewlistrecent.jsp",
+		dataType:"json",
+		data:{"class_num":class_num},
+		success:function(res){
+			 var s="";
+			 $.each(res,function(idx,item){
+				s+="<tr><td>";
+				s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
+				s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+				s+="<span style="font-size: 1.2em;">"+item.reviewstar+"</span><br>";
+				s+="<span>"+item.name+"</span><br>";
+				s+="<span>"+item.review_content+"</span><br>";
+				s+="<span style='color: lightgray;'>"+item.reg_date+"</span>"
+				s+="<span class='likes glyphicon glyphicon-heart-empty' style='float: right; cursor: pointer;' num='"+item.review_chu+"'>"+item.review_chu+"</span>";
+	    	    s+="</td></tr>";
+			});
+			$("#rlist").html(s);  
+		}
+	})
+	//수강평 평점 높은 순 정렬
+	$(".btnhigh").click(function(){
+	$.ajax({
+		type:"post",
+		url:"class/reviewlistrating1.jsp",
+		dataType:"json",
+		data:{"class_num":class_num},
+		success:function(res){
+			 var s="";
+			 $.each(res,function(idx,item){
+				s+="<tr><td>";
+				s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
+				s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+				s+="<span style="font-size: 1.2em;">"+item.reviewstar+"</span><br>";
+				s+="<span>"+item.name+"</span><br>";
+				s+="<span>"+item.review_content+"</span><br>";
+				s+="<span style='color: lightgray;'>"+item.reg_date+"</span>"
+				s+="<span class='likes glyphicon glyphicon-heart-empty' style='float: right; cursor: pointer;' num='"+item.review_chu+"'>"+item.review_chu+"</span>";
+	    	    s+="</td></tr>";
+			});
+			$("#rlist").html(s);  
+		}
+	})
+})
 </script>
 <title>Insert title here</title>
 </head>
-<%
-String class_num=request.getParameter("class_num");
-ClassDao cldao = new ClassDao();
-ClassDto cldto = cldao.getClass(class_num);
 
-ReviewDao rdao = new ReviewDao();
-double star = rdao.getReviewStar(class_num);
-List<ReviewDto> rlist = rdao.getAllReview(class_num);
-
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-NumberFormat numberFormat = NumberFormat.getInstance();
-%>
 <body>
 <div id="introduce">강의 소개</div>
 <div id="score"> 
@@ -110,33 +235,15 @@ NumberFormat numberFormat = NumberFormat.getInstance();
     </div>
   <div class="reviewoption">
   	<b style="color: black; cursor: default;">VIEW |</b>
-    <span class="glyphicon glyphicon-triangle-bottom " >좋아요 순</span> &nbsp;&nbsp;&nbsp;
-    <span class="glyphicon glyphicon-triangle-bottom" >최신 순</span>&nbsp;&nbsp;&nbsp;
-    <span class="glyphicon glyphicon-triangle-bottom" >평점 높은 순</span>&nbsp;&nbsp;&nbsp;
-    <span class="glyphicon glyphicon-triangle-bottom" >평점 낮은 순</span>
+    <span class="glyphicon glyphicon-triangle-bottom btnchu" >좋아요 순</span> &nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-triangle-bottom btnrec" >최신 순</span>&nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-triangle-bottom btnhigh" >평점 높은 순</span>&nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-triangle-bottom btnlow" >평점 낮은 순</span>
     <br>
     <hr>
   </div>
-  <table class="table">
-      <%
-      for(ReviewDto rdto : rlist){%>
-    	  <tr>
-    	    <td>
-    	    
-    	      <img src="image/review_img.png" style="width: 50px; height: 50px; border-radius: 100px">
-    	      <span class="star-prototype" style="text-align: left;"><%=rdto.getReviewstar() %></span>
-    	      <span style="font-size: 1.2em;"><%=rdto.getReviewstar() %></span><br>
-    	      <span>사용자 이름</span>
-    	      <br>
-    	      <span><%=rdto.getReview_content() %></span><br>
-    	      <span style="color: lightgray;"><%=sdf.format(rdto.getReg_date()) %></span>
-    	      <span class="likes glyphicon glyphicon-heart-empty" style="float: right; cursor: pointer;"
-    	       num="<%=rdto.getReview_num()%>"><%=rdto.getReview_chu()%></span>
-    	       
-    	    </td>
-    	  </tr>
-      <%}
-      %>
+  <table class="table" id="rlist">
+    	  
     </table>
 </div>
 </body>
