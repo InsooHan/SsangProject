@@ -18,6 +18,8 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/4ea0bf99ed.js" crossorigin="anonymous"></script>
 <style type="text/css">
+
+
 span.day
 {
 	float: right;
@@ -94,13 +96,15 @@ $(function() {
 String loginok=(String)session.getAttribute("loginok");
 String myid=(String)session.getAttribute("myid");
 BoardDao dao=new BoardDao();
+
+
 //페이징 필요변수
 int totalCount;
 int totalPage;//총페이지
 int startPage;//각블럭시작페이지
 int endPage;//끝페이지
 int start;//시작번호
-int perPage=2;//한페이지에 보여질 글 갯수
+int perPage=4;//한페이지에 보여질 글 갯수
 int perBlock=5;// 한 블럭당 보여지는 페이지개수
 int currentPage;//현재페이지
 int no;
@@ -122,6 +126,7 @@ no=totalCount-(currentPage-1)*perPage;
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <body>
+<img src="image/title.png" align="left" style="width: 1500px; height: 100px;">
 <%
 if(loginok!=null){
 	%>
@@ -130,7 +135,8 @@ if(loginok!=null){
 	<%}
 %>
 <div>
-<b style="color:red"><%=totalCount %>개의 글이 있습니다 </b>
+<a></a>
+<b   style="color:red"><%=totalCount %>개의 글이 있습니다 </b>
 <%
 MemberDao mdao=new MemberDao();
 for(BoardDto dto:list)
@@ -138,8 +144,9 @@ for(BoardDto dto:list)
 	String name=mdao.getName(dto.getBoard_id());
 	%>
 	<table class="table" style="">
-		<tr><td>
-			<b style="font-size: 20px"><i class="fa-solid fa-user"></i><%=name%></b>
+		<tr>
+			<td style="background-color:">
+				<b style="font-size: 20px; "><i class="fa-solid fa-user"></i><%=name%>님 글</b>
 				<%
 				//로그인한 아이디
 				
@@ -270,7 +277,8 @@ for(BoardDto dto:list)
 %>
 </div>
 <!-- 페이징 처리 -->
-<div style="width: 800px; text-align:center;" class="container" id="page">
+<div style="width: 200px; text-align:center;" class="container" id="page">
+
 	<ul class="pagination">
 		<%
 		
@@ -278,7 +286,7 @@ for(BoardDto dto:list)
 		if(startPage>1)
 		{%>
 			<li>
-				<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=startPage-1%>">이전</a>
+				<a class="container p-1 my-5 border" href="index.jsp?main=board/boardlist.jsp?currentPage=<%=startPage-1%>">이전</a>
 			</li>
 		<%}
 		for(int pp=startPage;pp<=endPage;pp++)
@@ -286,11 +294,11 @@ for(BoardDto dto:list)
 			if(pp==currentPage)
 			{%>
 				<li class="active">
-					<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+					<a class="container p-1 my-5 border" href="index.jsp?main=board/boardlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
 				</li>
 			<%}else{%>
 				<li>
-					<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+					<a class="container p-1 my-5 border" href="index.jsp?main=board/boardlist.jsp?currentPage=<%=pp%>"><%=pp%></a>
 				</li>
 			<%}
 		}
@@ -299,7 +307,7 @@ for(BoardDto dto:list)
 		if(endPage<totalPage)
 		{%>
 			<li>
-				<a href="index.jsp?main=board/boardlist.jsp?currentPage=<%=endPage+1%>">다음</a>
+				<a class="container p-1 my-5 border" href="index.jsp?main=board/boardlist.jsp?currentPage=<%=endPage+1%>">다음</a>
 			</li>
 		<%}
 		%>
