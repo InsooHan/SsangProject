@@ -66,11 +66,11 @@
    width: 250px;
    border: 1px solid lightgray;
 }
-.paybtn, .inicisbtn{
-   width: 230px;
-}
-.paybtn{
-   background-color: #fef01b; color: black; border: #fef01b;
+.kakaopay, .kginicis{
+   width: 100px;
+   height: 50px;
+   border-radius: 20px;
+   margin-left: 40px;
 }
 </style>
 <script type="text/javascript">
@@ -103,8 +103,8 @@ $(function(){
 		
 		$(".cart_num:checked").each(function(i,ele){
 			price+=parseInt($(this).attr("class_price"));
-			$(".selectprice").html(price);
-			$(".endprice").html(price);
+			$(".selectprice").html(price.toLocaleString('ko-KR'));
+			$(".endprice").html(price.toLocaleString('ko-KR'));
 		});
 	});
 	
@@ -160,11 +160,18 @@ $(function(){
 		
 		$(".cart_num:checked").each(function(i,ele){
 			price+=parseInt($(this).attr("class_price"));
-			$(".selectprice").html(price);
-			$(".endprice").html(price);
+			$(".selectprice").html(price.toLocaleString('ko-KR'));
+			$(".endprice").html(price.toLocaleString('ko-KR'));
 		});
 		
 	});
+	
+	//Tooltip
+	// Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+});
 		
 });
 
@@ -276,15 +283,23 @@ MemberDao mdao=new MemberDao();
     </td>
   </tr> -->
   <tr>
-    <td colspan="2">
-      <button type="button" class="paybtn btn">카카오페이</button>
+    <td colspan="2" rowspan="2">
+    <div class="container mt-3">
+      <button type="button" class="paybtn btn" data-bs-toggle="tooltip" title="카카오페이로 결제하기">
+      <img src="image/kakaopay.png" class="kakaopay"></button>
+      <button type="button" class="inicisbtn btn" data-bs-toggle="tooltip" title="KG이니시스로 결제하기">
+      <img src="image/kginicis.jpeg" class="kginicis"></button>
+    </div>
     </td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td colspan="2">
-      <button type="button" class="inicisbtn btn btn-danger">KG이니시스</button>
+    <div class="container mt-3">
+      <button type="button" class="inicisbtn btn" data-bs-toggle="tooltip" title="KG이니시스로 결제하기">
+      <img src="image/kginicis.jpeg" class="kginicis"></button>
+    </div>
     </td>
-  </tr>
+  </tr> -->
 </table>
 
 <script type="text/javascript">
@@ -357,6 +372,7 @@ $(".inicisbtn").click(function(){
 		    alert(msg);
 	});	
 });
+
 </script>
 
 </div>

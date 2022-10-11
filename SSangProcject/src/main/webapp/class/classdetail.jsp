@@ -140,14 +140,12 @@ $(function(){
 	//장바구니에 담기
 	$("#btncart").click(function(){
 		
-		//아래 코드 작성시 ajax안먹음; 재확인필요
-		<%-- if(<%=loginok%>==null){
+		if(<%=loginok%>==null){
 			alert("장바구니에 담기위해 로그인해주세요.");
-			location.href="index.jsp?main=login/loginform.jsp";
-		} --%>
+			window.location.assign("index.jsp?main=login/loginform.jsp");
+		} else{
 		
-			var formdata=$("#frm").serialize();
-			//alert(formdata);
+		    var formdata=$("#frm").serialize();
 			
 			$.ajax({
 				
@@ -158,18 +156,22 @@ $(function(){
 				success:function(){
 					
 					if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?")){
-						//병합하고 아래경로 안먹음; 재확인 필요
-						location.href="index.jsp?main=class/cartlist.jsp";
+						window.location.assign("index.jsp?main=class/cartlist.jsp");
 					}
 				}
 			});
+		}
 	});
 	
 	//수강신청하기
 	$("#application").click(function(){
 		
+		if(<%=loginok%>==null){
+			alert("수강신청을 하기위해 로그인해주세요.");
+			window.location.assign("index.jsp?main=login/loginform.jsp");
+		}else{
+		
 			var formdata=$("#frm").serialize();
-			//alert(formdata);
 			
 			$.ajax({
 				
@@ -179,14 +181,15 @@ $(function(){
 				data:formdata,
 				success:function(){
 					
-					if(confirm("장바구니에 저장하였습니다.\n수강신청한 학습들을 확인하시겠습니까?")){
-						//병합하고 아래경로 안먹음; 재확인 필요
-						location.href="index.jsp?main=class/mypage.jsp";
-					}
+					if(confirm("장바구니에 저장하였습니다.\n수강신청한 학습들을 확인하시겠습니까?"))
+						window.location.assign("index.jsp?main=class/mypage.jsp");
 				}
 			});
-	});
+		}
+	}); 
+
 });
+
 /* move 클릭 시 스크롤 이동 메서드 */
 function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>
@@ -247,7 +250,7 @@ function fnMove(seq){
 <div style="border-radius:20px; background-color: white; width: 300px;">
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
 <button style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
-<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light" i d="btncart">바구니에담기</button><br>
+<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light" id="btncart">바구니에담기</button><br>
 <span>관심</span>
 <span>공유</span><br>
 </div>
