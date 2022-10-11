@@ -33,23 +33,26 @@
 </head>
 <body>
 <!-- 이미지 미리보기할 위치 -->
-<img alt="" src="" id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;">
+<img alt="" src="" id="showimg" style="position: absolute; left: 1200px; top: 30px; max-width: 200px;">
 <form action="board/boardaddaction.jsp" method="post" enctype="multipart/form-data">
-	<table style="width: 600px;">
+	<table style="width: 800px;">
+		<div align="left">
+		<span style="font-size:40px;"></span>
+		</div>
 		<caption>
-			<b ></b>
-			<span class="camera" style="cursor: pointer;"><i class="fa-solid fa-camera">사진 추가</i></span>
+			
+			<span class="camera" style="cursor: pointer;" ><i class="fa-solid fa-camera">사진 추가</i></span>
 			<input type="file" name="photo" id="photo" style="visibility: hidden;" onchange="readURL(this)">
 		</caption>
 		
-		<tr height="100">
+		<tr height="100" style="">
 			<td>
-				<textarea style="width: 800px; height: 200px;" class="form-control" name="content"
+				<textarea style="width: 800px; height: 200px; border:1px solid black;" class="form-control" name="content"
 				 required="required"></textarea>
 			</td>
 			<td>
 				<button type="submit" class="btn btn-default" 
-				style="width: 100px; height: 100px" >글 등록</button>
+				style="width: 100px; border:1px solid black; height: 200px;" >글 등록</button>
 			</td>
 		</tr>
 	</table>
