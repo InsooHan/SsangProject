@@ -8,7 +8,6 @@
 <%@page import="dao.ReviewDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
 <%
 request.setCharacterEncoding("utf-8");
 String review_num = request.getParameter("review_num");
@@ -17,14 +16,14 @@ ReviewAnswerDao dao = new ReviewAnswerDao();
 ReviewAnswerDto dto = dao.getranswer(review_num);
 MemberDao mdao = new MemberDao();
 String gongname = mdao.getGongname(dto.getUser_num());
-
+ System.out.print(review_num);
 	JSONObject ob = new JSONObject();
 	ob.put("ans_num", dto.getAns_num());
 	ob.put("review_num",dto.getReview_num());
 	ob.put("gongname",gongname);
 	ob.put("ans_content",dto.getAns_content());
 	ob.put("ans_chu", dto.getAns_chu());
-	ob.put("reg_date", sdf.format(dto.getReg_date()));
-
+	//ob.put("reg_date", sdf.format(dto.getReg_date()));
+	
 %>
 <%=ob.toString()%>

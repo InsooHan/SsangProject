@@ -11,6 +11,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 String class_num = request.getParameter("class_num");
+String review_num = request.getParameter("review_num");
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 ReviewDao dao = new ReviewDao();
 List<ReviewDto> list = dao.getAllReview(class_num);
@@ -18,7 +19,6 @@ JSONArray arr = new JSONArray();
 MemberDao mdao = new MemberDao();
 for(ReviewDto dto:list){
 	JSONObject ob = new JSONObject();
-	//System.out.print("안녕");
 	String name = mdao.getNamenum(dto.getUser_num());
 	ob.put("review_num", dto.getReview_num());
 	ob.put("class_num",dto.getClass_num());
