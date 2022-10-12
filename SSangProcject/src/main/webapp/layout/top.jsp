@@ -66,15 +66,20 @@
 	}
 	
 	button.login {
+		height: 35px;
 		margin-right: 10px;
 		border: 1px solid gray;
+	}
+	
+	button.join, button.logout {
+		height: 35px;
 	}
 </style>
 </head>
 <body>
 	<div style="float: right; margin-right: 150px;">
-		<form class="d-flex form" style="height: 30px;">
-			<input class="form-control me-2" type="text" placeholder="Search" style="width: 200px;">&nbsp;
+		<form class="d-flex form">
+			<input class="form-control me-2" type="text" placeholder="Search" style="width: 200px; height: 25px;">&nbsp;
 			<i class="fa fa-search search" aria-hidden="true"></i>
 		
 <%
@@ -102,7 +107,7 @@
 			<div class="count" onclick="location.href='index.jsp?main=class/cartlist.jsp'"><%=cartSize %></div>	
 		</div>
 		<a href="index.jsp?main=class/mypage.jsp"><i class="fa fa-user-o user" aria-hidden="true"></i></a>
-		<button type="button" class="btn btn-secondary" style="width: 90px;"
+		<button type="button" class="btn btn-secondary logout" style="width: 90px;"
 				onclick="location.href='login/logoutaction.jsp'">로그아웃</button>
 	<%
 	}
