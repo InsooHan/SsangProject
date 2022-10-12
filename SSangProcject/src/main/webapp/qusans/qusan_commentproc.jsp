@@ -12,13 +12,13 @@
     <!DOCTYPE html>
 
 <%
-request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("UTF-8");
 
 String cont = request.getParameter("anscont");
 String id = request.getParameter("id");
 int num = Integer.parseInt(request.getParameter("num"));
 
-
+//여기서부터 dao
 Connection conn=null;
 PreparedStatement pt=null;
 ResultSet rs=null;
@@ -30,17 +30,19 @@ conn = db.getConnection();
 e.printStackTrace();
 }
 
-String sql = "insert into Answer2Dto(ans_id,ans_content,reg_datetime,que_num) values(?,?,now(),?)";
+String sql = "insert into Answer(ans_id,ans_content,reg_datetime,que_num) values(?,?,now(),?)";
 try{
 	pt = conn.prepareStatement(sql);
 	pt.setString(1, id);
 	pt.setString(2, cont);
 	pt.setInt(3, num);
 	pt.executeUpdate();
-	
+
+	System.out.print(cont); //한글 여기서부터 깨지는구만 후
 }catch(SQLException e){
 	e.printStackTrace();
+	System.out.print(e);
 }
 
-response.sendRedirect("index.jsp?main=qusans/qusan_listdetail.jsp?num="+num);
+response.sendRedirect("../index.jsp?main=qusans/qusan_listdetail.jsp?num="+num);
 %>

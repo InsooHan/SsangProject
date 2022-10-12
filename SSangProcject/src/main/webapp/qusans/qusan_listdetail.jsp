@@ -15,6 +15,7 @@
 <style>
 </style>
 <%
+//request.setCharacterEncoding("UTF-8");
 
 Connection conn=null;
 PreparedStatement pt=null;
@@ -105,7 +106,7 @@ try{
 	pt.setInt(1, qdata.getQue_num());
 	rs=pt.executeQuery();
 	while(rs.next()){
-		Answer2Dto adata = new Answer2Dto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5));
+		Answer2Dto adata = new Answer2Dto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getTimestamp(5),rs.getInt(6));
 		ans_list.add(adata);
 	}
 }catch(SQLException e){
