@@ -19,7 +19,7 @@ public class QuestionDao {
 	{
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
-		String sql="insert into question (que_num,que_id,que_subject,que_content,que_img,que_date,que_chu) values (?,?,?,now())";
+		String sql="insert into Question (que_num,que_id,que_subject,que_content,que_img,que_date,que_chu) values (?,?,?,now())";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class QuestionDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select count(*) from question";
+		String sql="select count(*) from Question";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class QuestionDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs =null;
 		
-		String sql = "select * from question order by que_num desc";
+		String sql = "select * from Question order by que_num desc";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -117,7 +117,7 @@ public class QuestionDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		String sql="select * from question order by qnum desc limit ?,?";
+		String sql="select * from Question order by qnum desc limit ?,?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -159,7 +159,7 @@ public class QuestionDao {
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		ResultSet rs =null;
-		String sql = "select * from question where qnum=?";
+		String sql = "select * from Question where qnum=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -194,7 +194,7 @@ public class QuestionDao {
 			Connection conn=db.getConnection();
 			PreparedStatement pstmt=null;
 			
-			String sql="update question set content=?, subject=? where qnum=?";
+			String sql="update Question set content=?, subject=? where qnum=?";
 			
 			try {
 				pstmt=conn.prepareStatement(sql);
@@ -222,7 +222,7 @@ public class QuestionDao {
 		Connection conn=db.getConnection();
 		PreparedStatement pstmt=null;
 		
-		String sql="delete from question where qnum=?";
+		String sql="delete from Question where qnum=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);

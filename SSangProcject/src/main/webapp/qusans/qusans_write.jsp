@@ -103,7 +103,7 @@ ul.status .active{
 	String part = request.getParameter("part");
 
 %>
-<jsp:include page="qusan_st.jsp"/>
+<jsp:include page="../qusans/qusan_st.jsp"/>
 <link rel="stylesheet" href="../static/css/write.css">
 <script src='../static/js/write.js'>
 $(document).ready(function(){
