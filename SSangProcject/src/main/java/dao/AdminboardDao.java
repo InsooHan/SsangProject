@@ -255,19 +255,18 @@ public class AdminboardDao {
 		}
 	
 	//update
-		public void updateQusAns(AdminboardDto dto) {
+		public void updateAdminboard(AdminboardDto dto) {
 			Connection conn=db.getConnection();
 			PreparedStatement pstmt=null;
 			
-			String sql="update adminboard set ad_subject=?,ad_content=?,ad_image=?,ad_date=? where ab_num=?";
+			String sql="update adminboard set ad_subject=?,ad_content=?,ad_image=?,ad_date=now() where ab_num=?";
 
 			try {
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1, dto.getAd_subject());
 				pstmt.setString(2, dto.getAd_content());
 				pstmt.setString(3, dto.getAd_image());
-				pstmt.setTimestamp(4, dto.getAd_date());
-				pstmt.setString(5, dto.getAb_num());
+				pstmt.setString(4, dto.getAb_num());
 				
 				pstmt.execute();
 				
@@ -280,6 +279,23 @@ public class AdminboardDao {
 		}
 	
 	//delete
-	
+		public void deleteAdminBoard(String num) {
+			Connection conn=db.getConnection();
+			PreparedStatement pstmt=null;
+			
+			String sql="delete from adminboard where ab_num=?";
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, num);
+				pstmt.execute();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(pstmt, conn);
+			}
+		}
 	
 }

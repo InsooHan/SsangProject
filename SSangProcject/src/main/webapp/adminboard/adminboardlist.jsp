@@ -14,6 +14,22 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/a47cf79e39.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
+<style type="text/css">
+#alldiv
+{
+margin-left: 300px;
+}
+
+.table
+{
+width: 800px;
+}
+
+#pagecontrol
+{
+margin-top: 20px;
+}
+</style>
 </head>
 <%
 int currentPage;
@@ -93,11 +109,11 @@ function baselist() {
 		success:function(res){
 			//alert(res.length);
 			
-			var s="<table>";
+			var s="<table class='table'>";
 			
 			$.each(res,function(i,item){
 				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
-				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
+				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td style='float:right;'>"+item.ad_date+"</td></tr>";
 				
 			});
 
@@ -124,10 +140,10 @@ function list() {
 		success:function(res){
 			//alert(currentPage);
 			
-			var s="<table>";
+			var s="<table class='table'>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
+				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
 				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
 			});
 			
@@ -177,6 +193,7 @@ function pagebu() {
 
 </script>
 <body>
+<div id="alldiv">
 <div class="input-group mb-3" style="width: 500px;">
 	<i class="fa-solid fa-magnifying-glass"></i>
 	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 300px;" placeholder="검색어를 입력해주세요">
@@ -195,6 +212,7 @@ function pagebu() {
 <div id="baselistboard"></div>
 <div id="listboard"></div>
 
-<div style='width: 800px;' class='container mt-3' id='page'></div>
+<div id="pagecontrol"><div style='width: 800px;' class='container mt-3' id='page'></div></div>
+</div>
 </body>
 </html>

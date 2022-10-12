@@ -37,12 +37,7 @@ border: 1px solid gray;
 </style>
 <script type="text/javascript">
 $(function() {
-	$("#btnsave").click(function() {
-		var ck=$("#editor").html();
-		//alert(ck);
-		
-		$("#content").val(ck);
-	});
+
 });
 
 
@@ -50,7 +45,7 @@ function readURL(input) {
 	if (input.files && input.files[0]) {
            var reader = new FileReader();
            reader.onload = function (e) {
-           $('#showimg').attr('src', e.target.result);
+           $('#blah').attr('src', e.target.result);
            }
            reader.readAsDataURL(input.files[0]);
        }

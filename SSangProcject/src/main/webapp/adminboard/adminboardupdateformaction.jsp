@@ -29,6 +29,7 @@ try
 {
 MultipartRequest multi=new MultipartRequest(request,realpath,uploadsize,"utf-8",new DefaultFileRenamePolicy());
 
+String num=multi.getParameter("num");
 //String writer=multi.getParameter("writer");
 String subject=multi.getParameter("subject");
 String content=multi.getParameter("content");
@@ -41,8 +42,9 @@ dto.setAd_id("admin");
 dto.setAd_subject(subject);
 dto.setAd_content(content);
 dto.setAd_image(mainphoto);
+dto.setAb_num(num);
 
-dao.insertAdminboard(dto);
+dao.updateAdminboard(dto);
 
 response.sendRedirect("../index.jsp?main=adminboard/adminboardlist.jsp");
 

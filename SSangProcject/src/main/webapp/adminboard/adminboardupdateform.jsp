@@ -59,32 +59,33 @@ function readURL(input) {
 <body>
 
 <!-- 이미지 미리보기 -->
-<img src="image1/noimage.jpg" style="max-width: 300px;" id="blah">
+<img src="save/<%=dto.getAd_image()%>" style="max-width: 300px;" id="blah">
 
 
-<form action="adminboardinsertformaction.jsp" method="post" enctype="multipart/form-data">
+<form action="adminboard/adminboardupdateformaction.jsp" method="post" enctype="multipart/form-data">
 	<table class="table table-bordered" style="width: 800px;margin-left: 100px;">
 		<caption><h3>공지사항</h3></caption>
+		<input type="text" name="num" value="<%=num%>">
 
 		<tr>
 			<th bgcolor="green" width="100">대표사진</th>
 			<td>
 				<input type="file" name="mainphoto" class="form-control"
-					required="required" style="width: 200px;" onchange="readURL(this)">
+					required="required" style="width: 200px;" onchange="readURL(this)" value="<%=dto.getAd_image()%>">
 			</td>
 		</tr>
 		<tr>
 			<th bgcolor="green" width="100">제  목</th>
 			<td>
 				<input type="text" name="subject" class="form-control"
-					required="required" style="width: 500px;">
+					required="required" style="width: 500px;" value="<%=dto.getAd_subject()%>">
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
 				<textarea name="content" id="content"		
 					required="required"			
-					style="width: 100%;height: 300px;display: none;"></textarea>		
+					style="width: 100%;height: 300px;display: none;"><%=dto.getAd_content()%></textarea>		
 			
 			</td>
 		</tr>
