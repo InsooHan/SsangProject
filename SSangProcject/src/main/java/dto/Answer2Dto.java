@@ -4,7 +4,7 @@ public class Answer2Dto {
 	private int ans_num;
 	private String ans_id;
 	private String ans_content;
-	private String reg_date;
+	private String reg_datetime;
 	private int que_num;
 	
 	public Answer2Dto() {}
@@ -12,7 +12,7 @@ public class Answer2Dto {
 		this.ans_num = num;
 		this.ans_id=id;
 		this.ans_content=content;
-		this.reg_date=datetime;
+		this.reg_datetime=datetime;
 		this.que_num=qnum;
 	}
 	
@@ -38,10 +38,10 @@ public class Answer2Dto {
 	}
 	
 	public String getReg_datetime() {
-		return reg_date;
+		return reg_datetime;
 	}
-	public void setReg_datetime(String reg_date) {
-		this.reg_date = reg_date;
+	public void setReg_datetime(String reg_datetime) {
+		this.reg_datetime = reg_datetime;
 	}
 	public int getQue_num() {
 		return que_num;

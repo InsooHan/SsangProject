@@ -29,7 +29,7 @@ conn = db.getConnection();
 }catch(Exception e){
 e.printStackTrace();
 }
-String sql = "insert into CommentDto(comm_num,comm_writer,comm_content,comm_datetime,ans_num) values(?,?,now(),?)";
+String sql = "insert into CommentDto(comm_writer,comm_content,comm_datetime,ans_num) values(?,?,now(),?)";
 try{
 	pt = conn.prepareStatement(sql);
 	pt.setString(1, id);

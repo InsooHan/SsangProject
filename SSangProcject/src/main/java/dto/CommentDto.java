@@ -26,10 +26,10 @@ public class CommentDto {
 	public void setComm_content(String comm_content) {
 		this.comm_content = comm_content;
 	}
-	public String getComm_date() {
+	public String getComm_datetime() {
 		return comm_datetime;
 	}
-	public void setComm_date(String comm_datetime) {
+	public void setComm_datetime(String comm_datetime) {
 		this.comm_datetime = comm_datetime;
 	}
 	public int getAns_num() {
