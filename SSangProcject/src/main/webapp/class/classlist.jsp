@@ -12,7 +12,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
@@ -39,6 +41,8 @@
    float: left;
    cursor: pointer;
    font-size: 0.9em;
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
 .rank{
    float: right;
@@ -49,6 +53,7 @@
 .classdiv{
    margin-left: 0px;
    padding-bottom: 30px;
+   width: 200px;
 }
 .img:hover{
    filter: brightness(0.5);
@@ -66,6 +71,10 @@
 }
 #cart{
    float: right;
+}
+.blank{
+   margin-left: 10px;
+   margin-right: 15px;
 }
 </style>
 <%
@@ -406,25 +415,6 @@ function allclassfunc(){
 			s+="</tr></table>";
 			$(".listtb").html(s);
 			
-			/* 페이징 */
-			var p="<div><ul class='pagination'>";
-			
-			if(res.startPage>1){
-				p+="<li><a href='index.jsp?main=class/classlist.jsp?currentPage="+(res.startPage-1)+"'>이전</a></li>";
-			}
-			for(var pp=res.startPage;pp<=res.endPage;pp++){
-				if(pp==res.currentPage){
-					p+="<li class='active'><a href='index.jsp?main=class/classlist.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
-				}else{
-					p+="<li class='active'><a href='index.jsp?main=class/classlist.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
-				}
-			}
-			if(res.endPage<res.totalPage){
-				p+="<li><a href='index.jsp?main=class/classlist.jsp?currentPage="+(res.endPage+1)+"'>다음</a></li>";
-			}
-			p+="</ul></div>";
-			
-			$("#paging").html(p);
 		}
 	});
 } 
@@ -618,13 +608,11 @@ function searchfunc(class_name){
 </div>
 
 <!-- 필터 -->
-<div class="filter container mt-3">
-  <div class="alert alert-light">
-    <i class="fa fa-sliders" aria-hidden="true"></i> <strong>필터 </strong>
-    <input type="radio" name="levels" value="입문"> 입문</input>
-    <input type="radio" name="levels" value="초급"> 초급</input>
-    <input type="radio" name="levels" value="중급"> 중급</input>
-  </div>
+<div class="filter container">
+    <i class="fa fa-sliders" aria-hidden="true"></i> <strong>필터</strong><span class="blank"></span>
+    <input type="radio" class="form-check-input" name="levels" value="입문"> 입문<span class="blank"></span>
+    <input type="radio" class="form-check-input" name="levels" value="초급"> 초급<span class="blank"></span>
+    <input type="radio" class="form-check-input" name="levels" value="중급"> 중급<span class="blank"></span>
 </div>
 
 <!-- 순위 -->
