@@ -22,6 +22,12 @@ AdminboardDao dao=new AdminboardDao();
 AdminboardDto dto=dao.getdata(num);
 
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
+//아이디
+String myid=(String)session.getAttribute("myid");
+
+//로그인상태
+String loginok=(String)session.getAttribute("loginok");
 %>
 <body>
 <div><b style="font-size: 1.4em;"><%=dto.getAd_subject()%></b></div>
@@ -32,8 +38,20 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm");
 </div>
 <br>
 <div>
-<img alt="" src="../save/<%=dto.getAd_image()%>">
+<img alt="" src="save/<%=dto.getAd_image()%>">
+<br>
 <%=dto.getAd_content()%>
 </div>
+
+	<%
+	if(loginok!=null){
+		if(myid.equals("admin")){
+	%>
+	<button type="button" class="btn btn-info" onclick="location.href='index.jsp?main=adminboard/adminboardupdateform.jsp?ab_num=<%=dto.getAb_num()%>'">수정</button>
+	<button type="button" class="btn btn-danger" onclick="location.href='adminboard/adminboarddelete.jsp?ab_num=<%=dto.getAb_num()%>'">삭제</button>
+	<%
+		}
+	}
+	%>
 </body>
 </html>
