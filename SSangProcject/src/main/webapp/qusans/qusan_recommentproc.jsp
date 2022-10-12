@@ -41,5 +41,5 @@ try{
 	e.printStackTrace();
 }
 
-response.sendRedirect("qusan_listdetail.jsp?num="+qnum);
+response.sendRedirect("index.jsp?main=qusans/qusan_listdetail.jsp?num="+qnum);
 %>

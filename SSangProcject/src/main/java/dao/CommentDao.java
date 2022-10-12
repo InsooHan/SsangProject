@@ -59,7 +59,7 @@ public class CommentDao {
 				dto.setComm_num(rs.getInt("comm_num"));
 				dto.setComm_writer(rs.getString("comm_writer"));
 				dto.setComm_content(rs.getString("comm_content"));
-				dto.setComm_date(rs.getString("comm_date"));
+				dto.setComm_datetime(rs.getString("comm_datetime"));
 				dto.setAns_num(rs.getInt("ans_num"));
 				
 				list.add(dto);

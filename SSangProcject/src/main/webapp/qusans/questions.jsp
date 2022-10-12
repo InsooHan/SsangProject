@@ -177,8 +177,9 @@ if(nowP_list.size() ==0){
 
 	for(QuestionDto data : nowP_list ){
 
-%>          
-          <li class="question-container"><a href="qusan_listdetail.jsp?num=<%=data.getQue_num()%>">
+%>       
+          <li class="question-container">   
+          <a href="index.jsp?main=qusans/qusan_listdetail.jsp?num=<%=data.getQue_num()%>">
     <div class="question">
       <div class="question__info">
         <div class="question__title">
@@ -223,7 +224,7 @@ if(nowP_list.size() ==0){
 <%
 	if( startpage-grpsize > 0 ){
 %>
-      <a class="pagination-pre" href="?pagenum=<%=startpage-1 %>">이전 페이지</a>
+      <a class="pagination-pre" href="index.jsp?main=?pagenum=<%=startpage-1 %>">이전 페이지</a>
 <%  } %>
       <ul class="pagination-list">
         
@@ -236,14 +237,14 @@ if(nowP_list.size() ==0){
    			i=(startpage+grpsize)-1;
    	}else {
    %>
-          <li><a class="pagination-link " href="?pagenum=<%=i %>"><%=i %></a></li>     	  
+          <li><a class="pagination-link " href="index.jsp?main=?pagenum=<%=i %>"><%=i %></a></li>     	  
    <%  } } %>
           
       </ul>
 <%
 	if( startpage + grpsize <= pagecount ){
 %>
-      <a class="pagination-pre" href="?pagenum=<%=startpage+grpsize %>">다음 페이지</a>
+      <a class="pagination-pre" href="index.jsp?main=?pagenum=<%=startpage+grpsize %>">다음 페이지</a>
 <%  } %>      
       
       
