@@ -99,9 +99,9 @@ while(it.hasNext()){
 %>    
 
 
-<jsp:include page="qusan_st.jsp"/>
-<link rel="stylesheet" href="static/css/question.css">
-<script src="static/js/question.js"></script>
+<jsp:include page="../qusans/qusan_st.jsp"/>
+<link rel="stylesheet" href="../static/css/question.css">
+<script src="../static/js/question.js"></script>
 
 <body>
 
@@ -177,7 +177,7 @@ if(nowP_list.size() ==0){
 	for(QuestionDto data : nowP_list ){
 
 %>          
-          <li class="question-container"><a href="../qusans/qusan_listdetail.jsp?num=<%=data.getQue_num()%>">
+          <li class="question-container"><a href="qusan_listdetail.jsp?num=<%=data.getQue_num()%>">
     <div class="question">
       <div class="question__info">
         <div class="question__title">

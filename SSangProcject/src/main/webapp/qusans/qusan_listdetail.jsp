@@ -13,7 +13,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     
-    
+  
 <%
 
 Connection conn=null;
@@ -38,7 +38,7 @@ try{
 	pt.setInt(1, Integer.parseInt(num));
 	rs=pt.executeQuery();
 	if(rs.next()){
-		qdata= new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+		qdata= new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getTimestamp(6),rs.getInt(7));
 	}
 }catch(SQLException e){
 	e.printStackTrace();
@@ -46,8 +46,10 @@ try{
 
 %>
 <jsp:include page="../qusans/qusan_st.jsp"/>
-<link rel="stylesheet" href="./static/css/view.css">
-<script src='./static/js/view.js'></script>
+<link rel="stylesheet" href="../static/css/view.css">
+<script src='../static/js/write.js'></script>
+<script src='../static/js/question.js'></script>
+
 <body>
 
 <nav class="navbar">
@@ -69,7 +71,7 @@ try{
 	    		<a href="" class="navbar-item "><span>커뮤니티</span></a>
 	    		<div class="navbar-dropdown is-boxed is-right">
 	      
-	  				<a class="navbar-item " href="/questions.jsp">
+	  				<a class="navbar-item " href="../qusans/questions.jsp">
 	    				<span class="icon"><i class="fal fa-comment-alt-edit"></i></span> <span class="name">질문 &amp; 답변</span>
 	    
 	  				</a>  
@@ -113,7 +115,7 @@ try{
 		      </div>
 		      <div class="header__sub-title">
 		        	<h6 class="user-name"><%=qdata.getQue_id() %></h6>
-		        	<span class="sub-title__created-at">&nbsp;· <%=qdata.getQue_date() %></span>
+		        	<span class="sub-title__created-at">&nbsp;· <%=qdata.getQue_datetime() %></span>
 		      </div>
 		    </div>
 		    <div class="community-post-info__content">
