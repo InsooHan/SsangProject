@@ -7,7 +7,6 @@
 <%@page import="dao.ReviewDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
 <%
 request.setCharacterEncoding("utf-8");
 String class_num = request.getParameter("class_num");

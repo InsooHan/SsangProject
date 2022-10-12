@@ -42,6 +42,9 @@ String user_num=mdao.getNum(myid);
 String gongname=mdao.getGongname(cldto.getUser_num());
 %>
 <style type="text/css">
+#frm{
+height: auto;
+}
 /*강의 타이틀 style  */
 div.title{
 	background-color: #000033;
@@ -58,6 +61,9 @@ div.move{
 	margin-left: 200px;
 	box-sizing:border-box;
 	width: 100%;
+	height: auto;
+	position: sticky;
+	top: 0;
 }
 /*강의소개, 수강평, 수강전문의 커뮤니티 이동 버튼 hover*/
 div.move>span:hover{
@@ -75,12 +81,13 @@ div.content{
 }
 div.cart{
 	border: 1px solid lightgray;
-	background-color: lightgray;
 	border-radius:20px;
 	width: 300px;
-	height: 500px;
 	margin-left: 1030px;
 	text-align: center;
+	height: auto;
+	position: sticky;
+	top: 0;
 	
 }
 span.star-prototype, span.star-prototype > * {
@@ -108,7 +115,7 @@ $(function(){
 		});
 		
 	 
-	 //특정위치부터 스크롤 따라오기 장바구니 div
+	 /* //특정위치부터 스크롤 따라오기 장바구니 div
 	$(window).scroll(function(){  
 		  //스크롤의 위치가 상단에서 장바구니 div를 넘어서면  
 		  if($(document).scrollTop() > $('div.cart').offset().top){   
@@ -130,7 +137,7 @@ $(function(){
 		            //위의 if문에 대한 조건 아닌경우 fix라는 class를 삭제함  
 		        }  
 		    }  
-		); 
+		);  */
 	$.fn.generateStars = function() {
 	    return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
 	};
@@ -191,14 +198,14 @@ $(function(){
 });
 
 /* move 클릭 시 스크롤 이동 메서드 */
-function fnMove(seq){
+ function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>
 	location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num%>&content=detailcontent.jsp?class_num=<%=class_num%>'
 	<%}
 	%>
 	 var offset = $("#" + seq).offset();
 	 $('html, body').animate({scrollTop : offset.top}, 400);
-}
+} 
 //수강평 좋아요 순 클릭 시 ajax로 리스트 정렬
 </script>
 </head>
@@ -240,7 +247,7 @@ function fnMove(seq){
 </div>
 <br><br>
 
-<!-- 강의소개 수강평 수강전 문의 커뮤니티 div -->
+<!-- 강의소개 수강평 수강전 문의 커뮤니티 include -->
 <div class="content">
 	<jsp:include page="<%=contentpage%>"/>
 </div>
@@ -250,9 +257,18 @@ function fnMove(seq){
 <div style="border-radius:20px; background-color: white; width: 300px;">
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
 <button style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
-<button style="width: 260px;height: 50px; margin-top: 10px;" class="btn btn-Light" id="btncart">바구니에담기</button><br>
+<button style="width: 260px;height: 50px; margin-top: 10px; border: 1px solid lightgray" class="btn btn-Light" id="btncart">바구니에담기</button><br>
 <span>관심</span>
 <span>공유</span><br>
+</div>
+<div style="background-color: lightgray; text-align: left; border-radius: 20px; margin-top: 5px;
+padding: 10px 10px 10px 10px;">
+<ul>
+ <li>지식공유자 : <%=gongname %></li>
+ <li>수강기한 : 무제한</li>
+ <li>수료증 : 발급</li>
+ <li>난이도:<%=cldto.getLevels() %></li>
+ </ul>
 </div>
 </div>
 </form>

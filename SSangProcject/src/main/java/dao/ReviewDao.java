@@ -125,7 +125,7 @@ public class ReviewDao {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql="select * from review where class_num=? order by review_chu";
+		String sql="select * from review where class_num=? order by review_chu desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, num);
