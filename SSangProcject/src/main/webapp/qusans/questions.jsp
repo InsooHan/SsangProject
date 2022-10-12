@@ -100,8 +100,8 @@ while(it.hasNext()){
 
 
 <jsp:include page="qusan_st.jsp"/>
-<link rel="stylesheet" href="../static/css/question.css">
-<script src="../static/js/question.js"></script>
+<link rel="stylesheet" href="static/css/question.css">
+<script src="static/js/question.js"></script>
 
 <body>
 

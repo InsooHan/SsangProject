@@ -171,27 +171,27 @@ for(QusAnsDto dto:list) //for(int i=0;i<list.size();i++)
 </div>
 
 <!-- 페이징 처리 -->
-<div style="width: 800px;" class="container" id="page">
+<div style="width: 800px;" class="container mt-3" id="page">
 	<ul class="pagination">
 		<%
 		
 		//이전
 		if(startPage>1)
 		{%>
-			<li>
-				<a href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=startPage-1%>">이전</a>
+			<li class="page-item">
+				<a class="page-link" href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=startPage-1%>">이전</a>
 			</li>
 		<%}
 		for(int pp=startPage;pp<=endPage;pp++)
 		{
 			if(pp==currentPage)
 			{%>
-				<li class="active">
-					<a href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+				<li class="page-item active">
+					<a class="page-link" href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=pp%>"><%=pp%></a>
 				</li>
 			<%}else{%>
-				<li>
-					<a href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=pp%>"><%=pp%></a>
+				<li class="page-item">
+					<a class="page-link" href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=pp%>"><%=pp%></a>
 				</li>
 			<%}
 		}
@@ -199,8 +199,8 @@ for(QusAnsDto dto:list) //for(int i=0;i<list.size();i++)
 		//다음
 		if(endPage<totalPage)
 		{%>
-			<li>
-				<a href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=endPage+1%>">다음</a>
+			<li class="page-item">
+				<a class="page-link" href="index.jsp?main=qusans/qusanslist.jsp?currentPage=<%=endPage+1%>">다음</a>
 			</li>
 		<%}
 		%>
