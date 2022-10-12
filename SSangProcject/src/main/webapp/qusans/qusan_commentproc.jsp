@@ -30,7 +30,7 @@ conn = db.getConnection();
 e.printStackTrace();
 }
 
-String sql = "insert into answer(ans_id,ans_content,reg_date,que_num) values(?,?,now(),?)";
+String sql = "insert into Answer2Dto(ans_id,ans_content,reg_datetime,que_num) values(?,?,now(),?)";
 try{
 	pt = conn.prepareStatement(sql);
 	pt.setString(1, id);
@@ -42,5 +42,5 @@ try{
 	e.printStackTrace();
 }
 
-response.sendRedirect("qusan_listdetail.jsp?num="+num);
+response.sendRedirect("index.jsp?main=qusans/qusan_listdetail.jsp?num="+num);
 %>

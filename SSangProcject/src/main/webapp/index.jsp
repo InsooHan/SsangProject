@@ -5,31 +5,36 @@
 <head>
 <meta charset="utf-8">
 <title>index</title>
-<style type="text/css">
+<style type="text/css">	
 	div.layout {
 		position: absolute;
 	}
 	
 	div.top {
 		width: 100%;
-		height: 40px;
+		height: 50px;
 		line-height: 40px;
 		font-size: 14px;
 		text-align: center;
-		top: 20px;
+		position: fixed;
+		z-index: 10;
+		padding-top: 20px;
+		background-color: white;
 	}
 
 	div.menu {
 		width: 100%;
-		height: 30px;
-		line-height: 30px;
+		height: 80px;
 		top: 50px;
+		position: fixed;
+		z-index: 9;
+		background-color: white;
 	}
 	
 	div.main {
 		width: 100%;
 		left: 0px;
-		top: 150px;
+		top: 130px;
 	}
 	
 	a, a:hover {
