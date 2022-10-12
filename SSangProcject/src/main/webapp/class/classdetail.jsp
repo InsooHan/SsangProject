@@ -241,7 +241,7 @@ $(function(){
 <span class="btnclass" onclick=
 "location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num %>&content=inquiry.jsp?class_num=<%=class_num%>'">수강전 문의</span>&nbsp;&nbsp;&nbsp;
 <span class="btnclass" onclick=
-"location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num %>&content=community.jsp?class_num=<%=class_num%>'">커뮤니티</span>
+"location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num%>&content=../qusans/qusanslist.jsp?class_num=<%=class_num%>'">커뮤니티</span>
 <br>
 <hr>
 </div>
