@@ -1,7 +1,6 @@
 package dto;
 
 import java.sql.Timestamp;
-
 public class QuestionDto {
 	private int que_num;
 	private String que_id;
@@ -71,6 +70,10 @@ public class QuestionDto {
 	}
 	public void setAnswer_cnt(int answer_cnt) {
 		this.answer_cnt = answer_cnt;
+	}
+	public void setQue_datetime(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

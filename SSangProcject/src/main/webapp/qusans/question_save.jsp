@@ -30,7 +30,7 @@ conn = db.getConnection();
 e.printStackTrace();
 }
 
-String sql ="insert into Question(que_id,que_subject,que_content,que_date,que_chu) values(?,?,?,now(),0)";
+String sql ="insert into Question(que_id,que_subject,que_content,que_datetime,que_chu) values(?,?,?,now(),0)";
 
 try{	
 	PreparedStatement pt = conn.prepareStatement(sql);  //전체 DB 갯수 구하기
