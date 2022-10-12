@@ -19,9 +19,11 @@
 <title>Insert title here</title>
 <style type="text/css">
 .table{float: left;}
+input.form-check-input{margin-left: 8px;}
+.allcheck{margin-left: 40px;}
 .carttb, h4{
    width: 750px;
-   margin-left: 150px;
+   margin-left: 100px;
    margin-top: 20px;
 }
 .delbtn{
@@ -262,7 +264,8 @@ MemberDao mdao=new MemberDao();
 <table class="carttb table">
   <tr>
     <td colspan="2" align="left">
-      <input type="checkbox" id="allcheck"> 전체선택
+      <input type="checkbox" class="form-check-input" id="allcheck"> 
+      <label class="allcheck"> 전체선택</label>
     </td>
     <td align="right" width="150px;">
       <button type="button" class="delbtn btn btn-light">선택삭제 <i class="fa fa-times" aria-hidden="true"></i></button> 
@@ -280,7 +283,7 @@ MemberDao mdao=new MemberDao();
 	  
 	  <tr>
 	    <td colspan="2">
-	      <input type="checkbox" name="cart_num" class="cart_num" cart_num="<%=map.get("cart_num")%>" class_price=<%=class_price%>>
+	      <input type="checkbox" name="cart_num" class="cart_num form-check-input" cart_num="<%=map.get("cart_num")%>" class_price=<%=class_price%>>
 	      <div class_num="<%=map.get("class_num")%>" class="info">
 	        <img src="<%=map.get("class_image") %>" class="img" class_num="<%=map.get("class_num")%>">
 	      </div>

@@ -12,7 +12,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
@@ -39,6 +41,8 @@
    float: left;
    cursor: pointer;
    font-size: 0.9em;
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
 .rank{
    float: right;
@@ -49,6 +53,7 @@
 .classdiv{
    margin-left: 0px;
    padding-bottom: 30px;
+   width: 200px;
 }
 .img:hover{
    filter: brightness(0.5);
@@ -67,14 +72,30 @@
 #cart{
    float: right;
 }
+.blank{
+   margin-left: 10px;
+   margin-right: 15px;
+}
 </style>
 <%
     ClassDao dao=new ClassDao();
-    //List<ClassDto> list=dao.getAllDatas();
+    List<ClassDto> list=dao.getAllDatas();
     NumberFormat nf=NumberFormat.getCurrencyInstance();
     ClassDto dto=new ClassDto();
   
+    /* //페이징에 필요한 변수_no빼고 8개는 필수
+    int totalCount; //총 게시물 갯수
+    int totalPage; //총 페이지 수
+    int startPage; //각 블럭의 시작페이지
+    int endPage; //각 블럭의 끝페이지
+    int start; //각 페이지의 시작번호
+    int perPage=8; //한 페이지에 보여질 글의 갯수
+    int perBlock=5; //한 블럭당 보여지는 페이지 갯수(1~5,6~10.. 이렇게 페이지 보여지게)
     int currentPage; //현재페이지
+    int no;
+
+    //총 갯수:
+    totalCount=dao.getTotalCount();
 
     //현재 페이지번호 읽기(null일 경우는 1페이지로 설정)
     if(request.getParameter("currentPage")==null)
@@ -82,7 +103,26 @@
     else
     	currentPage=Integer.parseInt(request.getParameter("currentPage"));
 
-    
+    //총 페이지갯수 구하기
+    totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
+
+    //각 블럭의 시작페이지
+    //(현재페이지 3일경우 시작:1,끝:5 / 현재페이지 7일경우 시작:6,끝:10...
+    //우리는 한블럭당 보여지는 페이지 갯수 5로 설정했으므로)
+    startPage=(currentPage-1)/perBlock*perBlock+1;
+    endPage=startPage+perBlock-1;
+
+    //각 블럭의 끝페이지
+    //총 페이지수가 8일경우 2번째 블럭은 startpage:6,endpage:10이 아니라 8이 되야함
+    if(endPage>totalPage)
+    	endPage=totalPage;
+
+    //각 페이지에서 불러올 시작번호
+      //현재페이지가 1일경우 start:1, 현재페이지 2일경우 start:6
+    start=(currentPage-1)*perPage;
+
+    //각 페이지에서 필요한 게시글 불러오기
+    List<ClassDto> list=dao.getList(start, perPage); */
 %>
 <script type="text/javascript">
 $(function(){
@@ -375,25 +415,6 @@ function allclassfunc(){
 			s+="</tr></table>";
 			$(".listtb").html(s);
 			
-			/* 페이징 */
-			var p="<div><ul class='pagination'>";
-			
-			if(res.startPage>1){
-				p+="<li><a href='index.jsp?main=class/classlist.jsp?currentPage="+(res.startPage-1)+"'>이전</a></li>";
-			}
-			for(var pp=res.startPage;pp<=res.endPage;pp++){
-				if(pp==res.currentPage){
-					p+="<li class='active'><a href='index.jsp?main=class/classlist.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
-				}else{
-					p+="<li class='active'><a href='index.jsp?main=class/classlist.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
-				}
-			}
-			if(res.endPage<res.totalPage){
-				p+="<li><a href='index.jsp?main=class/classlist.jsp?currentPage="+(res.endPage+1)+"'>다음</a></li>";
-			}
-			p+="</ul></div>";
-			
-			$("#paging").html(p);
 		}
 	});
 } 
@@ -587,13 +608,11 @@ function searchfunc(class_name){
 </div>
 
 <!-- 필터 -->
-<div class="filter container mt-3">
-  <div class="alert alert-light">
-    <i class="fa fa-sliders" aria-hidden="true"></i> <strong>필터 </strong>
-    <input type="radio" name="levels" value="입문"> 입문</input>
-    <input type="radio" name="levels" value="초급"> 초급</input>
-    <input type="radio" name="levels" value="중급"> 중급</input>
-  </div>
+<div class="filter container">
+    <i class="fa fa-sliders" aria-hidden="true"></i> <strong>필터</strong><span class="blank"></span>
+    <input type="radio" class="form-check-input" name="levels" value="입문"> 입문<span class="blank"></span>
+    <input type="radio" class="form-check-input" name="levels" value="초급"> 초급<span class="blank"></span>
+    <input type="radio" class="form-check-input" name="levels" value="중급"> 중급<span class="blank"></span>
 </div>
 
 <!-- 순위 -->
@@ -614,7 +633,7 @@ function searchfunc(class_name){
 
 <!-- 페이징...분류한 이후 기능안먹힘. 재구현 필요 -->
 <div class="container-mt3" id="paging">
-  <%-- <ul class="pagination">
+<%-- <ul class="pagination">
     <%
     //이전
     if(startPage>1)
