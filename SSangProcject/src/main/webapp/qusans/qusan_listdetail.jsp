@@ -12,8 +12,8 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-    
-  
+<style>
+</style>
 <%
 
 Connection conn=null;
@@ -32,7 +32,7 @@ e.printStackTrace();
 }
 
 String num = request.getParameter("num");
-String sql="select * from question where que_num =?";
+String sql="select * from Question where que_num =?";
 try{
 	pt=conn.prepareStatement(sql);
 	pt.setInt(1, Integer.parseInt(num));
@@ -45,10 +45,10 @@ try{
 }
 
 %>
-<jsp:include page="../qusans/qusan_st.jsp"/>
+<jsp:include page="qusan_st.jsp"/>
 <link rel="stylesheet" href="../static/css/view.css">
-<script src='../static/js/write.js'></script>
-<script src='../static/js/question.js'></script>
+
+<script src='../static/js/view.js'></script>
 
 <body>
 
@@ -71,7 +71,7 @@ try{
 	    		<a href="" class="navbar-item "><span>커뮤니티</span></a>
 	    		<div class="navbar-dropdown is-boxed is-right">
 	      
-	  				<a class="navbar-item " href="../qusans/questions.jsp">
+	  				<a class="navbar-item " href="questions.jsp">
 	    				<span class="icon"><i class="fal fa-comment-alt-edit"></i></span> <span class="name">질문 &amp; 답변</span>
 	    
 	  				</a>  
@@ -129,7 +129,7 @@ try{
 ArrayList<Answer2Dto> ans_list = new ArrayList<>();
 
 
-sql="select * from answer where que_num=? order by ans_num";
+sql="select * from Answer where que_num=? order by ans_num";
 try{
 	pt=conn.prepareStatement(sql);
 	pt.setInt(1, qdata.getQue_num());
@@ -213,7 +213,7 @@ i++;
         							<span class="comment__updated-at">모두에게 도움이 되는 답변의 주인공이 되어주세요!</span>
       							</div>
 							</div>
-							<form name='cregf' method='post' action='comment_reg.jsp'>
+							<form name='cregf' method='post' action='qusan_commentproc.jsp'>
 							<input type='hidden' name="id" value="<%=session.getAttribute("id")%>">
 							<input type='hidden' name="num" value="<%=qdata.getQue_num()%>">
 							<div class="comment__body markdown-body">
@@ -291,7 +291,7 @@ function make_note(){
 	    	var idx = $(this).data('idx')
 	    	$(this).data('chk',"1");
 	    	$(this).parent().next().children().first().html(
-	    	"<form name='recomf' method='post' action='recomment_reg.jsp'><input type=hidden name=num value='"+idx+"'><input type=hidden name=qnum value='"+<%=qdata.getQue_num() %>+"'<textarea id='reanscont' name='reanscont'></textarea></form"
+	    	"<form name='recomf' method='post' action='qusan_commentproc.jsp'><input type=hidden name=num value='"+idx+"'><input type=hidden name=qnum value='"+<%=qdata.getQue_num() %>+"'<textarea id='reanscont' name='reanscont'></textarea></form>"
 	    	);
 	    	make_note();
     	}

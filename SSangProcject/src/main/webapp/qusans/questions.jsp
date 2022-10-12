@@ -9,6 +9,7 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+    
 <script type="text/javascript">
 
 </script>
@@ -16,7 +17,7 @@
 
 <%
 // 임시로  아이디와  수강중인 과정에 대한 값 설정 ( 회원가입이 이루어지고 과정 신청 내용이 있어야 함)
-String[] ids ={"kim","lee","happy","qweras","iam","pencil1234"};
+String[] ids ={"ah","is","dh","jh","yj","jh2"};
 
 session.setAttribute("id", ids[ (int)(Math.random()*6) ]);
 
@@ -99,7 +100,7 @@ while(it.hasNext()){
 %>    
 
 
-<jsp:include page="../qusans/qusan_st.jsp"/>
+<jsp:include page="qusan_st.jsp"/>
 <link rel="stylesheet" href="../static/css/question.css">
 <script src="../static/js/question.js"></script>
 
