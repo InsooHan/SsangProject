@@ -90,7 +90,7 @@ public class QuestionDao {
 				dto.setQue_subject(rs.getString("que_subject"));
 				dto.setQue_content(rs.getString("que_content"));
 				dto.setQue_img(rs.getString("que_img"));
-				dto.setQue_date(rs.getString("que_date"));
+				dto.setQue_datetime(rs.getString("que_date"));
 				dto.setQue_chu(rs.getInt("que_chu"));
 
 				//list추가

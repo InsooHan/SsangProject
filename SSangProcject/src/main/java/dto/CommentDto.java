@@ -1,10 +1,13 @@
 package dto;
 
-import java.sql.Timestamp;
-
 public class CommentDto {
-
 	private int comm_num;
+	private String comm_writer;
+	private String comm_content;
+	private String comm_datetime;
+	private int ans_num;
+	
+	
 	public int getComm_num() {
 		return comm_num;
 	}
@@ -24,10 +27,10 @@ public class CommentDto {
 		this.comm_content = comm_content;
 	}
 	public String getComm_date() {
-		return comm_date;
+		return comm_datetime;
 	}
-	public void setComm_date(String comm_date) {
-		this.comm_date = comm_date;
+	public void setComm_date(String comm_datetime) {
+		this.comm_datetime = comm_datetime;
 	}
 	public int getAns_num() {
 		return ans_num;
@@ -35,11 +38,6 @@ public class CommentDto {
 	public void setAns_num(int ans_num) {
 		this.ans_num = ans_num;
 	}
-	private String comm_writer;
-	private String comm_content;
-	private String comm_date;
-	private int ans_num;
-	
 	
 	
 }

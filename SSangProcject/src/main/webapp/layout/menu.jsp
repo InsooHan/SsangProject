@@ -14,12 +14,21 @@
 <script src="https://kit.fontawesome.com/4f8084f592.js" crossorigin="anonymous"></script>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
 <link rel="stylesheet" href="<%=root%>/menu/fonts/icomoon/style.css">
 <link rel="stylesheet" href="<%=root%>/menu/css/owl.carousel.min.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="<%=root%>/menu/css/bootstrap.min.css">
 <!-- Style -->
 <link rel="stylesheet" href="<%=root%>/menu/css/style.css">
+<link rel="stylesheet" href="<%=root%>/static/css/default.css">
+<link rel="stylesheet" href="<%=root%>/static/css/question.css">
+<link rel="stylesheet" href="<%=root%>/static/css/view.css">
+<link rel="stylesheet" href="<%=root%>/static/css/write.css">
+<link rel="stylesheet" href="<%=root%>/static/js/question.js">
+<link rel="stylesheet" href="<%=root%>/static/js/write.js">
+<link rel="stylesheet" href="<%=root%>/static/js/view.js">
+
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>menu</title>
 <style type="text/css">
@@ -129,7 +138,9 @@
           </div>
         </div>
       </header>
-	
+<script src="<%=root%>../static/css"></script>	
+<script src="<%=root%>../static/cjs"></script>	
+
 <script src="<%=root%>/menu/js/jquery-3.3.1.min.js"></script>
 <script src="<%=root%>/menu/js/popper.min.js"></script>
 <script src="<%=root%>/menu/js/bootstrap.min.js"></script>
