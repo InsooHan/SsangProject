@@ -20,6 +20,19 @@
 <style type="text/css">
 
 
+#str
+{
+	
+	float: right;
+	font-size: 11pt;
+	color: gray;
+}
+#str2
+{
+	float: right;
+	background-color:lightgreen;
+	font-size: 11pt;
+}
 span.day
 {
 	float: right;
@@ -43,6 +56,7 @@ $(function() {
 			data:{"num":num},
 			success:function(res){
 				//alert(res.board_likes)
+				tag.next().text(+);
 				tag.next().text(res.board_likes);
 				tag.next().next().animate({"font-size":"20px"},1500,function(){
 					
@@ -76,10 +90,7 @@ $(function() {
 			success:function(){
 				alert("삭제 완료")
 				location.reload();
-			}
-			
-			
-			
+			}	
 		});
 		
 		
@@ -88,9 +99,20 @@ $(function() {
 	
 });
 </script>
+
+
+
+
+
+
 <title>Insert title here</title>
 
 </head>
+
+
+<input type="button" style="color:black;"value="찾기" id="str2"onclick="findStr()">
+<input type="text" id="str" >
+
 <%
 //로그인 상태 확인후 로그인중에만 입력폼 보여주기
 String loginok=(String)session.getAttribute("loginok");
@@ -134,9 +156,33 @@ if(loginok!=null){
 	<hr align="left">
 	<%}
 %>
+
+
 <div>
 <a></a>
 <b   style="color:red"><%=totalCount %>개의 글이 있습니다 </b>
+<script type="text/javascript" placeholder="페이지내 검색">
+function findStr() {
+    var n = 0;
+    var str = document.getElementById("str").value;
+    if(navigator.userAgent.indexOf("rv:11") > -1) {
+        var f, contents = document.body.createTextRange();
+        for(var i = 0; i <= n && (f = contents.findText(str)) != false; i++) {
+            contents.moveStart('character');
+            contents.moveEnd('textedit');
+        }
+        if(f) {
+            contents.moveStart('character', -1);
+            contents.findText(str);
+            contents.select();
+            n++;
+        }
+    } else {
+        window.find(str);
+    }
+}
+</script>
+
 <%
 MemberDao mdao=new MemberDao();
 for(BoardDto dto:list)
@@ -196,7 +242,7 @@ for(BoardDto dto:list)
 		
 			
 			<span class="answer" style="cursor: pointer;" mum="<%=dto.getBoard_num() %>" >댓글<%=alist.size()%></span>
-			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>">추천</span>
+			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>"><i class="fa-solid fa-heart" style="color:red;font-size:15px;"></i></span>
 			<span><%=dto.getBoard_likes() %></span>
 			<i class="fa-solid fa-heart" style="color:red;font-size:0px"></i>
 			
@@ -216,7 +262,7 @@ for(BoardDto dto:list)
 										required="required" class="form-control"></textarea>
 									</td>
 									<td>
-										<button type="submit" class="btn btn-info" style="width: 70px; height: 70px;">등록</button>
+										<button type="submit" class="btn btn-info" style="width: 70px; height: 70px; background-color: lightgreen">등록</button>
 									</td>
 								</tr>
 							</table>
