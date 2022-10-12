@@ -21,7 +21,7 @@
 .table{float: left;}
 .carttb, h4{
    width: 750px;
-   margin-left: 150px;
+   margin-left: 100px;
    margin-top: 20px;
 }
 .delbtn{

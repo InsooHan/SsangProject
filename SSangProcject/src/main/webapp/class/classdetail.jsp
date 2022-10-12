@@ -82,7 +82,7 @@ div.content{
 div.cart{
 	border: 1px solid lightgray;
 	border-radius:20px;
-	width: 300px;
+	width: 310px;
 	margin-left: 1030px;
 	text-align: center;
 	height: auto;
@@ -147,14 +147,11 @@ $(function(){
 	//장바구니에 담기
 	$("#btncart").click(function(){
 		
-		if(<%=loginok%>==null){
-			alert("장바구니에 담기위해 로그인해주세요.");
-			window.location.assign("index.jsp?main=login/loginform.jsp");
-		} else{
-		
-		    var formdata=$("#frm").serialize();
+		if(<%=loginok%>="yes"){
 			
-			$.ajax({
+		    var formdata=$("#frm").serialize();
+
+		    $.ajax({
 				
 				type:"post",
 				url:"class/cartproc.jsp",
@@ -162,25 +159,24 @@ $(function(){
 				data:formdata,
 				success:function(){
 					
-					if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?")){
-						window.location.assign("index.jsp?main=class/cartlist.jsp");
-					}
+					if(confirm("장바구니에 저장하였습니다.\n장바구니로 이동하시겠습니까?"))
+						location.href="index.jsp?main=class/cartlist.jsp";
 				}
 			});
+		} else {
+			alert("장바구니에 담기위해 로그인해주세요.");
+			window.location.assign("index.jsp?main=login/loginform.jsp");
 		}
 	});
 	
 	//수강신청하기
 	$("#application").click(function(){
 		
-		if(<%=loginok%>==null){
-			alert("수강신청을 하기위해 로그인해주세요.");
-			window.location.assign("index.jsp?main=login/loginform.jsp");
-		}else{
-		
-			var formdata=$("#frm").serialize();
+            if(<%=loginok%>="yes"){
 			
-			$.ajax({
+		    var formdata=$("#frm").serialize();
+
+		    $.ajax({
 				
 				type:"post",
 				url:"class/cartproc.jsp",
@@ -188,10 +184,13 @@ $(function(){
 				data:formdata,
 				success:function(){
 					
-					if(confirm("장바구니에 저장하였습니다.\n수강신청한 학습들을 확인하시겠습니까?"))
-						window.location.assign("index.jsp?main=class/mypage.jsp");
+					if(confirm("수강신청하였습니다.\n수강신청한 학습으로 이동하시겠습니까?"))
+						location.href="index.jsp?main=class/mypage.jsp";
 				}
 			});
+		} else {
+			alert("수강신청을 하기위해 로그인해주세요.");
+			window.location.assign("index.jsp?main=login/loginform.jsp");
 		}
 	}); 
 
@@ -256,8 +255,8 @@ $(function(){
 <div class="cart">
 <div style="border-radius:20px; background-color: white; width: 300px;">
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
-<button style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
-<button style="width: 260px;height: 50px; margin-top: 10px; border: 1px solid lightgray" class="btn btn-Light" id="btncart">바구니에담기</button><br>
+<button type="button" style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
+<button type="button" style="width: 260px;height: 50px; margin-top: 10px; border: 1px solid lightgray" class="btn btn-Light" id="btncart">바구니에담기</button><br>
 <span>관심</span>
 <span>공유</span><br>
 </div>
@@ -267,7 +266,7 @@ padding: 10px 10px 10px 10px;">
  <li>지식공유자 : <%=gongname %></li>
  <li>수강기한 : 무제한</li>
  <li>수료증 : 발급</li>
- <li>난이도:<%=cldto.getLevels() %></li>
+ <li>난이도: <%=cldto.getLevels() %></li>
  </ul>
 </div>
 </div>
