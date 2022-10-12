@@ -8,9 +8,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/a47cf79e39.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <%
@@ -28,6 +30,9 @@ if(request.getParameter("searchtool")!=null){
 }else{
 	search="nosearch";
 }
+
+//아이디
+String myid=(String)session.getAttribute("myid");
 %>
 <script type="text/javascript">
 $(function() {
@@ -51,6 +56,13 @@ $(function() {
 	}
 	
 	pagebu();
+	
+	$("#searchtool").keyup(function(e) {
+		if(e.keyCode==13){
+			//alert("안녕");
+			$("#btnsearch").trigger("click");
+		}
+	});
 
 	
 	$("#btnsearch").click(function() {
@@ -63,15 +75,7 @@ $(function() {
 		
 	});
 	
-	$("#btntest").click(function() {
-		list();
-	});
-	
-	$("#btntesttest").click(function() {
-		var searchtst=$("#searchtool").val();
-		
-		alert(searchtst);
-	});
+
 	
 });
 
@@ -89,10 +93,8 @@ function baselist() {
 			var s="<table>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><td>"+(i+1)+"</td></tr>";
-				s+="<tr><td>"+item.ad_id+"</td></tr>";
-				s+="<tr><td>"+item.ad_subject+"</td></tr>";
-				s+="<tr><td>"+item.ad_content+"</td></tr>";
+				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
+				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
 				
 			});
 
@@ -122,10 +124,8 @@ function list() {
 			var s="<table>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><td>"+(i+1)+"</td></tr>";
-				s+="<tr><td>"+item.ad_id+"</td></tr>";
-				s+="<tr><td>"+item.ad_subject+"</td></tr>";
-				s+="<tr><td>"+item.ad_content+"</td></tr>";
+				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='adminboarddetail.jsp' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
+				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
 			});
 			
 			s+="</table>";
@@ -153,17 +153,17 @@ function pagebu() {
 			var s="<ul class='pagination'>";
 			
 			if(res.startPage>1){
-				s+="<li><a href='adminboardlist.jsp?currentPage="+(res.startPage-1)+"&searchtool="+res.searchtool+"'>이전</a></li>";
+				s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+(res.startPage-1)+"&searchtool="+res.searchtool+"'>이전</a></li>";
 			}
 			for(var pp=res.startPage;pp<=res.endPage;pp++){
 				if(pp==res.currentPage){
-					s+="<li class='active'><a href='adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
+					s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
 				}else{
-					s+="<li class='active'><a href='adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
+					s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
 				}
 			}
 			if(res.endPage<res.totalPage){
-				s+="<li><a href='adminboardlist.jsp?currentPage="+(res.endPage+1)+"&searchtool="+res.searchtool+"'>다음</a></li>";
+				s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+(res.endPage+1)+"&searchtool="+res.searchtool+"'>다음</a></li>";
 			}
 			s+="</ul>";
 			
@@ -174,15 +174,22 @@ function pagebu() {
 
 </script>
 <body>
-<input type="text" id="searchtool" name="searchtool" style="width: 300px;">
-<button type="button" class="btn btn-success" name="btnsearch" id="btnsearch">검색</button>
-
-<button type="button" id="btntest">테스트</button>
-<button type="button" id="btntesttest">테스트2</button>
+<div class="input-group mb-3" style="width: 500px;">
+	<i class="fa-solid fa-magnifying-glass"></i>
+	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 300px;">
+	<button type="button" class="btn btn-success" name="btnsearch" id="btnsearch">검색</button>
+	<%
+	if(myid.equals("admin")){
+	%>
+	<button type="button" class="btn btn-info" onclick="location.href='adminboardinsertform.jsp'">글쓰기</button>
+	<%
+	}
+	%>
+</div>
 
 <div id="baselistboard"></div>
 <div id="listboard"></div>
 
-<div style='width: 800px;' class='container' id='page'></div>
+<div style='width: 800px;' class='container mt-3' id='page'></div>
 </body>
 </html>
