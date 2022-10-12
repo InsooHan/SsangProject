@@ -112,7 +112,7 @@
                     <a href="#" class="nav-link">커뮤니티</a>
                     <ul class="dropdown arrow-top" >
                       <li><a href="index.jsp?main=qusans/questions.jsp" class="nav-link">질문 & 답변</a></li>
-                      <li><a href="#" class="nav-link">자유주제</a></li>
+                      <li><a href="index.jsp?main=adminboard/adminboardlist.jsp" class="nav-link">공지사항</a></li>
                       <li><a href="#" class="nav-link">스터디</a></li>
                       <li><a href="index.jsp?main=board/boardlist.jsp" class="nav-link">자유게시판</a></li>
                     </ul>

@@ -33,6 +33,9 @@ if(request.getParameter("searchtool")!=null){
 
 //아이디
 String myid=(String)session.getAttribute("myid");
+
+//로그인상태
+String loginok=(String)session.getAttribute("loginok");
 %>
 <script type="text/javascript">
 $(function() {
@@ -86,14 +89,14 @@ function baselist() {
 		type:"get",
 		dataType:"json",
 		data:{"currentPage":currentPage},
-		url:"adminboardlistbaseaction.jsp",
+		url:"adminboard/adminboardlistbaseaction.jsp",
 		success:function(res){
 			//alert(res.length);
 			
 			var s="<table>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
+				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
 				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
 				
 			});
@@ -117,14 +120,14 @@ function list() {
 		type:"get",
 		dataType:"json",
 		data:{"searchtool":searchtool,"currentPage":currentPage},
-		url:"adminboardlistaction.jsp",
+		url:"adminboard/adminboardlistaction.jsp",
 		success:function(res){
 			//alert(currentPage);
 			
 			var s="<table>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='adminboarddetail.jsp' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
+				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
 				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
 			});
 			
@@ -146,24 +149,24 @@ function pagebu() {
 		type:"get",
 		dataType:"json",
 		data:{"searchtool":searchtool},
-		url:"adminboardlistpage.jsp",
+		url:"adminboard/adminboardlistpage.jsp",
 		success:function(res){
 			//alert(res.endPage);
 			
 			var s="<ul class='pagination'>";
 			
 			if(res.startPage>1){
-				s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+(res.startPage-1)+"&searchtool="+res.searchtool+"'>이전</a></li>";
+				s+="<li class='page-item'><a class='page-link' href='index.jsp?main=adminboard/adminboardlist.jsp?currentPage="+(res.startPage-1)+"&searchtool="+res.searchtool+"'>이전</a></li>";
 			}
 			for(var pp=res.startPage;pp<=res.endPage;pp++){
 				if(pp==res.currentPage){
-					s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
+					s+="<li class='page-item'><a class='page-link' href='index.jsp?main=adminboard/adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
 				}else{
-					s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
+					s+="<li class='page-item'><a class='page-link' href='index.jsp?main=adminboard/adminboardlist.jsp?currentPage="+pp+"&searchtool="+res.searchtool+"'>"+pp+"</a></li>";
 				}
 			}
 			if(res.endPage<res.totalPage){
-				s+="<li class='page-item'><a class='page-link' href='adminboardlist.jsp?currentPage="+(res.endPage+1)+"&searchtool="+res.searchtool+"'>다음</a></li>";
+				s+="<li class='page-item'><a class='page-link' href='index.jsp?main=adminboard/adminboardlist.jsp?currentPage="+(res.endPage+1)+"&searchtool="+res.searchtool+"'>다음</a></li>";
 			}
 			s+="</ul>";
 			
@@ -176,13 +179,15 @@ function pagebu() {
 <body>
 <div class="input-group mb-3" style="width: 500px;">
 	<i class="fa-solid fa-magnifying-glass"></i>
-	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 300px;">
+	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 300px;" placeholder="검색어를 입력해주세요">
 	<button type="button" class="btn btn-success" name="btnsearch" id="btnsearch">검색</button>
 	<%
-	if(myid.equals("admin")){
+	if(loginok!=null){
+		if(myid.equals("admin")){
 	%>
-	<button type="button" class="btn btn-info" onclick="location.href='adminboardinsertform.jsp'">글쓰기</button>
+	<button type="button" class="btn btn-info" onclick="location.href='adminboard/adminboardinsertform.jsp'">글쓰기</button>
 	<%
+		}
 	}
 	%>
 </div>

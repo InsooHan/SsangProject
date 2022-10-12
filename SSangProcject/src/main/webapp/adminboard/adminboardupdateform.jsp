@@ -1,3 +1,5 @@
+<%@page import="dto.AdminboardDto"%>
+<%@page import="dao.AdminboardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +13,12 @@
 <%
 	//프로젝트의 경로
 	String root=request.getContextPath();
+
+	String num=request.getParameter("ab_num");
+	
+	AdminboardDao dao=new AdminboardDao();
+	
+	AdminboardDto dto=dao.getdata(num);
 %>
 <!-- se2 폴더에서 js 파일 가져오기 -->
 <script type="text/javascript" src="<%=root%>/se2/js/HuskyEZCreator.js"
@@ -36,21 +44,11 @@ border: 1px solid gray;
 
 </style>
 <script type="text/javascript">
-$(function() {
-	$("#btnsave").click(function() {
-		var ck=$("#editor").html();
-		//alert(ck);
-		
-		$("#content").val(ck);
-	});
-});
-
-
 function readURL(input) {
 	if (input.files && input.files[0]) {
            var reader = new FileReader();
            reader.onload = function (e) {
-           $('#showimg').attr('src', e.target.result);
+           $('#blah').attr('src', e.target.result);
            }
            reader.readAsDataURL(input.files[0]);
        }
@@ -61,7 +59,7 @@ function readURL(input) {
 <body>
 
 <!-- 이미지 미리보기 -->
-<img src="#" style="max-width: 300px;" id="blah">
+<img src="image1/noimage.jpg" style="max-width: 300px;" id="blah">
 
 
 <form action="adminboardinsertformaction.jsp" method="post" enctype="multipart/form-data">
@@ -84,12 +82,15 @@ function readURL(input) {
 		</tr>
 		<tr>
 			<td colspan="2">
-				<textarea name="content" id="content" required="required"style="width: 100%;height: 300px;display: none;"></textarea>
+				<textarea name="content" id="content"		
+					required="required"			
+					style="width: 100%;height: 300px;display: none;"></textarea>		
+			
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<button type="button" id="btnsave" class="btn btn-warning"
+				<button type="button" class="btn btn-warning"
 					style="width: 120px;"
 					onclick="submitContents(this)">DB저장</button>
 				
