@@ -151,7 +151,6 @@ $(function(){
 		if(<%=loginok%>="yes"){
 			
 		    var formdata=$("#frm").serialize();
-
 		    $.ajax({
 				
 				type:"post",
@@ -176,7 +175,6 @@ $(function(){
             if(<%=loginok%>="yes"){
 			
 		    var formdata=$("#frm").serialize();
-
 		    $.ajax({
 				
 				type:"post",
@@ -194,9 +192,7 @@ $(function(){
 			window.location.assign("index.jsp?main=login/loginform.jsp");
 		}
 	}); 
-
 });
-
 /* move 클릭 시 스크롤 이동 메서드 */
  function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>

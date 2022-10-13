@@ -16,6 +16,13 @@ $(document).ready(function(){
 	$(".e-new-question").on("click",function(){
 		location.href="index.jsp?main=qusans/qusans_write.jsp?part=question";
 	});
+	
+	$(".e-popular-tag").click(function() {
+		
+		var newtag=$(this).find(".ac-tag__name").text();
+		//alert(newtag);
+		$("#search").val(newtag);
+	});
 });
 
 
@@ -117,6 +124,101 @@ while(it.hasNext()){
 <script src="../static/js/question.js"></script>
 
 <body>
+ <section class="community-header" style="text-align: center; background-color: black;">
+    <div class="community-header__content" style="padding-top: 20px; padding-bottom: 20px;">
+      <b class="community-header__title" style="color: white; font-size: 2em;">묻고 답해요</b>
+      <br><br>
+      <p class="community-header__sub-title" style="font-size: 11pt;">97만명의 커뮤니티!! 함께 토론해봐요.</p>
+    </div>
+  </section>
+  
+
+  <div class="realpop" style="width: 250px; float: right; position: absolute; right: 270px; top: 200px; ">
+    <b class="popular-tags__title" style="font-size: 1.2em; text-align: center;">인기 검색어</b>
+    <br><br>
+    <ul class="popular-tags__tag-list" style="list-style: none; line-height: 1.5em;">
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">오류</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">질문</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">파이썬</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">JPA</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">에러</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">jpa</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">react</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">강의자료</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">vue</span></button>
+      </li>
+      <li class="popular-tags__tag " style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">spring</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">스프링</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">python</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">java</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">error</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">css</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">html</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">django</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">docker</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">리액트</span></button>
+      </li>
+      <li class="popular-tags__tag tag--mobile-hidden" style="float: left; margin: 1.5px 1.5px 1.5px 1.5px;">
+        
+    <button class="ac-button is-sm is-solid is-gray e-popular-tag ac-tag ac-tag--blue  "   ><span class="ac-tag__hashtag">#&nbsp;</span><span class="ac-tag__name">javascript</span></button>
+      </li>
+    </ul>
+  </div>
 
 <div class="community-body__content">
         <div class="search-filter">
