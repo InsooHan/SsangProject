@@ -33,7 +33,7 @@
 </head>
 <body>
 <!-- 이미지 미리보기할 위치 -->
-<img alt="" src="" id="showimg" style="position: absolute; left: 950px; top: 120px; max-width: 200px;">
+<img alt="" src="" id="showimg" style="position: absolute; left: 950px; top: 150px; max-width: 200px;">
 <form action="board/boardaddaction.jsp" method="post" enctype="multipart/form-data">
 	<table style="width: 800px;margin-top: 40px;"  >
 		<div align="left">
@@ -52,7 +52,7 @@
 				 required="required"></textarea>
 			
 				<button type="submit" class="btn btn-default" 
-				style="width: 100px; border:1px solid black; height: 200px; background-color: lightgreen; " >글 등록</button>
+				style="width: 100px; border:1px solid black; height: 200px; background-color:black; color:white; " >글 등록</button>
 			</div>
 			</td>
 		</tr>
