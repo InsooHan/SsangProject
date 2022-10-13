@@ -140,7 +140,7 @@ function baselist() {
 				s+="<tr><td>";
 				s+="<hr>";
 				s+="<a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><div class='tablecontent'>"
-				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</div>";
+				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i><b>"+item.ad_subject+"</b></div>";
 				s+="<br><div style='font-size: 9pt; color: gray;'><span>관리자</span><span style='float:right;'>"+item.ad_date+"</span></div>";
 				s+="</div></a>"
 				s+="</tr></td>";
@@ -175,7 +175,7 @@ function list() {
 				s+="<tr><td>";
 				s+="<hr>";
 				s+="<a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><div class='tablecontent'>"
-				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</div>";
+				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i><b>"+item.ad_subject+"</b></div>";
 				s+="<br><div style='font-size: 9pt; color: gray;'><span>관리자</span><span style='float:right;'>"+item.ad_date+"</span></div>";
 				s+="</div></a>"
 				s+="</tr></td>";
@@ -258,7 +258,7 @@ function pagebu() {
 <br>
 <br>
 </div>
-<div style="width: 800px; margin-left: 450px;display: flex; justify-content: center;" class='container mt-3' id='page'>
+<div style="width: 800px; margin-left: 500px;display: flex; justify-content: center;" class='container mt-3' id='page'>
 </div>
 </body>
 </html>
