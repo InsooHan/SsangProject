@@ -191,7 +191,7 @@ if(loginok!=null){
 %>
 <div>
 <a></a>
-<b   style="color:red"><%=totalCount %>개의 글이 있습니다 </b>
+<b   style="color:red"><%=totalCount %>개의 글이 있습니다. </b>
 
 
 
@@ -206,7 +206,7 @@ for(BoardDto dto:list)
 	<table class="table" style="">
 		<tr>
 			<td style="background-color:">
-				<b style="font-size: 20px; "><i class="fa-solid fa-user"></i><%=name%>님 글</b>
+				<b style="font-size: 20px; "><i class="fa-solid fa-user"></i>&nbsp;<%=name%>님 글</b>
 				<%
 				//로그인한 아이디
 				
@@ -255,7 +255,7 @@ for(BoardDto dto:list)
 			%>
 		
 			
-			<span class="answer" style="cursor: pointer;" mum="<%=dto.getBoard_num() %>" >댓글<%=alist.size()%></span>
+			<span class="answer" style="cursor: pointer;" mum="<%=dto.getBoard_num() %>" >댓글&nbsp;<%=alist.size()%>개</span>
 			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>"><i class="fa-solid fa-heart" style="color:red;font-size:15px"></i></span>
 			<span><%=dto.getBoard_likes() %></span>
 			<i class="fa-solid fa-heart" style="color:red;font-size:0px"></i>
