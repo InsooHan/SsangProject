@@ -35,8 +35,7 @@ margin-top: 20px;
 {
 margin-top: 70px;
 width: 800px;
-border: 1px solid gray;
-border-radius: 30px;
+
 }
 
 .tablecontent
@@ -135,16 +134,19 @@ function baselist() {
 		success:function(res){
 			//alert(res.length);
 			
-			var s="<div id='alltablecontent'>";
+			var s="<table clss='table table-info' id='alltablecontent'>";
 			
 			$.each(res,function(i,item){
+				s+="<tr><td>";
+				s+="<hr>";
 				s+="<a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><div class='tablecontent'>"
 				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</div>";
 				s+="<br><div style='font-size: 9pt; color: gray;'><span>관리자</span><span style='float:right;'>"+item.ad_date+"</span></div>";
 				s+="</div></a>"
+				s+="</tr></td>";
 			});
 
-			s+="</div>";
+			s+="</table>";
 			
 			$("#baselistboard").html(s);
 		}
@@ -167,16 +169,19 @@ function list() {
 		success:function(res){
 			//alert(currentPage);
 			
-			var s="<div id='alltablecontent'>";
+			var s="<table clss='table table-info' id='alltablecontent'>";
 			
 			$.each(res,function(i,item){
+				s+="<tr><td>";
+				s+="<hr>";
 				s+="<a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><div class='tablecontent'>"
 				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</div>";
 				s+="<br><div style='font-size: 9pt; color: gray;'><span>관리자</span><span style='float:right;'>"+item.ad_date+"</span></div>";
 				s+="</div></a>"
+				s+="</tr></td>";
 			});
 
-			s+="</div>";
+			s+="</table>";
 			
 			$("#searchtool").val(searchtool);
 			$("#listboard").html(s);
@@ -223,19 +228,21 @@ function pagebu() {
 </script>
 <body>
 
-<div class="input-group mb-3" style="width: 500px; padding-left: 100px;">
-	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 300px;" placeholder="검색어를 입력해주세요">
+	<div style="width: 800px; margin-left: 300px;">
+	<div style="display: flex; justify-content: center;">
+	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 500px;" placeholder="검색어를 입력해주세요">
 	<button type="button" class="btn btn-success" name="btnsearch" id="btnsearch">검색</button>
+	</div>
 	<%
 	if(loginok!=null){
 		if(myid.equals("admin")){
 	%>
-	<button type="button" class="btn btn-info" onclick="location.href='adminboard/adminboardinsertform.jsp'">글쓰기</button>
+	<button style="float: right;" type="button" class="btn btn-secondary" onclick="location.href='adminboard/adminboardinsertform.jsp'">글쓰기</button>
 	<%
 		}
 	}
 	%>
-</div>
+  </div>
 
 <div id="alldiv" style="">
 <div id="baselistboard"></div>
@@ -243,6 +250,7 @@ function pagebu() {
 <br>
 <br>
 </div>
-<div style='width: 800px;' class='container mt-3' id='page'></div>
+<div style="width: 800px; margin-left: 300px;display: flex; justify-content: center;" class='container mt-3' id='page'>
+</div>
 </body>
 </html>
