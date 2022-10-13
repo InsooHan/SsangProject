@@ -14,7 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://kit.fontawesome.com/a47cf79e39.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
-<style type="text/css">
+<style type="text/css">	
 #alldiv
 {
 margin-left: 300px;

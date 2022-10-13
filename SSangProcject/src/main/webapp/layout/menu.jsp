@@ -5,6 +5,7 @@
 <html>
 <head>
 <%
+	request.setCharacterEncoding("utf-8");
 	String root = request.getContextPath();
 %>
 <meta charset="utf-8">

@@ -239,4 +239,24 @@ public class QuestionDao {
 		
 	}
 	
+	//likes
+	public void updatelikes(String num) {
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="update Question set que_chu=que_chu+1 where que_num=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(pstmt, conn);
+		}
+	
+	}
+	
 }
