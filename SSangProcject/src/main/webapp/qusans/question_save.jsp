@@ -41,7 +41,7 @@ try{
 	
 }catch(Exception e){
 	e.printStackTrace();
+}finally{
+	response.sendRedirect("questions.jsp");
 }
-
-response.sendRedirect("questions.jsp");
 %>

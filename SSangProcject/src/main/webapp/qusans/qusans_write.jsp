@@ -117,7 +117,8 @@ $(document).ready(function(){
 		location.href="questions.jsp";	
 });
    $("#enroll").on("click",function(){
-		document.writef.submit();
+		//document.writef.submit();
+		//alert("안녕");
 }) ;
 
 
@@ -146,7 +147,7 @@ $(document).ready(function(){
 			    </li>
 		    </ul>
 	    </div>
-	    <form name=writef method="post" action="question_save.jsp">
+	    <form name=writef method="post" action="index.jsp?main=qusans/question_save.jsp">
 	    <input type="hidden" name="part" value="<%=part%>">
 	    <div class='title_tag'>
 	    	<div class='title_wrap'>
@@ -159,7 +160,7 @@ $(document).ready(function(){
 		<div class='bt_wrap'>
 			<span class='bt'>
 				<button type='button' id='cancle'>취소</button>
-				<button type='button' id='enroll'>등록</button>
+				<button type="submit" id='enroll'>등록</button>
 			</span>
 		</div>
 		</form>

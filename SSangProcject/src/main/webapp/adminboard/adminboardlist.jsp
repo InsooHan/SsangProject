@@ -18,6 +18,7 @@
 #alldiv
 {
 margin-left: 300px;
+
 }
 
 .table
@@ -29,6 +30,20 @@ width: 800px;
 {
 margin-top: 20px;
 }
+
+#alltablecontent
+{
+margin-top: 70px;
+width: 800px;
+border: 1px solid gray;
+border-radius: 30px;
+}
+
+.tablecontent
+{
+margin: 10px;
+}
+
 </style>
 </head>
 <%
@@ -94,7 +109,18 @@ $(function() {
 		
 	});
 	
-
+	$(document).on("mouseover",".tablecontent",function(){
+		$(this).css("background-color","#F9FFFF");
+		$(this).css("cursor","pointer");
+	});
+	
+	$(document).on("mouseout",".tablecontent",function(){
+		$(this).css("background-color","white");
+	});
+	
+	$(document).on("click",".tablecontent",function(){
+		location.href=""
+	});
 	
 });
 
@@ -109,15 +135,16 @@ function baselist() {
 		success:function(res){
 			//alert(res.length);
 			
-			var s="<table class='table'>";
+			var s="<div id='alltablecontent'>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
-				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td style='float:right;'>"+item.ad_date+"</td></tr>";
-				
+				s+="<a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><div class='tablecontent'>"
+				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</div>";
+				s+="<br><div style='font-size: 9pt; color: gray;'><span>관리자</span><span style='float:right;'>"+item.ad_date+"</span></div>";
+				s+="</div></a>"
 			});
 
-			s+="</table>";
+			s+="</div>";
 			
 			$("#baselistboard").html(s);
 		}
@@ -140,14 +167,16 @@ function list() {
 		success:function(res){
 			//alert(currentPage);
 			
-			var s="<table class='table'>";
+			var s="<div id='alltablecontent'>";
 			
 			$.each(res,function(i,item){
-				s+="<tr><th colspan='2' style='font-size: 18pt;'><a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</a></th></tr>";
-				s+="<tr style='font-size: 9pt; color: gray;'><td>관리자</td><td>"+item.ad_date+"</td></tr>";
+				s+="<a href='index.jsp?main=adminboard/adminboarddetail.jsp?ab_num="+item.ab_num+"' style='color:black; text-decoration: none;'><div class='tablecontent'>"
+				s+="<div style='font-size: 18pt;'><i class='fa-solid fa-clipboard-list' style='color: green;'></i>"+item.ad_subject+"</div>";
+				s+="<br><div style='font-size: 9pt; color: gray;'><span>관리자</span><span style='float:right;'>"+item.ad_date+"</span></div>";
+				s+="</div></a>"
 			});
-			
-			s+="</table>";
+
+			s+="</div>";
 			
 			$("#searchtool").val(searchtool);
 			$("#listboard").html(s);
@@ -193,9 +222,8 @@ function pagebu() {
 
 </script>
 <body>
-<div id="alldiv">
-<div class="input-group mb-3" style="width: 500px;">
-	<i class="fa-solid fa-magnifying-glass"></i>
+
+<div class="input-group mb-3" style="width: 500px; padding-left: 100px;">
 	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 300px;" placeholder="검색어를 입력해주세요">
 	<button type="button" class="btn btn-success" name="btnsearch" id="btnsearch">검색</button>
 	<%
@@ -209,10 +237,12 @@ function pagebu() {
 	%>
 </div>
 
+<div id="alldiv" style="">
 <div id="baselistboard"></div>
 <div id="listboard"></div>
-
-<div id="pagecontrol"><div style='width: 800px;' class='container mt-3' id='page'></div></div>
+<br>
+<br>
 </div>
+<div style='width: 800px;' class='container mt-3' id='page'></div>
 </body>
 </html>
