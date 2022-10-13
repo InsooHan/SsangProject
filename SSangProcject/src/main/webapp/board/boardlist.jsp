@@ -178,7 +178,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 <div id="title3">
 	<span id="title">이야기를 나눠요</span>
-	<span id="title2">코딩러들의 커뮤니티!! 함께 토론해봐요</span>
+	<span id="title2">코딩러들의 커뮤니티! 함께 토론하고 정보 나눠요!</span>
 </div>
 
 <!--  <img src="image/title.png" align="left" style="width: 1500px; height: 80px;">-->
