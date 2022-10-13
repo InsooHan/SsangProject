@@ -48,6 +48,9 @@ try{
 }
 
 QuestionDao dao=new QuestionDao();
+
+String loginok=(String)session.getAttribute("loginok");
+String myid=(String)session.getAttribute("myid");
 %>
 
 <jsp:include page="../qusans/qusan_st.jsp"/>
@@ -58,6 +61,9 @@ QuestionDao dao=new QuestionDao();
 <body>
 <div class="post__features" style="z-index: 100;">
     <%
+    if(loginok!=null){
+    if(myid.equals(qdata.getQue_id())){
+    	
     if(qdata.getQue_sol()==0){
     	
     %>
@@ -72,6 +78,8 @@ QuestionDao dao=new QuestionDao();
     <button class="ac-button is-md is-outlined is-white button-rounded undefined soldown" id="sol">해결</button> <div class="message e-target-hover-toggle hide">해결 상태로 바꾸려면 클릭</div>
     </div>
     <%
+    }
+    }
     }
     %>
     <div class="flex-row feature__recommend e-post-like e-hover-toggle" data-id="24458" data-status="" data-cnt="1">
