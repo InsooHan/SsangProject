@@ -158,14 +158,7 @@ while(it.hasNext()){
         
     <button class="ac-button is-md is-text tab-button "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd"></path></svg> 최신순</button>
       </li>
-      <li class="e-order " data-order="score">
-        
-    <button class="ac-button is-md is-text tab-button "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd"></path></svg> 정확도순</button>
-      </li>
-      <li class="e-order " data-order="comment">
-        
-    <button class="ac-button is-md is-text tab-button "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd"></path></svg> 답변많은순</button>
-      </li>
+
       <li class="e-order " data-order="recommend">
         
     <button class="ac-button is-md is-text tab-button " onclick="location.href='index.jsp?main=qusans/questionslikesun.jsp'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd"></path></svg> 좋아요순</button>
@@ -212,6 +205,20 @@ if(nowP_list.size() ==0){
           <span>&nbsp;·&nbsp;</span>
           <span><%=data.getQue_datetime() %></span>
           <span>&nbsp;·&nbsp;</span>
+          <span>
+          <%
+          if(data.getQue_sol()==1){
+          %>
+			<b>해결</b>  
+          <%
+          }else{
+        	  %>
+        	  <b>미해결</b>
+        	  <%
+          }
+          %>
+          </span>
+          <span>&nbsp;&nbsp;</span>
           <span class="question__info-course-title"></span>
         </div>
       </div>
