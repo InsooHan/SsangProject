@@ -74,7 +74,7 @@ if(request.getParameter("pagenum") == null){
 	
 	
 ArrayList<QuestionDto> nowP_list = new ArrayList<>(); 
-sql = "select * from Question order by que_num desc";
+sql = "select * from Question order by que_sol";
 try{	
 	PreparedStatement pt = conn.prepareStatement(sql);
 	ResultSet rs = pt.executeQuery();
@@ -116,13 +116,13 @@ while(it.hasNext()){
 <div class="community-body__content">
         <div class="search-filter">
           <ul class="status">
-    <li class="e-status active" data-status="">
+    <li class="e-status" data-status="">
       
-    <button class="ac-button is-md is-text">전체</button>
+    <button class="ac-button is-md is-text" onclick="location.href='index.jsp?main=qusans/questions.jsp'">전체</button>
     </li>
     <li class="e-status " data-status="unresolved">
       
-    <button class="ac-button is-md is-text" onclick="location.href='index.jsp?main=qusans/questionssolsol.jsp'">미해결</button>
+    <button class="ac-button is-md is-text active">미해결</button>
     </li>
     <li class="e-status " data-status="resolved">
       
@@ -163,7 +163,7 @@ while(it.hasNext()){
       </li>
       <li class="e-order " data-order="recommend">
         
-    <button class="ac-button is-md is-text tab-button " onclick="location.href='index.jsp?main=qusans/questionslikesun.jsp'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd"></path></svg> 좋아요순</button>
+    <button class="ac-button is-md is-text tab-button "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="#212529" d="M8 10c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2z" clip-rule="evenodd"></path></svg> 좋아요순</button>
       </li>
     </ul>
             <div class="posts-container-header__button-cover"></div>

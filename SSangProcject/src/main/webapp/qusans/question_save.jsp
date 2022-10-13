@@ -34,7 +34,7 @@ String sql ="insert into Question(que_id,que_subject,que_content,que_datetime,qu
 
 try{	
 	PreparedStatement pt = conn.prepareStatement(sql);  //전체 DB 갯수 구하기
-	pt.setString(1, (String)(session.getAttribute("id")));
+	pt.setString(1, (String)(session.getAttribute("myid")));
 	pt.setString(2, title);
 	pt.setString(3, cont);
 	pt.executeUpdate();
