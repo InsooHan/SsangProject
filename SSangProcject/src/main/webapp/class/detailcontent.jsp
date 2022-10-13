@@ -293,11 +293,11 @@ $("div.reviewoption>span").click(function(){
 				수강평</span>
 		</div>
 		<div class="item2" style="display: flex; flex-wrap: wrap;">
-		 <span>5점</span><div class="bar" data-percent=<%=starcount1 %>><div></div></div>
-		 <span>4점</span><div class="bar" data-percent=<%=starcount2 %>><div></div></div>
+		 <span>5점</span><div class="bar" data-percent=<%=starcount5 %>><div></div></div>
+		 <span>4점</span><div class="bar" data-percent=<%=starcount4 %>><div></div></div>
 		 <span>3점</span><div class="bar" data-percent=<%=starcount3 %>><div></div></div>
-		 <span>2점</span><div class="bar" data-percent=<%=starcount4 %>><div></div></div>
-		 <span>1점</span><div class="bar" data-percent=<%=starcount5 %>><div></div></div>
+		 <span>2점</span><div class="bar" data-percent=<%=starcount2 %>><div></div></div>
+		 <span>1점</span><div class="bar" data-percent=<%=starcount1 %>><div></div></div>
 		</div>
 		<!-- 평점 막대 그래프 자바스크립트 -->
 		<script type="text/javascript">
