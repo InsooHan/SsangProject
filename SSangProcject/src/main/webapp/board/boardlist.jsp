@@ -190,8 +190,8 @@ if(loginok!=null){
 	<%}
 %>
 <div>
-<a></a>
-<b   style="color:red"><%=totalCount %>개의 글이 있습니다. </b>
+
+<b style="color:red"><%=totalCount %>개의 글이 있습니다. </b>
 
 
 
@@ -205,8 +205,8 @@ for(BoardDto dto:list)
 	%>
 	<table class="table" style="">
 		<tr>
-			<td style="background-color:">
-				<b style="font-size: 20px; "><i class="fa-solid fa-user"></i>&nbsp;<%=name%>님 글</b>
+			<td style="background-color: black; ">
+				<b style="font-size: 20px; color:white;"><i class="fa-solid fa-user"></i>&nbsp;<%=name%>님 글</b>
 				<%
 				//로그인한 아이디
 				
@@ -214,9 +214,9 @@ for(BoardDto dto:list)
 				//로그인한 아이디와 글을 쓴 아이디가 같을 경우에만 수정, 삭제가 보이도록
 				if(loginok!=null && dto.getBoard_id().equals(myid)){%>
 					<a style="color: gray;">|</a>
-					<a href="index.jsp?main=board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">수정</a>
+					<a href="index.jsp?main=board/boardupdateform.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color:white;">수정</a>
 					<a style="color: gray;">|</a>
-					<a href="board/boarddelete.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color: gray;">삭제</a>
+					<a href="board/boarddelete.jsp?board_num=<%=dto.getBoard_num()%>&currentPage=<%=currentPage%>" style="color:white;">삭제</a>
 					
 				<%}//System.out.print(dto.getBoard_num());
 				%>
@@ -235,7 +235,7 @@ for(BoardDto dto:list)
 				
 				<a href="save/<%=dto.getBoard_photo()%>" target="_blank">
 				
-				<img src="save/<%=dto.getBoard_photo()%>" align="left" style="width: 150px;"></a>
+				<img src="save/<%=dto.getBoard_photo()%>" align="left" style="width: 150px; border-radius: 1px solid black;"></a>
 				<!-- 사진 크기 -->
 				<%
 				}
@@ -276,7 +276,7 @@ for(BoardDto dto:list)
 										required="required" class="form-control"></textarea>
 									</td>
 									<td>
-										<button type="submit" class="btn" style="width: 70px; height: 70px; background-color:lightgreen;">등록</button>
+										<button type="submit" class="btn" style="width: 70px; height: 70px; background-color:black; color:white;">등록</button>
 									</td>
 								</tr>
 							</table>
