@@ -1,4 +1,3 @@
-<%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -33,10 +32,6 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>menu</title>
 <style type="text/css">
-	img {
-		width: 150px;
-	}
-	
 	a.nav-link {
 		font-size: 15px;
 	}
@@ -61,73 +56,26 @@
         <div class="container">
           <div class="row align-items-center position-relative">
 
-            <div class="site-logo" style="width: 114px;">
+             <div class="site-logo" style="width: 160px;">
               <a href="index.jsp" class="text-black"><img src="<%=root %>/image/logo.png"></a>
             </div>
 
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation" style="float: left; padding-left: 150px;">
-
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-
-                  <li class="has-children">
-                    <a href="index.jsp?main=class/classlist.jsp" class="nav-link">강의</a>
-                    <ul class="dropdown arrow-top">
-                      <li class="has-children">
-                        <a href="#">개발 · 프로그래밍</a>
-                        <ul class="dropdown">
-                          <li><a href="#">웹 개발</a></li>
-                          <li><a href="#">프론트엔드</a></li>
-                          <li><a href="#">백엔드</a></li>
-                        </ul>
-                      </li>
-                      <li class="has-children">
-                        <a href="#">보안 · 네트워크</a>
-                        <ul class="dropdown">
-                          <li><a href="#">보안</a></li>
-                          <li><a href="#">네트워크</a></li>
-                          <li><a href="#">시스템</a></li>
-                        </ul>
-                      </li>
-                      <li class="has-children">
-                        <a href="#">데이터 사이언스</a>
-                        <ul class="dropdown">
-                          <li><a href="#">데이터 분석</a></li>
-                          <li><a href="#">인공지능</a></li>
-                          <li><a href="#">데이터 시각화</a></li>
-                        </ul>
-                      </li>
-                      <li class="has-children">
-                        <a href="#">게임 개발</a>
-                        <ul class="dropdown">
-                          <li><a href="#">게임 프로그래밍</a></li>
-                          <li><a href="#">게임 기획</a></li>
-                          <li><a href="#">게임 아트 · 그래픽</a></li>
-                        </ul>
-                      </li>
-                      <li class="has-children">
-                        <a href="#">크리에이티브</a>
-                        <ul class="dropdown">
-                          <li><a href="#">CAD · 3D 모델링</a></li>
-                          <li><a href="#">웹 퍼블리싱</a></li>
-                          <li><a href="#">UX/UI</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li><a href="#" class="nav-link">멘토링</a></li>
+                
+                  <li><a href="index.jsp?main=class/classlist.jsp" class="nav-link">강의</a></li>
+                  
+                  <li><a href="index.jsp?main=adminboard/adminboardlist.jsp" class="nav-link">공지사항</a></li>
                   
                   <li class="has-children">
                     <a href="#" class="nav-link">커뮤니티</a>
                     <ul class="dropdown arrow-top" >
                       <li><a href="index.jsp?main=qusans/questions.jsp" class="nav-link">질문 & 답변</a></li>
-                      <li><a href="index.jsp?main=adminboard/adminboardlist.jsp" class="nav-link">공지사항</a></li>
-                      <li><a href="#" class="nav-link">스터디</a></li>
                       <li><a href="index.jsp?main=board/boardlist.jsp" class="nav-link">자유게시판</a></li>
                     </ul>
                   </li>
-				
+                  
                 </ul>
               </nav>
             </div>

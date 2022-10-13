@@ -1,5 +1,4 @@
 <%@page import="dao.ClassDao"%>
-<%@page import="dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -43,8 +42,9 @@
 
 	i.search {
 		cursor: pointer;
+		width: 42px;
 		font-size: 20px;
-		padding-top: 5px;
+		padding-top: 8px;
 		padding-right: 20px;
 	}
 	
@@ -87,9 +87,6 @@
 
 	String loginok = (String)session.getAttribute("loginok");
 	String myid = (String)session.getAttribute("myid");
-
-	MemberDao dao = new MemberDao();
-	String name = dao.getName(myid);
 	
 	ClassDao cdao=new ClassDao();
 	int cartSize=cdao.getCartList(myid).size();

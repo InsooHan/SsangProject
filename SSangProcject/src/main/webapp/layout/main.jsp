@@ -21,9 +21,63 @@
 		filter: brightness(0.5);
 	}
 	
+	img.rec {
+		height: 168px;
+	}
+	
+	div.category1 {
+		width: 100px;
+		height: 28px;
+		background-color: #f8d7da;
+		color: #454545;
+		border: 1px solid #f8d7da;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	
+	div.category2 {
+		width: 100px;
+		height: 28px;
+		background-color: #cfe2ff;
+		color: #454545;
+		border: 1px solid #cfe2ff;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	
+	div.category3 {
+		width: 86px;
+		height: 28px;
+		background-color: #d1e7dd;
+		color: #454545;
+		border: 1px solid #d1e7dd;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	
+	div.category4 {
+		width: 60px;
+		height: 28px;
+		background-color: #cff4fc;
+		color: #454545;
+		border: 1px solid #cff4fc;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	
+	div.category5 {
+		width: 80px;
+		height: 28px;
+		background-color: #fff3cd;
+		color: #454545;
+		border: 1px solid #fff3cd;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	
 	div.recom1 {
 		margin-left: 210px;
-		margin-bottom: 320px;
+		margin-bottom: 394px;
 	}
 	
 	div.recom2 {
@@ -91,7 +145,13 @@
 	
 	span, span a {
 	    color: #BDBDBD;
-	    font-size: 14px;
+	    font-size: 15px;
+	}
+	
+	span.price {
+		font-size: 17px;
+		font-weight: bold;
+		color: #1dc078;
 	}
 	
 	a, h4>b {
@@ -106,8 +166,17 @@
 		color: #BDBDBD;
 	}
 	
+	b.card-title {
+		color: #454545;
+	}
+	
 	p.read {
 		color: #595959;
+	}
+	
+	p.card-text {
+		margin-top: 10px;
+		font-size: 14px;
 	}
 	
 	div.recom1 p, div.recom2 p {
@@ -156,39 +225,55 @@
 	<div class="container mt-3 recom1">
 	  <h4><i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;<b>가격대가 부담된다면?</b></h4>
 	  <p>저렴한 가격의 강의 추천!</p>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=1">
+	  <div class="card" style="height: 352px;">
+	    <img class="card-img-top rec" src="image/img1.jpg" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</b>
+	      <p class="card-text">웹 개발</p>
+	      <span class="price">\10,000</span><br>
+	      <div class="category1">
+		    <strong style="font-size: 13px;">개발/프로그래밍</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=46">
+	  <div class="card" style="height: 352px;">
+	    <img class="card-img-top rec" src="image/img3.jpg" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title" style="margin-top: 30px;">리눅스 IPC 프로그래밍 - 이론과<br>실습</b>
+	      <p class="card-text" style="margin-top: 10px;">시스템</p>
+	      <span class="price">\11,000</span>
+	      <div class="category3">
+		    <strong style="font-size: 13px;">보안/네트워크</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=10">
+	  <div class="card" style="height: 352px;">
+	    <img class="card-img-top rec" src="image/img10.jpg" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">프로그래밍 시작하기 : 웹 입문</b>
+	      <p class="card-text" style="margin-top: 35px;">프론트엔드</p>
+	      <span class="price">\5,200</span>
+	      <div class="category1">
+		    <strong style="font-size: 13px;">개발/프로그래밍</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=52">
+	  <div class="card" style="height: 352px;">
+	    <img class="card-img-top rec" src="image/img21.jpg" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">파이썬 증권 데이터 수집과 분석으로 신호와 소음 찾기</b>
+	      <p class="card-text">데이터분석</p>
+	      <span class="price">\11,000</span>
+	      <div class="category2">
+		    <strong style="font-size: 13px;">데이터 사이언스</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
@@ -239,39 +324,55 @@
 	<div class="container mt-3 recom2">
 	  <h4><i class="fa fa-cubes" aria-hidden="true"></i> <b>기초부터 알려주는 쉬운강의</b></h4>
 	  <p>쉽고 친절한 입문 강의!</p>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=2">
+	  <div class="card" style="height: 360px;">
+	    <img class="card-img-top rec" src="image/img2.png" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">외워서 끝내는 네트워크 핵심이론 - 기초</b>
+	      <p class="card-text">웹 개발</p>
+	      <span class="price">\20,000</span>
+	      <div class="category1">
+		    <strong style="font-size: 13px;">개발/프로그래밍</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=25">
+	  <div class="card" style="height: 360px;">
+	    <img class="card-img-top rec" src="image/img24.png" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">기초부터 따라하는 디지털포렌식</b>
+	      <p class="card-text" style="margin-top: 35px;">보안</p>
+	      <span class="price">\12,000</span>
+	      <div class="category3">
+		    <strong style="font-size: 13px;">보안/네트워크</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=73">
+	  <div class="card" style="height: 360px;">
+	    <img class="card-img-top rec" src="image/img25.jpeg" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">[입문자를 위한 UE5] Part1. 언리얼 엔진 블루프린트</b>
+	      <p class="card-text" style="font-size: 13px; margin-top: 10px;">게임 프로그래밍</p>
+	      <span class="price">\14,000</span>
+	      <div class="category4">
+		    <strong style="font-size: 13px;">게임 개발</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>
-	  <a href="#" class="">
-	  <div class="card">
-	    <img class="card-img-top" src="image/img1.jpg" style="width:100%">
+	  <a href="index.jsp?main=class/classdetail.jsp?class_num=105">
+	  <div class="card" style="height: 360px;">
+	    <img class="card-img-top rec" src="image/img33.png" style="width:100%">
 	    <div class="card-body">
-	      <h4 class="card-title">John Doe</h4>
-	      <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+	      <b class="card-title">퍼블리셔 취업하는 훌륭한 이력서 작성 가이드</b>
+	      <p class="card-text">웹 퍼블리싱</p>
+	      <span class="price">\24,000</span>
+	      <div class="category5">
+		    <strong style="font-size: 13px;">크리에이티브</strong>
+		  </div>
 	    </div>
 	  </div>
 	  </a>

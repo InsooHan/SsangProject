@@ -17,8 +17,8 @@
 		session.setAttribute("myid", id);
 		session.setAttribute("saveok", cbsave==null?null:"yes");
 		
-		//로그인메인으로 이동
-		response.sendRedirect("../index.jsp?main=login/loginmain.jsp");
+		//메인으로 이동
+		response.sendRedirect("../index.jsp");
 	}
 	
 	else {%>

@@ -55,17 +55,17 @@ Kakao.Auth.login({
 %>
 <body>
 	<br><br>
-	<div style="padding-left: 660px;">
+	<div style="padding-left: 700px;">
 	  <h3 style="padding-left: 110px;"><b>로그인</b></h3><br>
 		<form action="login/loginaction.jsp" method="post" class="form-inline"><br><br><br>
 			<table class="table table-borderless" style="width: 300px;">
 				<tr>
-					<td colspan="2" align="right" style="padding-right: 44px;">
+					<td colspan="2" align="right" style="padding-right: 33px;">
 						<input type="checkbox" name="cbsave" <%=saveok==null?"":"checked" %>>&nbsp;아이디저장
 					</td>
 				</tr>
 				<tr>
-					<th colspan="2" style="padding-left: 52px;">아이디</th>
+					<th colspan="2" style="padding-left: 30px;">아이디</th>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -74,7 +74,7 @@ Kakao.Auth.login({
 					</td>
 				</tr>
 				<tr>
-					<th colspan="2" style="padding-left: 52px;">비밀번호</th>
+					<th colspan="2" style="padding-left: 30px;">비밀번호</th>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -84,7 +84,7 @@ Kakao.Auth.login({
 				<tr>
 					<td colspan="2" align="center">
 						<br><br>
-						<button type="submit" class="btn btn-success" style="width: 220px; height: 50px;">로그인</button>
+						<button type="submit" class="btn btn-success" style="width: 240px; height: 50px;">로그인</button>
 					</td>
 				</tr>
 				<tr>

@@ -55,7 +55,7 @@
 </head>
 <body>
 	<div style="padding-left: 660px;">
-		<h3 style="padding-left: 150px;"><b>회원가입</b></h3><br>
+		<h3 style="padding-left: 155px;"><b>회원가입</b></h3><br>
 		<form action="member/memberadd.jsp" method="post" class="form-inline" onsubmit="return check(this)">
 			<table class="table table-borderless" style="width: 500px; margin-left: 40px;">
 				<tr>
@@ -108,7 +108,7 @@
 				<tr>
 					<td>
 						<br>
-						<button type="submit" class="btn btn-success" style="width: 300px; height: 50px;">가입하기</button>
+						<button type="submit" class="btn btn-success" style="width: 326px; height: 50px;">가입하기</button>
 					</td>
 				</tr>
 			</table>
