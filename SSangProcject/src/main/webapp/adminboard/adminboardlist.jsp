@@ -228,16 +228,18 @@ function pagebu() {
 </script>
 <body>
 
+
+
 	<div style="width: 800px; margin-left: 300px;">
 	<div style="display: flex; justify-content: center;">
-	<input type="text" class="form-control" id="searchtool" name="searchtool" style="width: 500px;" placeholder="검색어를 입력해주세요">
-	<button type="button" class="btn btn-success" name="btnsearch" id="btnsearch">검색</button>
+	<input type="text" class="ac-input-with-item search-by-text e-search-input " id="searchtool" name="searchtool" style="width: 500px;" placeholder="검색어를 입력해주세요">
+	<button type="button" class="ac-button is-md is-solid is-primary search-form__search e-search-posts " name="btnsearch" id="btnsearch">검색</button>
 	</div>
 	<%
 	if(loginok!=null){
 		if(myid.equals("admin")){
 	%>
-	<button style="float: right;" type="button" class="btn btn-secondary" onclick="location.href='adminboard/adminboardinsertform.jsp'">글쓰기</button>
+	<button style="float: right;" type="button" class="ac-button is-md is-solid is-gray posts-container-header__button features__new-question e-new-question " onclick="location.href='adminboard/adminboardinsertform.jsp'">글쓰기</button>
 	<%
 		}
 	}
