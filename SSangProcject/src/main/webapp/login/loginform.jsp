@@ -61,7 +61,7 @@ Kakao.Auth.login({
 			<table class="table table-borderless" style="width: 300px;">
 				<tr>
 					<td colspan="2" align="right" style="padding-right: 33px;">
-						<input type="checkbox" name="cbsave" <%=saveok==null?"":"checked" %>>&nbsp;아이디저장
+						<input type="checkbox" class="form-check-input" name="cbsave" <%=saveok==null?"":"checked" %>>&nbsp;아이디저장
 					</td>
 				</tr>
 				<tr>

@@ -307,14 +307,14 @@ MemberDao mdao=new MemberDao();
 
 <script type="text/javascript">
 //카카오페이
-IMP.init('imp00408122');
+IMP.init('imp32367747');
 
 $(".paybtn").click(function(){
 	IMP.request_pay({
 		
 		pg: "kakaopay",
 		pay_method: "card",
-		merchant_uid: "iamport_sist4_id",
+		merchant_uid: "iamport_sist4_id(1)",
 		name: "온라인 강의",
 		amount: $(".endprice").html(),
 		buyer_name: "<%=mdao.getName(myid)%>",
@@ -348,7 +348,7 @@ $(".inicisbtn").click(function(){
 		
 		pg: "html5_inicis",
 		pay_method: "card",
-		merchant_uid: "iamport_sist4_id_2",
+		merchant_uid: "iamport_sist4_id(2)",
 		name: "온라인 강의",
 		amount: $(".endprice").html(),
 		buyer_name: "<%=mdao.getName(myid)%>",

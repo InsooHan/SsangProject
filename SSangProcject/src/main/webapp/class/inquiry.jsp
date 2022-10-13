@@ -72,9 +72,7 @@ $(function(){
 					s+="<div style='border:1px solid lightgray; border-radius:5px;'>";
 					s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
 					s+="<span style='font-weight:bold;'>"+item.name+"</span>";
-					s+="<span style='float:right'>"+item.inquiry_num+"</span>&nbsp;&nbsp;";
-					s+="<span style='float:right; color:lightgray;'>|</span>&nbsp;&nbsp; ";
-					s+="<span style='float:right'>"+item.reg_date+"</span><hr>";
+					s+="<span style='float:right; margin-right:5px;'>"+item.reg_date+"</span><hr>";
 					s+="<span>"+item.inquiry_content+"</span>";
 					s+="</div><br><br>";
 				});
@@ -103,9 +101,7 @@ function allinquirylist(class_num){
 				s+="<div style='border:1px solid black; border-radius:5px;'>";
 				s+="<img src='image/review_img.png' style='width:30px; height:30px;'>";
 				s+="<span>"+item.name+"</span>";
-				s+="<span style='float:right'>"+item.inquiry_num+"</span>&nbsp;";
-				s+="<span style='float:right; color:lightgray;'>|</span>&nbsp; ";
-				s+="<span style='float:right'>"+item.reg_date+"</span><hr>";
+				s+="<span style='float:right; margin-right:5px;'>"+item.reg_date+"</span><hr>";
 				s+="<span>"+item.inquiry_content+"</span>";
 				s+="</div><br><br>";
 			});
