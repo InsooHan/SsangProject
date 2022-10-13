@@ -41,7 +41,7 @@ BoardDto dto=dao.getData(num);
 %>
 <body>
 <!-- 이미지 미리보기할 위치 -->
-<img alt="" id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;"
+<img alt="" id="showimg" style="position: absolute; left: 900px; top: 30px; max-width: 200px;"
 src="<%=(dto.getBoard_photo()==null?"":"save/"+dto.getBoard_photo()) %>">
 
 <form action="board/boardupdateaction.jsp" method="post" enctype="multipart/form-data">
@@ -52,18 +52,20 @@ src="<%=(dto.getBoard_photo()==null?"":"save/"+dto.getBoard_photo()) %>">
 	<table style="width: 600px;">
 		<caption>
 			<b>글 수정</b>
-			<span class="camera" style="cursor: pointer;">사진첨부</span>
+			<span class="camera" style="cursor: pointer;"><i class="fa-solid fa-camera">사진 수정</i></span>
 			<input type="file" name="photo" id="photo" style="visibility: hidden;" onchange="readURL(this)">
 		</caption>
 		
 		<tr height="100">
 			<td>
-				<textarea style="width: 500px; height: 100px;" class="form-control" name="content"
-				 required="required"><%=dto.getBoard_content() %></textarea>
-			</td>
-			<td>
-				<button type="submit" class="btn btn-default" 
-				style="width: 100px; height: 100px">수정</button>
+				<div style="display:flex">
+					
+					<textarea style="width: 800px; height: 200px; border:1px solid black; " class="form-control" name="content"
+					 required="required"><%=dto.getBoard_content() %></textarea>
+			
+					<button type="submit" class="btn btn-default" 
+					style="width: 100px; height: 200px;border:1px solid black; background-color:lightgreen;">수정</button>
+				</div>
 			</td>
 		</tr>
 	</table>

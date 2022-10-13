@@ -52,7 +52,7 @@
 				 required="required"></textarea>
 			
 				<button type="submit" class="btn btn-default" 
-				style="width: 100px; border:1px solid black; height: 200px; background-color:black; color:white; " >글 등록</button>
+				style="width: 100px; border:1px solid black; height: 200px; background-color:lightgreen; color:white; " >글 등록</button>
 			</div>
 			</td>
 		</tr>
