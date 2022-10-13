@@ -26,6 +26,7 @@ $(document).ready(function(){
 String search=request.getParameter("search");
 if(search==null)
 	 search="";
+
 // 임시로  아이디와  수강중인 과정에 대한 값 설정 ( 회원가입이 이루어지고 과정 신청 내용이 있어야 함)
 String[] ids ={"ah","is","dh","jh","yj","jh2"};
 
@@ -74,6 +75,8 @@ if(request.getParameter("pagenum") == null){
 	reqpage= Integer.parseInt(request.getParameter("pagenum")); 
 	skiprow=(reqpage-1) * pagesize +1;
 
+	
+	
 ArrayList<QuestionDto> nowP_list = new ArrayList<>(); 
 sql = "select * from Question where que_subject like ? order by que_num desc";
 try{	
@@ -89,7 +92,6 @@ try{
 }catch(SQLException e){
 	e.printStackTrace();
 }
-
 Iterator<QuestionDto> it = nowP_list.iterator();
 while(it.hasNext()){
 	QuestionDto data = it.next();
@@ -121,7 +123,7 @@ while(it.hasNext()){
           <ul class="status">
     <li class="e-status active" data-status="">
       
-    <button class="ac-button is-md is-text">전체</button>
+    <button class="ac-button is-md is-text" onclick="location.href='index.jsp?main=qusans/questions.jsp'">전체</button>
     </li>
     <li class="e-status " data-status="unresolved">
       
@@ -142,7 +144,7 @@ while(it.hasNext()){
     </div>
   
       
-    <button type="submit" class="ac-button is-md is-solid is-primary search-form__search e-search-posts" style="min-width: 96px">검색</button>
+    <button class="ac-button is-md is-solid is-primary search-form__search e-search-posts " style="min-width: 96px">검색</button>
     </div>
 
   </form>
