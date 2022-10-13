@@ -47,8 +47,8 @@ String loginok=(String)session.getAttribute("loginok");
 	if(loginok!=null){
 		if(myid.equals("admin")){
 	%>
-	<button type="button" class="btn btn-info" onclick="location.href='index.jsp?main=adminboard/adminboardupdateform.jsp?ab_num=<%=dto.getAb_num()%>'">수정</button>
-	<button type="button" class="btn btn-danger" onclick="location.href='adminboard/adminboarddelete.jsp?ab_num=<%=dto.getAb_num()%>'">삭제</button>
+	<button type="button" class="ac-button is-md is-solid is-primary search-form__search e-search-posts " onclick="location.href='index.jsp?main=adminboard/adminboardupdateform.jsp?ab_num=<%=dto.getAb_num()%>'">수정</button>
+	<button type="button" class="ac-button is-md is-solid is-gray posts-container-header__button features__new-question e-new-question " onclick="location.href='adminboard/adminboarddelete.jsp?ab_num=<%=dto.getAb_num()%>'">삭제</button>
 	<%
 		}
 	}
