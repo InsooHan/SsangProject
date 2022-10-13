@@ -337,7 +337,7 @@ for(BoardDto dto:list)
 %>
 </div>
 <!-- 페이징 처리 -->
-<div style="width: 200px; text-align:center;" class="container" id="page">
+<div style="width: 200px; text-align:center;" class="container"  id="page">
 
 	<ul class="pagination">
 		<%
@@ -370,7 +370,9 @@ for(BoardDto dto:list)
 				<a class="container p-1 my-5 border" href="index.jsp?main=board/boardlist.jsp?currentPage=<%=endPage+1%>">다음</a>
 			</li>
 		<%}
+		
 		%>
+		
 	</ul>
 </div>
 </body>
