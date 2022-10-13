@@ -17,7 +17,7 @@
 <style type="text/css">	
 #alldiv
 {
-margin-left: 300px;
+margin-left: 500px;
 
 }
 
@@ -198,10 +198,10 @@ function pagebu() {
 	$.ajax({
 		type:"get",
 		dataType:"json",
-		data:{"searchtool":searchtool},
+		data:{"searchtool":searchtool,"currentPage":currentPage},
 		url:"adminboard/adminboardlistpage.jsp",
 		success:function(res){
-			//alert(res.endPage);
+			//alert(res.startPage);
 			
 			var s="<ul class='pagination'>";
 			
@@ -227,10 +227,16 @@ function pagebu() {
 
 </script>
 <body>
+  <section class="community-header" style="text-align: center; background-color: black;">
+    <div class="community-header__content" style="padding-top: 20px; padding-bottom: 20px;">
+      <b class="community-header__title" style="color: white; font-size: 2em;">인프런의 새로운 소식들!</b>
+      <br>
+      <b class="community-header__sub-title" style="font-size: 11pt; color: #d2d2d2;">신규 컨텐츠, 이벤트, 기능 추가 등의 새로운 인프런의 이야기를 들어주세요.</b>
+    </div>
+  </section>
+	<br>
 
-
-
-	<div style="width: 800px; margin-left: 300px;">
+	<div style="width: 800px; margin-left: 500px;">
 	<div style="display: flex; justify-content: center;">
 	<input type="text" class="ac-input-with-item search-by-text e-search-input " id="searchtool" name="searchtool" style="width: 500px;" placeholder="검색어를 입력해주세요">
 	<button type="button" class="ac-button is-md is-solid is-primary search-form__search e-search-posts " name="btnsearch" id="btnsearch">검색</button>
@@ -252,7 +258,7 @@ function pagebu() {
 <br>
 <br>
 </div>
-<div style="width: 800px; margin-left: 300px;display: flex; justify-content: center;" class='container mt-3' id='page'>
+<div style="width: 800px; margin-left: 450px;display: flex; justify-content: center;" class='container mt-3' id='page'>
 </div>
 </body>
 </html>
