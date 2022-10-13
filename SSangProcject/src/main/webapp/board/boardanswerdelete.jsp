@@ -9,6 +9,4 @@ BoardAnswerDao dao=new BoardAnswerDao();
 
 dao.deleteAnswer(idx);
 
-
-
 %>

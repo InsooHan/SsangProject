@@ -19,19 +19,36 @@
 <script src="https://kit.fontawesome.com/4ea0bf99ed.js" crossorigin="anonymous"></script>
 <style type="text/css">
 
-
-#str
-{
-	
-	float: right;
-	font-size: 11pt;
-	color: gray;
+#night_day{
+			 
+            width:40px; 
+            height:15px;
+            padding:20px;
+            border:1px solid black;
+            font-size: 25px;
+           	
 }
-#str2
-{
-	float: right;
-	background-color:lightgreen;
-	font-size: 11pt;
+#title{
+	 		display:inline-block; 
+            width:2000px; 
+            height:80px;
+            background-color:black;
+            padding:20px;
+            border:1px solid black;
+            color:white;
+            font-size: 30px;
+            
+}
+#title2{
+	 		display:inline-block; 
+            width:2000px; 
+            height:60px;
+            background-color:black;
+            padding:20px;
+            border:1px solid black;
+            color:white;
+            font-size: 15px;
+            
 }
 span.day
 {
@@ -40,6 +57,7 @@ span.day
 	color: gray;
 }
 </style>
+
 <script type="text/javascript">
 $(function() {
 	
@@ -56,7 +74,6 @@ $(function() {
 			data:{"num":num},
 			success:function(res){
 				//alert(res.board_likes)
-				tag.next().text(+);
 				tag.next().text(res.board_likes);
 				tag.next().next().animate({"font-size":"20px"},1500,function(){
 					
@@ -90,7 +107,10 @@ $(function() {
 			success:function(){
 				alert("삭제 완료")
 				location.reload();
-			}	
+			}
+			
+			
+			
 		});
 		
 		
@@ -98,28 +118,18 @@ $(function() {
 	});
 	
 });
+
 </script>
-
-
-
-
-
 
 <title>Insert title here</title>
 
 </head>
-
-
-<input type="button" style="color:black;"value="찾기" id="str2"onclick="findStr()">
-<input type="text" id="str" >
 
 <%
 //로그인 상태 확인후 로그인중에만 입력폼 보여주기
 String loginok=(String)session.getAttribute("loginok");
 String myid=(String)session.getAttribute("myid");
 BoardDao dao=new BoardDao();
-
-
 //페이징 필요변수
 int totalCount;
 int totalPage;//총페이지
@@ -148,7 +158,30 @@ no=totalCount-(currentPage-1)*perPage;
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <body>
-<img src="image/title.png" align="left" style="width: 1500px; height: 100px;">
+<!--  <input id="night_day" type="button" value="night" onclick="
+      if( document.querySelector('#night_day').value=='night'){
+      document.querySelector('body').style.backgroundColor='lightyellow';
+      //document.querySelector('body').style.color='white';
+      //document.document.getelementbyid('title').style.backgroundColor='lightyellow';
+      document.querySelector('#night_day').value='day';
+      }
+      else{
+   	   document.querySelector('body').style.backgroundColor='white';
+       //document.querySelector('body').style.color='black';
+  	   //document.document.getelementbyid('title').style.backgroundColor='lightyellow';
+   	   document.querySelector('#night_day').value='night';
+    }
+      " > -->
+
+
+
+
+<div id="title3">
+	<span id="title">이야기를 나눠요</span>
+	<span id="title2">코딩러들의 커뮤니티!! 함께 토론해봐요</span>
+</div>
+
+<!--  <img src="image/title.png" align="left" style="width: 1500px; height: 80px;">-->
 <%
 if(loginok!=null){
 	%>
@@ -156,32 +189,13 @@ if(loginok!=null){
 	<hr align="left">
 	<%}
 %>
-
-
 <div>
 <a></a>
 <b   style="color:red"><%=totalCount %>개의 글이 있습니다 </b>
-<script type="text/javascript" placeholder="페이지내 검색">
-function findStr() {
-    var n = 0;
-    var str = document.getElementById("str").value;
-    if(navigator.userAgent.indexOf("rv:11") > -1) {
-        var f, contents = document.body.createTextRange();
-        for(var i = 0; i <= n && (f = contents.findText(str)) != false; i++) {
-            contents.moveStart('character');
-            contents.moveEnd('textedit');
-        }
-        if(f) {
-            contents.moveStart('character', -1);
-            contents.findText(str);
-            contents.select();
-            n++;
-        }
-    } else {
-        window.find(str);
-    }
-}
-</script>
+
+
+
+
 
 <%
 MemberDao mdao=new MemberDao();
@@ -242,7 +256,7 @@ for(BoardDto dto:list)
 		
 			
 			<span class="answer" style="cursor: pointer;" mum="<%=dto.getBoard_num() %>" >댓글<%=alist.size()%></span>
-			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>"><i class="fa-solid fa-heart" style="color:red;font-size:15px;"></i></span>
+			<span class="likes" style="margin-left: 20px; cursor: pointer;" num="<%=dto.getBoard_num() %>"><i class="fa-solid fa-heart" style="color:red;font-size:15px"></i></span>
 			<span><%=dto.getBoard_likes() %></span>
 			<i class="fa-solid fa-heart" style="color:red;font-size:0px"></i>
 			
@@ -262,7 +276,7 @@ for(BoardDto dto:list)
 										required="required" class="form-control"></textarea>
 									</td>
 									<td>
-										<button type="submit" class="btn btn-info" style="width: 70px; height: 70px; background-color: lightgreen">등록</button>
+										<button type="submit" class="btn" style="width: 70px; height: 70px; background-color:lightgreen;">등록</button>
 									</td>
 								</tr>
 							</table>

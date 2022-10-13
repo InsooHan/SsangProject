@@ -9,16 +9,12 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("utf-8");
-
 String class_name=request.getParameter("class_name");
-
 ClassDao dao=new ClassDao();
 List<ClassDto> list=dao.getSearchDatas(class_name);
-
 JSONArray arr=new JSONArray();
 NumberFormat nf=NumberFormat.getCurrencyInstance();
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-
 for(ClassDto dto:list){
 	JSONObject ob=new JSONObject();
 	
