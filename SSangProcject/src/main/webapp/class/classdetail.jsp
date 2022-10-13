@@ -78,8 +78,9 @@ div.content{
 	position: absolute;
 	left: 200px;
 	flex-direction: column;
+	padding: 0 0 0 0;
 }
-div.cart{
+div.cartdetail{
 	border: 1px solid lightgray;
 	border-radius:20px;
 	width: 310px;
@@ -106,7 +107,7 @@ span.star-prototype > * {
 </style>
 <script type="text/javascript">
 $(function(){
-	console.log($('div.cart').offset());
+	console.log($('div.cartdetail').offset());
 	
 	//move클릭시 css
 	$("div.move").children().click(function(){
@@ -204,8 +205,7 @@ $(function(){
 	%>
 	 var offset = $("#" + seq).offset();
 	 $('html, body').animate({scrollTop : offset.top}, 400);
-} 
-//수강평 좋아요 순 클릭 시 ajax로 리스트 정렬
+}
 </script>
 </head>
 <body>
@@ -240,7 +240,7 @@ $(function(){
 <span class="btnclass" onclick=
 "location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num %>&content=inquiry.jsp?class_num=<%=class_num%>'">수강전 문의</span>&nbsp;&nbsp;&nbsp;
 <span class="btnclass" onclick=
-"location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num%>&content=../qusans/qusanslist.jsp?class_num=<%=class_num%>'">커뮤니티</span>
+"location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num%>&content=community.jsp?class_num=<%=class_num%>'">커뮤니티</span>
 <br>
 <hr>
 </div>
@@ -252,12 +252,12 @@ $(function(){
 </div>
 
 <!-- 수강바구니 div -->
-<div class="cart">
+<div class="cartdetail">
 <div style="border-radius:20px; background-color: white; width: 300px;">
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
 <button type="button" style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
 <button type="button" style="width: 260px;height: 50px; margin-top: 10px; border: 1px solid lightgray" class="btn btn-Light" id="btncart">바구니에담기</button><br>
-<span>관심</span>
+<span>관심</span>&nbsp;&nbsp;&nbsp;&nbsp;
 <span>공유</span><br>
 </div>
 <div style="background-color: lightgray; text-align: left; border-radius: 20px; margin-top: 5px;

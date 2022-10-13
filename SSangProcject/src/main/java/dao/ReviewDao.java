@@ -253,5 +253,27 @@ public class ReviewDao {
 				db.dbClose(pstmt, conn);
 			}
 		}
-
+//수강평 평점 별 갯수 가져오기
+		public int getReviewStarCount(String num, int star){
+			int i= 0;
+			Connection conn = db.getConnection();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql ="select count(*) from review where class_num=? and reviewstar=? group by reviewstar";
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, num);
+				pstmt.setInt(2, star);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					i=rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(rs, pstmt, conn);
+			}
+			return i;
+		}
 }

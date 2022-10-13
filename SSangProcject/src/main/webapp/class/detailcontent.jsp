@@ -31,7 +31,12 @@ ReviewAnswerDao radao = new ReviewAnswerDao();
 ReviewDao rdao = new ReviewDao();
 double star = rdao.getReviewStar(class_num);
 List<ReviewDto> rlist = rdao.getAllReview(class_num);
-
+double starcount1 = Math.floor(rdao.getReviewStarCount(class_num, 1)/(double)(rdao.getTotalCount(class_num))*100);
+double starcount2 = Math.floor(rdao.getReviewStarCount(class_num, 2)/(double)(rdao.getTotalCount(class_num))*100);
+double starcount3 = Math.floor(rdao.getReviewStarCount(class_num, 3)/(double)(rdao.getTotalCount(class_num))*100);
+double starcount4 = Math.floor(rdao.getReviewStarCount(class_num, 4)/(double)(rdao.getTotalCount(class_num))*100);
+double starcount5 = Math.floor(rdao.getReviewStarCount(class_num, 5)/(double)(rdao.getTotalCount(class_num))*100);
+System.out.print(starcount1);
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <style type="text/css">
@@ -82,24 +87,24 @@ div.item2 {
 	padding-top: 10px;
 }
 
-span.star-prototype, span.star-prototype>* {
+ span.star-prototype1>* {
 	height: 16px;
 	background: url(http://i.imgur.com/YsyS5y8.png) 0 -16px repeat-x;
 	width: 80px;
 	display: inline-block;
 }
 
-span.star-prototype>* {
+span.star-prototype1>* {
 	background-position: 0 0;
 	max-width: 80px;
 }
 </style>
 <script type="text/javascript">
 $(function(){
-	
 	//처음에 수강평 리스트 나오게 메서드 호출
 	var class_num=<%=class_num%>
 	defaultlist(class_num);
+	
 	
 	//수강평 좋아요 순 정렬
 	 $(".btnchu").click(function(){
@@ -113,7 +118,7 @@ $(function(){
 				 $.each(res,function(idx,item){
 					s+="<tr><td>";
 					s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
-					s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+					s+="<span class='star-prototype1' style='text-align: left;'>"+item.reviewstar+"</span>";
 					s+="<span style='font-size: 1.2em;'>"+item.reviewstar+"</span><br>";
 					s+="<span>"+item.name+"</span><br>";
 					s+="<span>"+item.review_content+"</span><br>";
@@ -122,6 +127,7 @@ $(function(){
 		    	    s+="</td></tr>";
 				});
 				$("#rlist").html(s);  
+				$('.star-prototype1').generateStars();
 			}
 		})
 	 })
@@ -137,7 +143,7 @@ $(function(){
 				 $.each(res,function(idx,item){
 					s+="<tr><td>";
 					s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
-					s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+					s+="<span class='star-prototype1' style='text-align: left;'>"+item.reviewstar+"</span>";
 					s+="<span style='font-size: 1.2em;'>"+item.reviewstar+"</span><br>";
 					s+="<span>"+item.name+"</span><br>";
 					s+="<span>"+item.review_content+"</span><br>";
@@ -146,6 +152,7 @@ $(function(){
 		    	    s+="</td></tr>";
 				});
 				$("#rlist").html(s);  
+				$('.star-prototype1').generateStars();
 			}
 		})
 		})
@@ -161,7 +168,7 @@ $(function(){
 				 $.each(res,function(idx,item){
 					s+="<tr><td>";
 					s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
-					s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+					s+="<span class='star-prototype1' style='text-align: left;'>"+item.reviewstar+"</span>";
 					s+="<span style='font-size: 1.2em;'>"+item.reviewstar+"</span><br>";
 					s+="<span>"+item.name+"</span><br>";
 					s+="<span>"+item.review_content+"</span><br>";
@@ -170,6 +177,7 @@ $(function(){
 		    	    s+="</td></tr>";
 				});
 				$("#rlist").html(s);  
+				$('.star-prototype1').generateStars();
 			}
 		})
 		})
@@ -185,7 +193,7 @@ $(function(){
 				 $.each(res,function(idx,item){
 					s+="<tr><td>";
 					s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
-					s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+					s+="<span class='star-prototype1' style='text-align: left;'>"+item.reviewstar+"</span>";
 					s+="<span style='font-size: 1.2em;'>"+item.reviewstar+"</span><br>";
 					s+="<span>"+item.name+"</span><br>";
 					s+="<span>"+item.review_content+"</span><br>";
@@ -194,6 +202,7 @@ $(function(){
 		    	    s+="</td></tr>";
 				});
 				$("#rlist").html(s);  
+				$('.star-prototype1').generateStars();
 			}
 		})
 	})  
@@ -228,11 +237,13 @@ $("div.reviewoption>span").click(function(){
 		dataType:"json",
 		data:{"class_num":class_num},
 		success:function(res){
+			// 숫자 평점을 별로 변환하도록 호출하는 함수
+			
 			var s="";
 			 $.each(res,function(idx,item){
 				s+="<tr><td>";
 				s+="<img src='image/review_img.png' style='width: 50px; height: 50px; border-radius: 100px'>";
-				s+="<span class='star-prototype' style='text-align: left;'>"+item.reviewstar+"</span>";
+				s+="<span class='star-prototype1' style='text-align: left;'>"+item.reviewstar+"</span>";
 				s+="<span style='font-size: 1.2em;'>"+item.reviewstar+"</span><br>";
 				s+="<span>"+item.name+"</span><br>";
 				s+="<span>"+item.review_content+"</span><br>";
@@ -255,7 +266,7 @@ $("div.reviewoption>span").click(function(){
 	    	    }) */ 	
 			});
 			$("#rlist").html(s);
-			
+			$('.star-prototype1').generateStars();
 		} 
 	})
 } 
@@ -265,8 +276,11 @@ $("div.reviewoption>span").click(function(){
 
 <body>
 	<!--강의 소개 div  -->
-	<div id="introduce">강의 소개</div>
+	<div id="introduce">
+	<span style="font-size: 1.5em; font-weight: bold;">강의소개</span><br><br>
+	<%=cldto.getClass_content() %></div>
 	<!--수강평 div  -->
+	<br><br>
 	<div id="score">
 		<span style="font-size: 1.5em; font-weight: bold;">수강평</span>&nbsp;&nbsp;
 		<span style="color: lightgray; font-size: 1.2em;">총<%=rdao.getTotalCount(class_num) %>개
@@ -279,11 +293,11 @@ $("div.reviewoption>span").click(function(){
 				수강평</span>
 		</div>
 		<div class="item2" style="display: flex; flex-wrap: wrap;">
-		 <span>5점</span><div class="bar" data-percent=30><div></div></div>
-		 <span>4점</span><div class="bar" data-percent=30><div></div></div>
-		 <span>3점</span><div class="bar" data-percent=30><div></div></div>
-		 <span>2점</span><div class="bar" data-percent=30><div></div></div>
-		 <span>1점</span><div class="bar" data-percent=30><div></div></div>
+		 <span>5점</span><div class="bar" data-percent=<%=starcount1 %>><div></div></div>
+		 <span>4점</span><div class="bar" data-percent=<%=starcount2 %>><div></div></div>
+		 <span>3점</span><div class="bar" data-percent=<%=starcount3 %>><div></div></div>
+		 <span>2점</span><div class="bar" data-percent=<%=starcount4 %>><div></div></div>
+		 <span>1점</span><div class="bar" data-percent=<%=starcount5 %>><div></div></div>
 		</div>
 		<!-- 평점 막대 그래프 자바스크립트 -->
 		<script type="text/javascript">
