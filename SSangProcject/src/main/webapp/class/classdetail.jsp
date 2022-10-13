@@ -200,7 +200,8 @@ $(function(){
 /* move 클릭 시 스크롤 이동 메서드 */
  function fnMove(seq){
 	<%if(!contentpage.equals("detailcontent.jsp")){%>
-	location.href='index.jsp?main=class/classdetail.jsp?class_num=<%=class_num%>&content=detailcontent.jsp?class_num=<%=class_num%>'
+	location.href='index.jsp?main=class/classdetail.jsp?class_num=
+	<%=class_num%>&content=detailcontent.jsp?class_num=<%=class_num%>'
 	<%}
 	%>
 	 var offset = $("#" + seq).offset();
@@ -257,6 +258,8 @@ $(function(){
 <h2 style="text-align: left; margin: 10px 10px;"><%=numberFormat.format(cldto.getClass_price())%>원</h2><br>
 <button type="button" style="width: 260px;height: 50px;" class="btn btn-success" id="application">수강신청하기</button><br>
 <button type="button" style="width: 260px;height: 50px; margin-top: 10px; border: 1px solid lightgray" class="btn btn-Light" id="btncart">바구니에담기</button><br>
+<span>관심</span>&nbsp;&nbsp;&nbsp;&nbsp;
+<span>공유</span><br>
 </div>
 <div style="background-color: lightgray; text-align: left; border-radius: 20px; margin-top: 5px;
 padding: 10px 10px 10px 10px;">

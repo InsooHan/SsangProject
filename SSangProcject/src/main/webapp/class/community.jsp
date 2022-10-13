@@ -1,4 +1,4 @@
-<%@page import="dto.QusAnsAnswerDto"%>
+<%-- <%@page import="dto.QusAnsAnswerDto"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.QusAnsAnswerDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -261,3 +261,4 @@ if(nowP_list.size() ==0){
 </div>
 
 </body>
+ --%>
