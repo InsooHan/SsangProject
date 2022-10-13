@@ -12,6 +12,13 @@
     
 <script type="text/javascript">
 
+$(document).ready(function(){
+	$(".e-new-question").on("click",function(){
+		location.href="index.jsp?main=qusans/qusans_write.jsp?part=question";
+	});
+});
+
+
 </script>
     
 

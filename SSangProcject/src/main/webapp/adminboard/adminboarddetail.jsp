@@ -30,7 +30,7 @@ String myid=(String)session.getAttribute("myid");
 String loginok=(String)session.getAttribute("loginok");
 %>
 <body>
-<div><b style="font-size: 1.4em;"><%=dto.getAd_subject()%></b></div>
+<div><i class='fa-solid fa-clipboard-list fa-2xl' style='color: green;'></i><b style="font-size: 1.4em;"><%=dto.getAd_subject()%></b></div>
 <hr>
 <div style="font-size: 10pt; color: gray;">
 <span>관리자</span>
