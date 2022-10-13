@@ -8,11 +8,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Hi+Melody&family=Jua&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>    
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <title>Insert title here</title>
 <%
+String loginok=(String)session.getAttribute("loginok");
 String class_num = request.getParameter("class_num");
 String id=(String)session.getAttribute("myid");
 InquiryDao dao=new InquiryDao();
@@ -28,7 +29,6 @@ text-align: center;
 background-color: white;
 border-radius: 5px;
 height: 40px;
-padding: 5px 15px 5px 15px;
 }
 .btnlist:hover, .alllist{color: green;}
 div.select > *{
@@ -59,6 +59,7 @@ $(function(){
 	  $("button.mylist").click(function(){
 		$(this).css({"color":"green"});
 		$(this).siblings().css({"color":"lightgray"});
+		if(<%=loginok%>="yes"){
 		$.ajax({
 			type:"post",
 			url:"class/inquirymylist.jsp",
@@ -79,7 +80,11 @@ $(function(){
 				});
 				$("#list").html(s);  
 			}
-		})
+		})}
+		else{
+			alert("로그인해주세요.");
+			window.location.assign("index.jsp?main=login/loginform.jsp");
+			}
 	})  
 	
 	
@@ -112,11 +117,12 @@ function allinquirylist(class_num){
 </head>
 <body>
 <div>
-  <button style="float: right" class="btn btn-dark btn-xl">작성하기</button>
-</div><br><br><br>
+  <button type="button" style="float: right" class="btn btn-dark btn-xl">작성하기</button>
+</div>
+<br><br>
 <div style="display: flex; float: left;">
-  <button class="btnlist alllist">전체보기</button>
-  <button class="btnlist mylist">내 작성글 모아보기</button>
+  <button type="button" class="btnlist alllist">전체보기</button>
+  <button type="button" class="btnlist mylist">내 작성글 모아보기</button>
 </div>  
 <div style="display: flex; float: right;" class="select">
   <select>
@@ -125,7 +131,7 @@ function allinquirylist(class_num){
     <option>질문자 이름</option>
   </select>
   <input type="text" placeholder="(으)로 검색" style="width: 300px;">
-  <button class="btn btn-success">검색</button>
+  <button type="button" class="btn btn-success">검색</button>
 </div>
 <br><br><br>
 <div id="list" style="display: flex; flex-direction: column; ">
