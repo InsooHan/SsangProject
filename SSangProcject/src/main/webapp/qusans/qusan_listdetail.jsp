@@ -41,13 +41,13 @@ try{
 	pt.setInt(1, Integer.parseInt(num));
 	rs=pt.executeQuery();
 	if(rs.next()){
-		qdata= new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getTimestamp(6),rs.getInt(7));
+		qdata= new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getTimestamp(6),rs.getInt(7),rs.getInt(8));
 	}
 }catch(SQLException e){
 	e.printStackTrace();
 }
 
-
+QuestionDao dao=new QuestionDao();
 %>
 
 <jsp:include page="../qusans/qusan_st.jsp"/>
@@ -57,12 +57,23 @@ try{
 
 <body>
 <div class="post__features" style="z-index: 100;">
-    
-    <div class="flex-row feature__status e-status e-hover-toggle" data-status="">
+    <%
+    if(qdata.getQue_sol()==0){
+    	
+    %>
+    <div class="flex-row feature__status e-status e-hover-toggle solupdiv" data-status="">
       
-    <button class="ac-button is-md is-outlined is-white button-rounded undefined ">미해결</button> <div class="message e-target-hover-toggle hide">해결 상태로 바꾸려면 클릭</div>
+    <button class="ac-button is-md is-outlined is-white button-rounded undefined solup" id="sol">미해결</button> <div class="message e-target-hover-toggle hide">해결 상태로 바꾸려면 클릭</div>
     </div>
-    
+    <%
+    }else{
+    %>
+    <div class="flex-row feature__status e-status e-hover-toggle soldowndiv" data-status="">
+    <button class="ac-button is-md is-outlined is-white button-rounded undefined soldown" id="sol">해결</button> <div class="message e-target-hover-toggle hide">해결 상태로 바꾸려면 클릭</div>
+    </div>
+    <%
+    }
+    %>
     <div class="flex-row feature__recommend e-post-like e-hover-toggle" data-id="24458" data-status="" data-cnt="1">
       
     <button class="ac-button is-md is-outlined is-white button-rounded undefined" id="likechu" onclick="location.href='qusans/qusan_chu.jsp?num=<%=num%>'"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill="#1B1C1D" fill-rule="evenodd" clip-rule="evenodd" d="M4.49095 2.66666C3.10493 2.66666 1.66663 3.92028 1.66663 5.67567C1.66663 7.74725 3.21569 9.64919 4.90742 11.0894C5.73796 11.7965 6.571 12.3653 7.19759 12.7576C7.51037 12.9534 7.7704 13.1045 7.95123 13.2061C7.96818 13.2156 7.98443 13.2247 7.99996 13.2333C8.01549 13.2247 8.03174 13.2156 8.04869 13.2061C8.22952 13.1045 8.48955 12.9534 8.80233 12.7576C9.42892 12.3653 10.262 11.7965 11.0925 11.0894C12.7842 9.64919 14.3333 7.74725 14.3333 5.67567C14.3333 3.92028 12.895 2.66666 11.509 2.66666C10.1054 2.66666 8.9751 3.59266 8.4743 5.09505C8.40624 5.29922 8.21518 5.43693 7.99996 5.43693C7.78474 5.43693 7.59368 5.29922 7.52562 5.09505C7.02482 3.59266 5.89453 2.66666 4.49095 2.66666ZM7.99996 13.8018L8.22836 14.2466C8.08499 14.3202 7.91493 14.3202 7.77156 14.2466L7.99996 13.8018ZM0.666626 5.67567C0.666626 3.368 2.55265 1.66666 4.49095 1.66666C6.01983 1.66666 7.25381 2.48414 7.99996 3.73655C8.74611 2.48414 9.98009 1.66666 11.509 1.66666C13.4473 1.66666 15.3333 3.368 15.3333 5.67567C15.3333 8.22121 13.4657 10.3823 11.7407 11.8509C10.863 12.5982 9.98767 13.1953 9.33301 13.6052C9.00516 13.8104 8.73133 13.9696 8.53847 14.0779C8.44201 14.1321 8.36571 14.1737 8.31292 14.2019C8.28653 14.2161 8.26601 14.2269 8.25177 14.2344L8.2352 14.2431L8.23054 14.2455L8.22914 14.2462C8.22897 14.2463 8.22836 14.2466 7.99996 13.8018C7.77156 14.2466 7.77173 14.2467 7.77156 14.2466L7.76938 14.2455L7.76472 14.2431L7.74815 14.2344C7.73391 14.2269 7.71339 14.2161 7.687 14.2019C7.63421 14.1737 7.55791 14.1321 7.46145 14.0779C7.26858 13.9696 6.99476 13.8104 6.66691 13.6052C6.01225 13.1953 5.13695 12.5982 4.25917 11.8509C2.53423 10.3823 0.666626 8.22121 0.666626 5.67567Z"></path></svg><div class="text features__text"><%=qdata.getQue_chu()%></div></button>
@@ -217,6 +228,7 @@ i++;
 </body>
 </html>
 <script>
+
       $('#anscont').summernote({
         placeholder: '',
         tabsize: 2,
@@ -296,19 +308,21 @@ function recomment(){
 	document.recomf.submit();
 }
 
-$("#g").click(function(){
-	var num=<%=num%>
-	
-	$.ajax({
-		type:"get",
-		dataType:"html",
-		data:{"num":num},
-		url:"qusans/qusan_chu.jsp",
-		success:function(res){
-			alert("좋아요!");
-		}
-	});
+
+$(".solup").click(function() {
+	location.href="qusans/qusan_upsol.jsp?num=<%=num%>";
+	$(".solupdiv").hide();
+	$(".soldowndiv").show();
+
 });
+
+$(".soldown").click(function(){
+	location.href="qusans/qusan_downsol.jsp?num=<%=num%>";
+	$(this).addclass("solup");
+	$(this).removeclass("soldown");
+	$(this).text("미해결");
+});
+
     
 </script>
 
