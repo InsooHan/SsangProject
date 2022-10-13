@@ -14,7 +14,20 @@
 
 $(document).ready(function(){
 	$(".e-new-question").on("click",function(){
-		location.href="index.jsp?main=qusans/qusans_write.jsp?part=question";
+		<%
+		
+		//로그인 상태 확인 위한 session의 속성 가져오기
+		String loginok=(String)session.getAttribute("loginok");
+		
+		if(loginok!=null)
+		{%>
+			location.href="index.jsp?main=qusans/qusans_write.jsp?part=question";
+		<%}else{
+			%>
+			alert("먼저 로그인을 해주세요!");
+			location.href="index.jsp?main=login/loginform.jsp"; 
+		<%}
+		%>
 	});
 	
 	$(".e-popular-tag").click(function() {
