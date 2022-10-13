@@ -9,7 +9,6 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <!DOCTYPE html>
 
 <%
 request.setCharacterEncoding("UTF-8");
@@ -44,5 +43,6 @@ try{
 	System.out.print(e);
 }
 
-response.sendRedirect("../index.jsp?main=qusans/qusan_listdetail.jsp?num="+num);
+RequestDispatcher dis=request.getRequestDispatcher("../index.jsp?main=qusans/qusan_listdetail.jsp?num="+num);
+dis.forward(request, response);
 %>
