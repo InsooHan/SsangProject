@@ -120,6 +120,7 @@
 </style>
 </head>
 <%
+	request.setCharacterEncoding("utf-8");
 	String root = request.getContextPath();
 %>
 <body>

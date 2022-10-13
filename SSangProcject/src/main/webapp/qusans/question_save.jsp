@@ -42,6 +42,7 @@ try{
 }catch(Exception e){
 	e.printStackTrace();
 }finally{
-	response.sendRedirect("questions.jsp");
+	response.sendRedirect("../index.jsp?main=qusans/questions.jsp");
+	System.out.print("나");
 }
 %>

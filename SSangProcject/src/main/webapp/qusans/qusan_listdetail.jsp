@@ -1,3 +1,4 @@
+<%@page import="dao.QuestionDao"%>
 <%@page import="dto.Answer2Dto"%>
 <%@page import="dto.QusAnsAnswerDto"%>
 <%@page import="java.util.List"%>
@@ -12,6 +13,7 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+
 <style>
 </style>
 <%
@@ -45,15 +47,16 @@ try{
 	e.printStackTrace();
 }
 
+
 %>
+
 <jsp:include page="../qusans/qusan_st.jsp"/>
 <link rel="stylesheet" href="../static/css/view.css">
 
 <script src='../static/js/view.js'></script>
 
 <body>
-
-<div class="post__features">
+<div class="post__features" style="z-index: 100;">
     
     <div class="flex-row feature__status e-status e-hover-toggle" data-status="">
       
@@ -62,7 +65,7 @@ try{
     
     <div class="flex-row feature__recommend e-post-like e-hover-toggle" data-id="24458" data-status="" data-cnt="1">
       
-    <button class="ac-button is-md is-outlined is-white button-rounded undefined "><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill="#1B1C1D" fill-rule="evenodd" clip-rule="evenodd" d="M4.49095 2.66666C3.10493 2.66666 1.66663 3.92028 1.66663 5.67567C1.66663 7.74725 3.21569 9.64919 4.90742 11.0894C5.73796 11.7965 6.571 12.3653 7.19759 12.7576C7.51037 12.9534 7.7704 13.1045 7.95123 13.2061C7.96818 13.2156 7.98443 13.2247 7.99996 13.2333C8.01549 13.2247 8.03174 13.2156 8.04869 13.2061C8.22952 13.1045 8.48955 12.9534 8.80233 12.7576C9.42892 12.3653 10.262 11.7965 11.0925 11.0894C12.7842 9.64919 14.3333 7.74725 14.3333 5.67567C14.3333 3.92028 12.895 2.66666 11.509 2.66666C10.1054 2.66666 8.9751 3.59266 8.4743 5.09505C8.40624 5.29922 8.21518 5.43693 7.99996 5.43693C7.78474 5.43693 7.59368 5.29922 7.52562 5.09505C7.02482 3.59266 5.89453 2.66666 4.49095 2.66666ZM7.99996 13.8018L8.22836 14.2466C8.08499 14.3202 7.91493 14.3202 7.77156 14.2466L7.99996 13.8018ZM0.666626 5.67567C0.666626 3.368 2.55265 1.66666 4.49095 1.66666C6.01983 1.66666 7.25381 2.48414 7.99996 3.73655C8.74611 2.48414 9.98009 1.66666 11.509 1.66666C13.4473 1.66666 15.3333 3.368 15.3333 5.67567C15.3333 8.22121 13.4657 10.3823 11.7407 11.8509C10.863 12.5982 9.98767 13.1953 9.33301 13.6052C9.00516 13.8104 8.73133 13.9696 8.53847 14.0779C8.44201 14.1321 8.36571 14.1737 8.31292 14.2019C8.28653 14.2161 8.26601 14.2269 8.25177 14.2344L8.2352 14.2431L8.23054 14.2455L8.22914 14.2462C8.22897 14.2463 8.22836 14.2466 7.99996 13.8018C7.77156 14.2466 7.77173 14.2467 7.77156 14.2466L7.76938 14.2455L7.76472 14.2431L7.74815 14.2344C7.73391 14.2269 7.71339 14.2161 7.687 14.2019C7.63421 14.1737 7.55791 14.1321 7.46145 14.0779C7.26858 13.9696 6.99476 13.8104 6.66691 13.6052C6.01225 13.1953 5.13695 12.5982 4.25917 11.8509C2.53423 10.3823 0.666626 8.22121 0.666626 5.67567Z"></path></svg><div class="text features__text">1</div></button>
+    <button class="ac-button is-md is-outlined is-white button-rounded undefined" id="likechu" onclick="location.href='qusans/qusan_chu.jsp?num=<%=num%>'"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill="#1B1C1D" fill-rule="evenodd" clip-rule="evenodd" d="M4.49095 2.66666C3.10493 2.66666 1.66663 3.92028 1.66663 5.67567C1.66663 7.74725 3.21569 9.64919 4.90742 11.0894C5.73796 11.7965 6.571 12.3653 7.19759 12.7576C7.51037 12.9534 7.7704 13.1045 7.95123 13.2061C7.96818 13.2156 7.98443 13.2247 7.99996 13.2333C8.01549 13.2247 8.03174 13.2156 8.04869 13.2061C8.22952 13.1045 8.48955 12.9534 8.80233 12.7576C9.42892 12.3653 10.262 11.7965 11.0925 11.0894C12.7842 9.64919 14.3333 7.74725 14.3333 5.67567C14.3333 3.92028 12.895 2.66666 11.509 2.66666C10.1054 2.66666 8.9751 3.59266 8.4743 5.09505C8.40624 5.29922 8.21518 5.43693 7.99996 5.43693C7.78474 5.43693 7.59368 5.29922 7.52562 5.09505C7.02482 3.59266 5.89453 2.66666 4.49095 2.66666ZM7.99996 13.8018L8.22836 14.2466C8.08499 14.3202 7.91493 14.3202 7.77156 14.2466L7.99996 13.8018ZM0.666626 5.67567C0.666626 3.368 2.55265 1.66666 4.49095 1.66666C6.01983 1.66666 7.25381 2.48414 7.99996 3.73655C8.74611 2.48414 9.98009 1.66666 11.509 1.66666C13.4473 1.66666 15.3333 3.368 15.3333 5.67567C15.3333 8.22121 13.4657 10.3823 11.7407 11.8509C10.863 12.5982 9.98767 13.1953 9.33301 13.6052C9.00516 13.8104 8.73133 13.9696 8.53847 14.0779C8.44201 14.1321 8.36571 14.1737 8.31292 14.2019C8.28653 14.2161 8.26601 14.2269 8.25177 14.2344L8.2352 14.2431L8.23054 14.2455L8.22914 14.2462C8.22897 14.2463 8.22836 14.2466 7.99996 13.8018C7.77156 14.2466 7.77173 14.2467 7.77156 14.2466L7.76938 14.2455L7.76472 14.2431L7.74815 14.2344C7.73391 14.2269 7.71339 14.2161 7.687 14.2019C7.63421 14.1737 7.55791 14.1321 7.46145 14.0779C7.26858 13.9696 6.99476 13.8104 6.66691 13.6052C6.01225 13.1953 5.13695 12.5982 4.25917 11.8509C2.53423 10.3823 0.666626 8.22121 0.666626 5.67567Z"></path></svg><div class="text features__text"><%=qdata.getQue_chu()%></div></button>
       <div class="message e-target-hover-toggle hide">1명이 이 글을 좋아합니다!</div>
     </div>
     
@@ -132,7 +135,8 @@ int i=1;
 while(it.hasNext()){
 	Answer2Dto adata = it.next();
 %>
-<%--  답변글 --%>					
+<%--  답변글 --%>		
+			
 					<div class="answer__comment">
 						<div class="comment__index"><%=i %></div>
 						<div class="comment__card">
@@ -152,7 +156,10 @@ while(it.hasNext()){
 						<div class="comment__re-comment">
 							<div class="re-comment__header flex-row">
                     			<h4 class="re-comment__title">댓글</h4>
-                    			<button class="ac-button is-md is-text re-comment__fold-button e-unfold " data-idx="<%=adata.getAns_num()%>" data-chk="0">더보기 <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill="#212529" fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></svg></button>	
+                    			<button class="ac-button is-md is-text re-comment__fold-button e-unfoldd " data-idx="<%=adata.getAns_num()%>" data-chk="0">더보기 <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill="#212529" fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></svg></button>	
+                    		</div>
+                    		<div class="re-comment__header flex-row">
+                    			<button class="ac-button is-md is-text re-comment__fold-button e-unfold " data-idx="<%=adata.getAns_num()%>" data-chk="0">댓글달기</button>	
                     		</div>
                     		<div class="re-comment__body body--fold">
                     			<div class="re-comment__form">
@@ -165,8 +172,8 @@ while(it.hasNext()){
                         		</div>                    
                     		</div>
 						</div>
-						
 					</div>
+					
 <%
 i++;
 }
@@ -250,6 +257,24 @@ function make_note(){
     	document.cregf.submit();
     });
     
+    $('.e-unfoldd').on("click",function(){
+    	if($(this).data('chk')==1){
+    		$(this).data('chk',"0");
+    		$(this).parent().next().addClass("body--fold");
+    		$(this).text("더보기");
+    		$(this).parent().next().children().first().html("");
+    	}else{
+	    	$(this).parent().next().removeClass("body--fold");
+	    	$(this).text("접기");
+	    	var idx = $(this).data('idx')
+	    	$(this).data('chk',"1");
+	    	$(this).parent().next().children().first().html(
+	    	"안녕하세요"
+	    	);
+	    	make_note();
+    	}
+    });
+    
     $('.e-unfold').on("click",function(){
     	if($(this).data('chk')==1){
     		$(this).data('chk',"0");
@@ -262,7 +287,7 @@ function make_note(){
 	    	var idx = $(this).data('idx')
 	    	$(this).data('chk',"1");
 	    	$(this).parent().next().children().first().html(
-	    	"<form name='recomf' method='post' action='qusan_commentproc.jsp'><input type=hidden name=num value='"+idx+"'><input type=hidden name=qnum value='"+<%=qdata.getQue_num() %>+"'<textarea id='reanscont' name='reanscont'></textarea></form>"
+	    	"<form name='recomf' method='post' action='index.jsp?main=qusans/qusan_recommentproc.jsp'><input type=hidden name=num value='"+idx+"'><input type=hidden name=qnum value='"+<%=qdata.getQue_num() %>+"'<textarea id='reanscont' name='reanscont'></textarea></form>"
 	    	);
 	    	make_note();
     	}
@@ -270,6 +295,20 @@ function make_note(){
 function recomment(){
 	document.recomf.submit();
 }
+
+$("#g").click(function(){
+	var num=<%=num%>
+	
+	$.ajax({
+		type:"get",
+		dataType:"html",
+		data:{"num":num},
+		url:"qusans/qusan_chu.jsp",
+		success:function(res){
+			alert("좋아요!");
+		}
+	});
+});
     
 </script>
 

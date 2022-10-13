@@ -83,6 +83,8 @@
 			<i class="fa fa-search search" aria-hidden="true"></i>
 		
 <%
+	request.setCharacterEncoding("utf-8");
+
 	String loginok = (String)session.getAttribute("loginok");
 	String myid = (String)session.getAttribute("myid");
 
