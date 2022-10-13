@@ -145,7 +145,15 @@ $(function(){
 	String myid=(String)session.getAttribute("myid");
 	//id통해서 num 얻기
 	MemberDao mdao=new MemberDao();
-	String user_num=mdao.getNum(myid);%>
+	String user_num="0";
+	if(myid!=null){
+		user_num=mdao.getNum(myid);
+	}else{
+		user_num="0";
+	}
+	
+	System.out.print(user_num);
+	%>
 	
 	//cart 클릭시 카트에 담기
 	$(document).on("click","#cart",function(){
