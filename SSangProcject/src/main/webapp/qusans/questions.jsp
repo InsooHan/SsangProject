@@ -79,7 +79,7 @@ try{
 	PreparedStatement pt = conn.prepareStatement(sql);
 	ResultSet rs = pt.executeQuery();
 	while(rs.next()){
-		QuestionDto data = new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getTimestamp(6),rs.getInt(7));
+		QuestionDto data = new QuestionDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getTimestamp(6),rs.getInt(7),rs.getInt(8));
 		
 		nowP_list.add(data);
 	}

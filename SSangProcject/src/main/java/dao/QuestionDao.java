@@ -90,7 +90,7 @@ public class QuestionDao {
 				dto.setQue_subject(rs.getString("que_subject"));
 				dto.setQue_content(rs.getString("que_content"));
 				dto.setQue_img(rs.getString("que_img"));
-				dto.setQue_datetime(rs.getString("que_date"));
+				dto.setQue_datetime(rs.getTimestamp("que_date"));
 				dto.setQue_chu(rs.getInt("que_chu"));
 
 				//list추가
@@ -245,6 +245,46 @@ public class QuestionDao {
 		PreparedStatement pstmt=null;
 		
 		String sql="update Question set que_chu=que_chu+1 where que_num=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(pstmt, conn);
+		}
+	
+	}
+	
+	//해결
+	public void upsol(String num) {
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="update Question set que_sol=que_sol+1 where que_num=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(pstmt, conn);
+		}
+	
+	}
+	
+	//미해결
+	public void downsol(String num) {
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		
+		String sql="update Question set que_sol=que_sol-1 where que_num=?";
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
